@@ -1,0 +1,32 @@
+# Build artifacts
+android/
+android-sdk/
+__pycache__/
+*.pyc
+*.db
+*.zip
+
+# Admin (do not open-source)
+frontend/admin.html
+
+# Temp/test files
+dl*.py
+dl*.txt
+frontend/test_panel.html
+frontend/_i18n_test.html
+frontend/arena4.html
+
+# Node
+node_modules/
+package.json
+package-lock.json
+
+# Python venv
+backend/venv/
+
+# Environment (keep .env.example, exclude real .env)
+.env
+
+# OS
+.DS_Store
+Thumbs.db

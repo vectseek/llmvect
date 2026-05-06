@@ -1,0 +1,3723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LLMVECT: 4-Model AI Blind Test Arena | Compare, Summarize & Beat Hallucinations</title>
+    <meta name="description" content="Welcome to LLMVECT.COM, the ultimate anonymous arena for Large Language Models. Enter your prompt to engage 4 matched AI models in a randomized battle. Instantly compare responses, auto-summarize insights, and mitigate AI hallucinations to find the most accurate answers. Vote based on human preference and discover the truth.">
+    <meta name="keywords" content="LLM Arena, AI Battle, Blind Test, LLM Comparison, AI Hallucination, Model Ranking, LLMVECT, Chatbot Arena, 大模型竞技场, AI盲测">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0A0A0A">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="LLMVECT">
+    <link rel="apple-touch-icon" href="/icons/icon-512.svg">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="LLMVECT">
+    <meta property="og:url" content="https://llmvect.com/">
+    <meta property="og:image" content="https://llmvect.com/icons/icon-512.svg">
+    <meta id="ogTitle" property="og:title" content="LLMVECT: 4-Model AI Blind Test Arena | Compare, Summarize & Beat Hallucinations">
+    <meta id="ogDesc" property="og:description" content="Welcome to LLMVECT.COM, the ultimate anonymous arena for Large Language Models. Enter your prompt to engage 4 matched AI models in a randomized battle. Instantly compare responses, auto-summarize insights, and mitigate AI hallucinations to find the most accurate answers. Vote based on human preference and discover the truth.">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta id="twTitle" name="twitter:title" content="LLMVECT: 4-Model AI Blind Test Arena | Compare, Summarize & Beat Hallucinations">
+    <meta id="twDesc" name="twitter:description" content="Welcome to LLMVECT.COM, the ultimate anonymous arena for Large Language Models. Enter your prompt to engage 4 matched AI models in a randomized battle. Instantly compare responses, auto-summarize insights, and mitigate AI hallucinations to find the most accurate answers. Vote based on human preference and discover the truth.">
+    
+<script>
+/* ===== LLMVECT i18n System ===== */
+const I18N = {
+en: {
+    siteName: "LLMVECT",
+    subtitle: "LLM Arena",
+    seoTitle: "LLMVECT: 4-Model AI Blind Test Arena | Compare, Summarize & Beat Hallucinations",
+    seoDesc: "Welcome to LLMVECT.COM, the ultimate anonymous arena for Large Language Models. Enter your prompt to engage 4 matched AI models in a randomized battle. Instantly compare responses, auto-summarize insights, and mitigate AI hallucinations to find the most accurate answers. Vote based on human preference and discover the truth.",
+    home: "Home",
+    leaderboard: "Leaderboard",
+    rules: "Rules",
+    protocol: "Protocol",
+    newChat: "New Chat",
+    history: "History",
+    admin: "Admin",
+    sponsor: "Sponsor",
+    language: "中",
+    placeholder: "Enter your question...",
+    askBtn: "Ask",
+    preset1: "Write a poem about spring",
+    preset2: "Explain Python async/await",
+    preset3: "Explain quantum computing in simple terms",
+    thinking: "Thinking...",
+    generating: "Generating answer...",
+    arriveSoon: "Arriving soon...",
+    looking: "Looking for results →",
+    bestAnswer: "Best Answer",
+    worstAnswer: "Worst Answer",
+    voteBtn: "Submit Vote",
+    crossCheckBtn: "Get Better Answer",
+    crossCheckTitle: "Totoro Engine cross-validates all four answers to find the truth",
+    expertMode: "Expert Mode",
+    speedMode: "Speed Mode",
+    reveal: "Reveal",
+    modelLabel: "Model",
+    voteCount: "Votes",
+    votes: "votes",
+    rateLimited: "Too many requests, please wait",
+    voteSuccess: "Vote submitted!",
+    voteFailed: "Vote failed",
+    crossSuccess: "Cross-validation complete!",
+    crossFailed: "Cross-validation failed",
+    crossProcessing: "Processing cross-validation...",
+    noBattle: "No battle available",
+    loading: "Loading...",
+    error: "Error",
+    retry: "Retry",
+    backToArena: "Back to Arena",
+    inputRequired: "Please enter a question",
+    copyLink: "Copy Link",
+    share: "Share",
+    copied: "Copied!",
+    clearHistory: "Clear",
+    noHistory: "No history yet",
+    today: "Today",
+    yesterday: "Yesterday",
+    earlier: "Earlier",
+    scoreboardTitle: "Real-time Rankings",
+    eloRating: "ELO Rating",
+    winRate: "Win Rate",
+    battles: "Battles",
+    rank: "Rank",
+    modeSwitch: "Switch Mode",
+    pleaseRate: "Rate the answers",
+    tagAccurate: "Accurate",
+    tagCreative: "Creative",
+    tagConcise: "Concise",
+    tagDetailed: "Detailed",
+    annoying: "Annoying",
+    hallucination: "Hallucination",
+    tooVerbose: "Too Verbose",
+    irrelevant: "Irrelevant",
+    close: "Close",
+    submit: "Submit",
+    cancel: "Cancel",
+    back: "Back",
+    next: "Next",
+    prev: "Previous",
+    page: "Page",
+    search: "Search",
+    filter: "Filter",
+    all: "All",
+    none: "None",
+    selectModel: "Select Model",
+    compareModels: "Compare Models",
+    randomBattle: "Random Battle",
+    createBattle: "Create Battle",
+    questionLabel: "Question",
+    answerLabel: "Answer",
+    modelA: "Model A",
+    modelB: "Model B",
+    modelC: "Model C",
+    modelD: "Model D",
+    anonymous: "Anonymous",
+    revealModels: "Reveal Models",
+    hideModels: "Hide Models",
+    voterFingerprint: "Voter Fingerprint",
+    deviceVerified: "Device Verified",
+    antiCheat: "Anti-Cheat",
+    refresh: "Refresh",
+    confirmClear: "Clear all history?",
+    yes: "Yes",
+    no: "No",
+    battleReport: "Cross-Validation Report",
+    refinedAnswer: "Refined Answer",
+    hallucinationDetected: "Hallucination Detected",
+    proofHash: "Proof Hash",
+    tokenLeverage: "Token Leverage",
+    providerUsed: "Provider",
+    sponsored: "Sponsored by",
+    disclaimer: "Disclaimer",
+    wechat: "WeChat",
+    qq: "QQ",
+    weibo: "Weibo",
+    shareText: "Check out LLMVECT - LLM Arena!",
+    offline: "You are offline",
+    online: "Back online",
+    updateAvailable: "Update available",
+    installApp: "Install App",
+    darkMode: "Dark Mode",
+    lightMode: "Light Mode",
+    systemMode: "System",
+    settings: "Settings",
+    about: "About",
+    version: "Version",
+    copyright: "LLMVECT. All rights reserved.",
+    mobileBest: "BEST",
+    mobileWorst: "WORST",
+    matching: "Matching models...",
+    chooseWinner: "Pick the best answer above",
+    chooseWorst: "Pick the worst answer above",
+    noAnswer: "No answer generated",
+    waitAnswer: "Waiting for answers...",
+    crossValidateDesc: "AI-powered cross-validation of all four answers",
+    startBattle: "Start Battle",
+    speed: "Speed",
+    expert: "Expert",
+    clearInput: "Clear",
+    sendMessage: "Send",
+    userQuestion: "Your Question",
+    aiResponse: "AI Response",
+    allModels: "All Models",
+    bestPerformer: "Best Performer",
+    worstPerformer: "Worst Performer",
+    stats: "Statistics",
+    avgResponseTime: "Avg Response Time",
+    totalBattles: "Total Battles",
+    activeUsers: "Active Users",
+    todayBattles: "Today's Battles",
+    tagFactualAccurate: "Factually accurate / No hallucination",
+    tagCodeFormatCorrect: "Code / format correct",
+    tagRigorousReasoning: "Rigorous reasoning",
+    tagPreciseFollow: "Precise instruction following",
+    arena: "Arena",
+    tie: "Tie",
+    winnerWhyBetter: "Winner - Why better?",
+    loserWhyWorse: "Loser - Why worse?",
+    tagCodeCorrect: "Code correct",
+    tagRigorousLogic: "Rigorous logic",
+    tagPreciseExec: "Precise execution",
+    tagSevereHallu: "Severe hallucination",
+    tagOverAligned: "Over-aligned",
+    tagLogicFlaws: "Logic flaws",
+    tagFormatBreak: "Format breakdown",
+    thinkModeTitle: "Enable Think Mode",
+    confirm: "Confirm",
+    liveRankings: "Live Rankings",
+    viewFullLB: "View full leaderboard →",
+    mobilePlaceholder: "Ask anything, let 4 AIs answer...",
+    desktopPlaceholder: "Enter your question or choose a preset below...",
+    mobileHint: "Enter to send · Shift+Enter for newline · 🎤 Voice",
+    desktopHint: "Enter to send · Shift+Enter for newline · History up/down · 🎤 Voice",
+    welcomeDesc: "Covering major global LLM providers. No more switching platforms, no more single-perspective AI hallucinations. One question, multi-dimensional cross-validation, the most comprehensive and rigorous decision reference. You decide who's smarter.",
+
+},
+zh: {
+    siteName: "LLMVECT",
+    subtitle: "大模型竞技场",
+    seoTitle: "LLMVECT | 四模型匿名盲测竞技场 - 一键总结对比，终结AI幻觉",
+    seoDesc: "欢迎访问 LLMVECT.COM，您的专属大模型盲测竞技场。输入提问，系统将智能匹配四个匿名 AI 模型进行随机对战。通过多维度对比与一键总结功能，有效交叉验证信息，解决 AI 幻觉问题，帮您快速找到最准确的答案。参与人类偏好投票，发现最强模型。",
+    welcomeDesc: "覆盖全球主流大模型。告别平台切换，告别单一视角的AI幻觉。一个问题，多维交叉验证，最全面最严谨的决策参考。谁更聪明，你来定。",
+    home: "首页",
+    leaderboard: "排行榜",
+    rules: "规则说明",
+    protocol: "验证协议",
+    newChat: "新对话",
+    history: "历史记录",
+    admin: "管理后台",
+    sponsor: "赞助支持",
+    language: "EN",
+    placeholder: "输入任何问题，四大AI同时回答...",
+    askBtn: "提问",
+    preset1: "写一首关于春天的诗",
+    preset2: "解释 Python async/await",
+    preset3: "用简单的话解释量子计算",
+    thinking: "思考中...",
+    generating: "马上生成答案...",
+    arriveSoon: "即将到达...",
+    looking: "查看对战结果 →",
+    bestAnswer: "最佳回答",
+    worstAnswer: "最差回答",
+    voteBtn: "提交投票",
+    crossCheckBtn: "获取更准确解答",
+    crossCheckTitle: "Totoro引擎交叉验证四个答案，寻找真相",
+    expertMode: "专家模式",
+    speedMode: "极速模式",
+    reveal: "揭晓",
+    modelLabel: "模型",
+    voteCount: "票数",
+    votes: "票",
+    rateLimited: "请求过于频繁，请稍候",
+    voteSuccess: "投票成功！",
+    voteFailed: "投票失败",
+    crossSuccess: "交叉验证完成！",
+    crossFailed: "交叉验证失败",
+    crossProcessing: "正在交叉验证...",
+    noBattle: "暂无可用的对战",
+    loading: "加载中...",
+    error: "错误",
+    retry: "重试",
+    backToArena: "返回竞技场",
+    inputRequired: "请输入问题",
+    copyLink: "复制链接",
+    share: "分享",
+    copied: "已复制！",
+    clearHistory: "清空",
+    noHistory: "暂无历史记录",
+    today: "今天",
+    yesterday: "昨天",
+    earlier: "更早",
+    scoreboardTitle: "实时排行榜",
+    eloRating: "ELO评分",
+    winRate: "胜率",
+    battles: "对战",
+    rank: "排名",
+    modeSwitch: "切换模式",
+    pleaseRate: "请给回答评分",
+    tagAccurate: "准确",
+    tagCreative: "有创意",
+    tagConcise: "简洁",
+    tagDetailed: "详细",
+    annoying: "啰嗦",
+    hallucination: "幻觉",
+    tooVerbose: "太冗长",
+    irrelevant: "无关",
+    close: "关闭",
+    submit: "提交",
+    cancel: "取消",
+    back: "返回",
+    next: "下一个",
+    prev: "上一个",
+    page: "页",
+    search: "搜索",
+    filter: "筛选",
+    all: "全部",
+    none: "无",
+    selectModel: "选择模型",
+    compareModels: "对比模型",
+    randomBattle: "随机对战",
+    createBattle: "创建对战",
+    questionLabel: "问题",
+    answerLabel: "回答",
+    modelA: "大模型A",
+    modelB: "大模型B",
+    modelC: "大模型C",
+    modelD: "大模型D",
+    anonymous: "匿名",
+    revealModels: "揭晓模型",
+    hideModels: "隐藏模型",
+    voterFingerprint: "投票者指纹",
+    deviceVerified: "设备已验证",
+    antiCheat: "反作弊",
+    refresh: "刷新",
+    confirmClear: "确认清空所有历史？",
+    yes: "是",
+    no: "否",
+    battleReport: "交叉验证报告",
+    refinedAnswer: "求真答案",
+    hallucinationDetected: "检测到幻觉",
+    proofHash: "证明哈希",
+    tokenLeverage: "Token杠杆",
+    providerUsed: "提供方",
+    sponsored: "赞助商",
+    disclaimer: "免责声明",
+    wechat: "微信",
+    qq: "QQ",
+    weibo: "微博",
+    shareText: "来看看 LLMVECT 大模型竞技场！",
+    offline: "你已离线",
+    online: "已恢复连接",
+    updateAvailable: "有新版本",
+    installApp: "安装应用",
+    darkMode: "深色模式",
+    lightMode: "浅色模式",
+    systemMode: "跟随系统",
+    settings: "设置",
+    about: "关于",
+    version: "版本",
+    copyright: "LLMVECT 版权所有",
+    mobileBest: "最佳",
+    mobileWorst: "最差",
+    matching: "正在匹配模型...",
+    chooseWinner: "请选择上方最佳回答",
+    chooseWorst: "请选择上方最差回答",
+    noAnswer: "未生成回答",
+    waitAnswer: "等待回答...",
+    crossValidateDesc: "AI驱动的四答案交叉验证",
+    startBattle: "开始对战",
+    speed: "极速",
+    expert: "专家",
+    clearInput: "清空",
+    sendMessage: "发送",
+    userQuestion: "你的问题",
+    aiResponse: "AI回复",
+    allModels: "全部模型",
+    bestPerformer: "最佳表现",
+    worstPerformer: "最差表现",
+    stats: "统计数据",
+    avgResponseTime: "平均响应时间",
+    totalBattles: "总对战数",
+    activeUsers: "活跃用户",
+    todayBattles: "今日对战",
+    tagFactualAccurate: "事实准确 / 无幻觉",
+    tagCodeFormatCorrect: "代码 / 格式正确",
+    tagRigorousReasoning: "推理严谨",
+    tagPreciseFollow: "精准遵循指令",
+    arena: "竞技场",
+    tie: "平局",
+    winnerWhyBetter: "赢家 - 为什么更好？",
+    loserWhyWorse: "输家 - 为什么更差？",
+    tagCodeCorrect: "代码正确",
+    tagRigorousLogic: "逻辑严谨",
+    tagPreciseExec: "精准执行",
+    tagSevereHallu: "严重幻觉",
+    tagOverAligned: "过度对齐",
+    tagLogicFlaws: "逻辑缺陷",
+    tagFormatBreak: "格式错误",
+    thinkModeTitle: "启用思考模式",
+    confirm: "确认",
+    liveRankings: "实时排名",
+    viewFullLB: "查看完整排行榜 →",
+    mobilePlaceholder: "输入任何问题，让四个AI来回答...",
+    desktopPlaceholder: "输入问题或选择下方预设...",
+    mobileHint: "回车发送 · Shift+回车换行 · 🎤 语音输入",
+    desktopHint: "回车发送 · Shift+回车换行 · 上下键切换历史 · 🎤 语音输入",
+}
+};
+
+// Auto-detect language: localStorage > navigator.language > default 'en'
+function detectLang() {
+    const saved = localStorage.getItem('llmvect_lang');
+    if (saved) return saved;
+    const nav = (navigator.language || navigator.userLanguage || '').toLowerCase();
+    if (nav.startsWith('zh')) return 'zh';
+    return 'en';
+}
+// Apply language immediately in <head> to avoid FOUC and ensure SEO
+currentLang = detectLang();
+if (currentLang === 'zh') {
+    document.title = 'LLMVECT | 四模型匿名盲测竞技场 - 一键总结对比，终结AI幻觉';
+    document.documentElement.lang = 'zh-CN';
+}
+function t(key) {
+    return (I18N[currentLang] && I18N[currentLang][key]) || key;
+}
+function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('llmvect_lang', lang);
+    updateUILanguage();
+}
+function updateUILanguage() {
+    // Update all [data-i18n] elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.placeholder = t(key);
+        } else {
+            el.textContent = t(key);
+        }
+    });
+    // Update all [data-i18n-title] elements
+    document.querySelectorAll('[data-i18n-title]').forEach(el => {
+        el.title = t(el.getAttribute('data-i18n-title'));
+    });
+    // Update all [data-i18n-placeholder] elements
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        el.placeholder = t(el.getAttribute('data-i18n-placeholder'));
+    });
+    // Update language toggle button text
+    const toggleBtn = document.getElementById('langToggle');
+    const toggleBtnDesktop = document.getElementById('langToggleDesktop');
+    if (toggleBtn) toggleBtn.textContent = t('language');
+    if (toggleBtnDesktop) toggleBtnDesktop.textContent = t('language');
+    // SEO: Update page title
+    document.title = t('seoTitle');
+    // SEO: Update meta description
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', t('seoDesc'));
+    // SEO: Update Open Graph tags
+    const ogTitle = document.getElementById('ogTitle');
+    const ogDesc = document.getElementById('ogDesc');
+    if (ogTitle) ogTitle.setAttribute('content', t('seoTitle'));
+    if (ogDesc) ogDesc.setAttribute('content', t('seoDesc'));
+    // SEO: Update Twitter Card tags
+    const twTitle = document.getElementById('twTitle');
+    const twDesc = document.getElementById('twDesc');
+    if (twTitle) twTitle.setAttribute('content', t('seoTitle'));
+    if (twDesc) twDesc.setAttribute('content', t('seoDesc'));
+    // SEO: Update html lang attribute
+    document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+    // Dispatch event for components to react
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang: currentLang } }));
+}
+document.addEventListener('DOMContentLoaded', () => {
+    updateUILanguage();
+});
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Obsidian & Titanium — Research-Grade Minimalism */
+            --china-red: #007AFF;
+            --china-red-dark: #0062CC;
+            --china-red-light: #339DFF;
+            --china-red-glow: rgba(0, 122, 255, 0.10);
+            
+            --tech-blue: #007AFF;
+            --tech-cyan: #007AFF;
+            --tech-purple: #007AFF;
+            --tech-gold: #FFD60A;
+            
+            --deep-blue: #0A0A0A;
+            --deep-blue-dark: #060606;
+            --deep-blue-light: #333333;
+            --accent-blue: #007AFF;
+            
+            --bg-dark: #0A0A0A;
+            --bg-card: rgba(18, 18, 18, 0.8);
+            --bg-sidebar: rgba(10, 10, 10, 0.95);
+            --bg-gradient-start: #0A0A0A;
+            --bg-gradient-end: #0A0A0A;
+            
+            --text-primary: #FFFFFF;
+            --text-secondary: #999999;
+            --text-muted: #666666;
+            --border-color: #222222;
+            --border-glow: rgba(0, 122, 255, 0.06);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --glass-bg: rgba(18, 18, 18, 0.75);
+            --glass-highlight: rgba(255, 255, 255, 0.02);
+            
+            --success-green: #34C759;
+            --warning-yellow: #FFD60A;
+            --error-red: #FF3B30;
+            
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html, body {
+            overflow-x: hidden;
+            max-width: 100vw;
+            width: 100%;
+        }
+
+/* Language Toggle */
+.lang-toggle {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.5px;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    flex-shrink: 0;
+}
+.lang-toggle:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.25);
+}
+/* Desktop: in top-bar, hidden on mobile */
+.lang-toggle-desktop {
+    position: relative;
+}
+/* Mobile: in mobile-header, hidden on desktop */
+@media (max-width: 768px) {
+    .lang-toggle-desktop { display: none !important; }
+}
+@media (min-width: 769px) {
+    .mobile-header .lang-toggle { display: none !important; }
+}
+        
+        /* Force all content to stay within viewport */
+        body > *:not(.app-container) {
+            max-width: 100vw;
+            overflow: hidden;
+        }
+        
+        body {
+
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif;
+            background: #0A0A0A;
+            color: var(--text-primary);
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Ultra-subtle dot texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 24px 24px;
+            pointer-events: none;
+            z-index: -2;
+        }
+        
+        /* No grid — clean obsidian void */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: none;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* 全局动画入口 */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+        @keyframes scan-line {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+        
+        /* ========== 桌面版样式 (>768px) ========== */
+        @media (min-width: 769px) {
+            .app-container {
+                display: flex;
+                height: 100vh;
+                overflow: hidden;
+            }
+            
+            /* Sidebar */
+            .sidebar {
+                width: 260px;
+                background: rgba(10, 10, 10, 0.95);
+                border-right: 1px solid #222222;
+                display: flex;
+                flex-direction: column;
+                padding: 20px 16px;
+                backdrop-filter: blur(24px);
+                position: relative;
+                overflow: hidden;
+            }
+            .sidebar::before {
+                content: '';
+                position: absolute;
+                top: 0; right: 0; width: 1px; height: 100%;
+                background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
+            }
+            
+            .sidebar-logo {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 18px;
+                font-weight: 600;
+                margin-bottom: 28px;
+                padding: 8px 4px;
+                animation: fadeInLeft 0.6s ease;
+                letter-spacing: -0.02em;
+            }
+            
+            .sidebar-logo-icon {
+                width: 32px;
+                height: 32px;
+                background: transparent;
+                border: 1.5px solid #444444;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0;
+                color: #FFFFFF;
+                position: relative;
+                transition: border-color 0.3s ease;
+            }
+            .sidebar-logo-icon::before {
+                content: '';
+                position: absolute;
+                width: 16px;
+                height: 1.5px;
+                background: #FFFFFF;
+                opacity: 0.6;
+                transform: rotate(-15deg);
+            }
+            .sidebar-logo-icon::after {
+                content: '';
+                position: absolute;
+                width: 16px;
+                height: 1.5px;
+                background: #FFFFFF;
+                opacity: 0.6;
+                transform: rotate(15deg);
+            }
+            
+            @keyframes logoGlow {
+                0%, 100% { border-color: #444444; }
+                50% { border-color: #555555; }
+            }
+            
+            .new-chat-btn {
+                width: 100%;
+                padding: 12px;
+                background: transparent;
+                border: 1px solid #444444;
+                border-radius: var(--radius-md);
+                color: #FFFFFF;
+                font-size: 13px;
+                font-weight: 500;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                margin-bottom: 20px;
+                transition: all 0.2s ease;
+                font-family: inherit;
+                letter-spacing: -0.01em;
+            }
+            .new-chat-btn::before {
+                display: none;
+            }
+            .new-chat-btn:hover {
+                border-color: #666666;
+                background: rgba(255,255,255,0.03);
+            }
+            
+            .nav-section {
+                margin-bottom: 20px;
+            }
+            
+            .nav-title {
+                font-size: 11px;
+                color: var(--text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                margin-bottom: 8px;
+                padding-left: 8px;
+            }
+            
+            .nav-item {
+                padding: 10px 12px;
+                border-radius: var(--radius-sm);
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 13px;
+                color: var(--text-muted);
+                transition: all 0.2s ease;
+                position: relative;
+                letter-spacing: -0.01em;
+            }
+            
+            .nav-item:hover {
+                background: rgba(255,255,255,0.03);
+                color: var(--text-secondary);
+            }
+            .nav-item.active {
+                background: #1A1A1A;
+                color: var(--text-primary);
+            }
+            .nav-item.active::after {
+                display: none;
+            }
+            
+            .history-list {
+                flex: 1;
+                overflow-y: auto;
+            }
+            
+            .history-item {
+                padding: 10px 12px;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 13px;
+                color: var(--text-secondary);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                transition: all 0.2s;
+            }
+            
+            .history-item:hover {
+                background: rgba(255,255,255,0.05);
+                color: var(--text-primary);
+            }
+            
+            /* Mini Leaderboard */
+            .mini-leaderboard-section {
+                max-height: 320px;
+                background: var(--glass-bg);
+                border: 1px solid var(--glass-border);
+                border-radius: var(--radius-md);
+                padding: 12px;
+                backdrop-filter: blur(10px);
+            }
+            .mini-lb-mode {
+                font-size: 10px;
+                background: transparent;
+                color: var(--success-green);
+                padding: 0;
+                margin-left: 6px;
+                letter-spacing: 0.5px;
+                font-weight: 500;
+            }
+            .mini-lb-mode::before {
+                content: '';
+                display: inline-block;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: var(--success-green);
+                margin-right: 4px;
+                vertical-align: middle;
+            }
+            .mini-leaderboard {
+                display: flex;
+                flex-direction: column;
+                gap: 3px;
+            }
+            .mini-lb-loading {
+                color: var(--text-muted);
+                font-size: 12px;
+                padding: 12px 0;
+                text-align: center;
+            }
+            .mini-lb-row {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 7px 10px;
+                border-radius: var(--radius-sm);
+                font-size: 13px;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                position: relative;
+            }
+            .mini-lb-row:hover {
+                background: rgba(255,255,255,0.06);
+                transform: translateX(3px);
+            }
+            .mini-lb-row:hover .mini-lb-name {
+                color: var(--tech-cyan);
+            }
+            .mini-lb-rank {
+                width: 22px;
+                height: 22px;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 11px;
+                font-weight: 700;
+                flex-shrink: 0;
+            }
+            .mini-lb-rank.top1 { background: #FFFFFF; color: #0A0A0A; }
+            .mini-lb-rank.top2 { background: #999999; color: #0A0A0A; }
+            .mini-lb-rank.top3 { background: #666666; color: #FFFFFF; }
+            .mini-lb-rank.other { background: rgba(255,255,255,0.08); color: var(--text-muted); }
+            .mini-lb-name {
+                flex: 1;
+                color: var(--text-primary);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                transition: color 0.2s;
+            }
+            .mini-lb-score {
+                font-size: 12px;
+                color: var(--tech-cyan);
+                font-weight: 600;
+                flex-shrink: 0;
+                font-family: 'Orbitron', monospace;
+            }
+            .mini-lb-footer {
+                font-size: 12px;
+                color: var(--text-muted);
+                padding: 8px 8px 0;
+                cursor: pointer;
+                transition: all 0.2s;
+                text-align: center;
+            }
+            .mini-lb-footer:hover {
+                color: var(--accent-blue);
+                text-shadow: none;
+            }
+            
+            /* Main content area */
+            .main-content {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                min-width: 0;
+            }
+            
+            .top-bar {
+                padding: 18px 28px;
+                border-bottom: 1px solid var(--glass-border);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: var(--glass-bg);
+                backdrop-filter: blur(20px);
+            }
+            
+            .top-bar-title {
+                font-size: 18px;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+            }
+            
+            /* 桌面版内容区 */
+            .content-area {
+                flex: 1;
+                padding: 24px;
+                overflow-y: auto;
+            }
+            
+            .desktop-welcome {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                text-align: center;
+            }
+            
+            .desktop-welcome-icon {
+                width: 96px;
+                height: 96px;
+                background: transparent;
+                border: 1.5px solid #333333;
+                border-radius: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0;
+                margin-bottom: 32px;
+                position: relative;
+                animation: none;
+            }
+            /* Two intersecting laser lines — scientific symbol */
+            .desktop-welcome-icon::before {
+                content: '';
+                position: absolute;
+                width: 48px;
+                height: 1.5px;
+                background: #FFFFFF;
+                opacity: 0.6;
+                transform: rotate(-15deg);
+            }
+            .desktop-welcome-icon::after {
+                content: '';
+                position: absolute;
+                width: 48px;
+                height: 1.5px;
+                background: #FFFFFF;
+                opacity: 0.6;
+                transform: rotate(15deg);
+            }
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            
+            @keyframes welcomeIconPulse {
+                0%, 100% { border-color: #333333; }
+                50% { border-color: #444444; }
+            }
+            
+            .desktop-welcome h1 {
+                font-size: 42px;
+                font-weight: 600;
+                margin-bottom: 16px;
+                color: #FFFFFF;
+                -webkit-text-fill-color: #FFFFFF;
+                background: none;
+                -webkit-background-clip: unset;
+                letter-spacing: -0.02em;
+                animation: fadeInUp 0.8s ease;
+            }
+            
+            .desktop-welcome p {
+                font-size: 14px;
+                color: #888888;
+                max-width: 440px;
+                line-height: 1.6;
+                margin-bottom: 32px;
+            }
+            
+            .desktop-input-area {
+                width: 100%;
+                max-width: 720px;
+                background: rgba(18, 18, 18, 0.8);
+                border-radius: var(--radius-md);
+                border: 1px solid #333333;
+                padding: 16px;
+                backdrop-filter: blur(24px);
+                transition: border-color 0.2s ease;
+            }
+            
+            .desktop-input-area:focus-within {
+                border-color: #555555;
+            }
+            
+            .desktop-input-wrapper {
+                display: flex;
+                gap: 12px;
+                align-items: flex-end;
+            }
+            
+            .desktop-input-actions {
+                display: flex;
+                gap: 8px;
+                align-items: flex-end;
+            }
+            
+            .voice-btn {
+                width: 44px;
+                height: 44px;
+                border-radius: 12px;
+                background: transparent;
+                border: 1px solid var(--border-color);
+                color: var(--text-secondary);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 20px;
+                transition: all 0.3s ease;
+            }
+            
+            .voice-btn:hover {
+                border-color: #555555;
+                color: var(--text-primary);
+            }
+            
+            .voice-btn.recording {
+                background: rgba(255, 59, 48, 0.15);
+                border-color: #FF3B30;
+                color: #FF3B30;
+                animation: voicePulse 1s ease-in-out infinite;
+            }
+            
+            @keyframes voicePulse {
+                0%, 100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.3); }
+                50% { box-shadow: 0 0 0 8px rgba(255, 59, 48, 0); }
+            }
+            
+            .desktop-input-field {
+                flex: 1;
+                background: transparent;
+                border: none;
+                outline: none;
+                color: var(--text-primary);
+                font-size: 15px;
+                line-height: 1.5;
+                resize: none;
+                min-height: 24px;
+                max-height: 120px;
+                font-family: inherit;
+            }
+            
+            .desktop-input-field::placeholder {
+                color: var(--text-muted);
+            }
+            
+            .desktop-send-btn {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: #1A1A1A;
+                border: 1px solid #333333;
+                color: #FFFFFF;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 16px;
+                transition: all 0.2s ease;
+                box-shadow: none;
+            }
+            
+            .desktop-send-btn:hover {
+                background: #222222;
+                border-color: #444444;
+            }
+            
+            /* 桌面版 Battle */
+            .desktop-battle {
+                display: none;
+                height: 100%;
+                flex-direction: column;
+            }
+            
+            .desktop-battle.active {
+                display: flex;
+            }
+            
+            .battle-header {
+                padding: 16px 24px;
+                border-bottom: 1px solid var(--border-color);
+                background: var(--bg-card);
+            }
+            
+            .battle-question {
+                font-size: 14px;
+                color: var(--text-secondary);
+                margin-bottom: 4px;
+            }
+            
+            .battle-question-text {
+                font-size: 16px;
+                color: var(--text-primary);
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            .battle-panels-desktop {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            flex: 1;
+            padding: 16px;
+            overflow: hidden;
+        }
+            
+            .battle-panel-desktop {
+                background: var(--glass-bg);
+                border-radius: var(--radius-md);
+                border: 1px solid var(--glass-border);
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                min-width: 0;
+                backdrop-filter: blur(10px);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+                transition: all 0.3s ease;
+            }
+            
+            .battle-panel-desktop:hover {
+                border-color: #333333;
+            }
+            
+            .panel-header-desktop {
+                padding: 12px 16px;
+                border-bottom: 1px solid var(--border-color);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            
+            .panel-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+            }
+            
+            .panel-dot.a { background: #34C759; }
+            .panel-dot.b { background: #FFD60A; }
+        .panel-dot.c { background: #007AFF; }
+        .panel-dot.d { background: #FF9500; }
+            
+            .panel-content-desktop {
+                flex: 1;
+                padding: 16px;
+                overflow-y: auto;
+                overflow-x: hidden;
+                font-size: 14px;
+                line-height: 1.7;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            .vote-area-desktop {
+                padding: 16px 24px;
+                border-top: 1px solid var(--border-color);
+                background: var(--bg-card);
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                gap: 12px;
+                overflow: hidden;
+            }
+            
+            .vote-btn-desktop {
+                padding: 10px 20px;
+                border-radius: 6px;
+                border: 1px solid #333333;
+                background: transparent;
+                color: var(--text-secondary);
+                font-size: 13px;
+                cursor: pointer;
+                transition: all 0.2s;
+                font-family: inherit;
+            }
+            
+            .vote-btn-desktop:hover {
+                border-color: #444444;
+                color: var(--text-primary);
+            }
+            
+            .vote-btn-desktop.selected {
+                background: #1A1A1A;
+                border-color: #FFFFFF;
+                color: white;
+            }
+            
+            .vote-btn-worst {
+                border-color: rgba(255, 59, 48, 0.25);
+                color: rgba(255, 59, 48, 0.6);
+            }
+            .vote-btn-worst:hover {
+                border-color: #FF3B30;
+                color: #FF3B30;
+            }
+            .vote-btn-worst.selected-worst {
+                background: rgba(255, 59, 48, 0.15);
+                border-color: #FF3B30;
+                color: #FF3B30;
+                box-shadow: none;
+            }
+            
+            /* 手机版元素隐藏 */
+            .mobile-header, .mobile-main, .mobile-input-area {
+                display: none !important;
+            }
+        }
+        
+        /* ========== 桌面版隐藏手机元素 ========== */
+        @media (min-width: 769px) {
+            .sidebar-overlay,
+            .mobile-sidebar,
+            .mobile-header,
+            .mobile-hamburger {
+                display: none !important;
+            }
+        }
+        
+        /* ========== 手机版样式 (≤768px) ========== */
+        @media (max-width: 768px) {
+            .app-container {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+                min-height: 100dvh;
+            }
+            
+            /* 手机版顶部栏 */
+            .mobile-header {
+                padding: 12px 16px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-bottom: 1px solid #222222;
+                background: rgba(10, 10, 10, 0.9);
+                backdrop-filter: blur(24px);
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+            
+            /* Hamburger button */
+            .mobile-hamburger {
+                width: 32px;
+                height: 32px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 5px;
+                cursor: pointer;
+                background: none;
+                border: none;
+                padding: 0;
+                -webkit-tap-highlight-color: transparent;
+            }
+            .mobile-hamburger span {
+                display: block;
+                width: 18px;
+                height: 1.5px;
+                background: #AAAAAA;
+                border-radius: 1px;
+                transition: all 0.3s ease;
+            }
+            .mobile-hamburger.open span:nth-child(1) {
+                transform: rotate(45deg) translate(4.5px, 4.5px);
+            }
+            .mobile-hamburger.open span:nth-child(2) {
+                opacity: 0;
+            }
+            .mobile-hamburger.open span:nth-child(3) {
+                transform: rotate(-45deg) translate(4.5px, -4.5px);
+            }
+
+            .mobile-logo {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 18px;
+                font-weight: 600;
+            }
+            
+            .mobile-logo-icon {
+                width: 32px;
+                height: 32px;
+                background: transparent;
+                border: 1.5px solid #444444;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                color: #FFFFFF;
+            }
+            .mobile-logo-icon::before {
+                content: '';
+                position: absolute;
+                width: 16px;
+                height: 1.5px;
+                background: #FFFFFF;
+                opacity: 0.6;
+                transform: rotate(-15deg);
+            }
+            .mobile-logo-icon::after {
+                content: '';
+                position: absolute;
+                width: 16px;
+                height: 1.5px;
+                background: #FFFFFF;
+                opacity: 0.6;
+                transform: rotate(15deg);
+            }
+
+            /* Sidebar overlay */
+            .sidebar-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.6);
+                z-index: 999;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+            }
+            .sidebar-overlay.open {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            /* Sidebar drawer */
+            .mobile-sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 280px;
+                height: 100%;
+                height: 100dvh;
+                background: #0A0A0A;
+                z-index: 1000;
+                transform: translateX(-100%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                display: none;
+                flex-direction: column;
+                border-right: 1px solid #222222;
+            }
+            .mobile-sidebar.open {
+                display: flex;
+                transform: translateX(0);
+            }
+            .mobile-sidebar-header {
+                padding: 20px 20px 16px;
+                border-bottom: 1px solid #222222;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .mobile-sidebar-header .logo-icon {
+                width: 36px;
+                height: 36px;
+                background: transparent;
+                border: 1.5px solid #444444;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0;
+                position: relative;
+                color: #FFFFFF;
+            }
+            .mobile-sidebar-header .logo-icon::before {
+                content: '';
+                position: absolute;
+                width: 18px;
+                height: 1.5px;
+                background: #FFFFFF;
+                opacity: 0.6;
+                transform: rotate(-15deg);
+            }
+            .mobile-sidebar-header .logo-icon::after {
+                content: '';
+                position: absolute;
+                width: 18px;
+                height: 1.5px;
+                background: #FFFFFF;
+                opacity: 0.6;
+                transform: rotate(15deg);
+            }
+            .mobile-sidebar-header .logo-text {
+                font-size: 18px;
+                font-weight: 600;
+                letter-spacing: -0.02em;
+                color: #FFFFFF;
+            }
+            .mobile-sidebar-nav {
+                flex: 1;
+                padding: 12px 0;
+                overflow-y: auto;
+            }
+            .mobile-sidebar-nav a {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 12px 20px;
+                color: #888888;
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 500;
+                transition: all 0.15s ease;
+                border-left: 2px solid transparent;
+            }
+            .mobile-sidebar-nav a:hover,
+            .mobile-sidebar-nav a.active {
+                color: #FFFFFF;
+                background: #1A1A1A;
+                border-left-color: var(--accent-blue);
+            }
+            .mobile-sidebar-nav a .nav-icon {
+                width: 20px;
+                text-align: center;
+                font-size: 13px;
+                color: #666666;
+            }
+            .mobile-sidebar-nav a.active .nav-icon {
+                color: var(--accent-blue);
+            }
+            .mobile-sidebar-footer {
+                padding: 16px 20px;
+                border-top: 1px solid #222222;
+                font-size: 11px;
+                color: #444444;
+            }
+            
+            /* 手机版主内容 */
+            .mobile-main {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                padding: 16px;
+            }
+            
+            .mobile-welcome {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .mobile-welcome-icon {
+                width: 72px;
+                height: 72px;
+                background: transparent;
+                border: 1.5px solid #333333;
+                border-radius: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0;
+                margin-bottom: 24px;
+                position: relative;
+            }
+            .mobile-welcome-icon::before {
+                content: '';
+                position: absolute;
+                width: 32px;
+                height: 1.5px;
+                background: #FFFFFF;
+                opacity: 0.6;
+                transform: rotate(-15deg);
+            }
+            .mobile-welcome-icon::after {
+                content: '';
+                position: absolute;
+                width: 32px;
+                height: 1.5px;
+                background: #FFFFFF;
+                opacity: 0.6;
+                transform: rotate(15deg);
+            }
+            
+            .mobile-welcome h1 {
+                font-size: 26px;
+                font-weight: 600;
+                margin-bottom: 12px;
+                color: #FFFFFF;
+                -webkit-text-fill-color: #FFFFFF;
+                background: none;
+                -webkit-background-clip: unset;
+                letter-spacing: -0.02em;
+            }
+            
+            .mobile-welcome p {
+                font-size: 13px;
+                color: #888888;
+                max-width: 280px;
+                line-height: 1.6;
+                margin-bottom: 24px;
+            }
+            
+            .mobile-features {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .feature-tag {
+                padding: 6px 12px;
+                background: rgba(255,255,255,0.03);
+                border: 1px solid #222222;
+                border-radius: 6px;
+                font-size: 11px;
+                color: var(--text-secondary);
+            }
+            
+            /* 手机版输入区 */
+            .mobile-input-area {
+                padding: 12px 16px;
+                background: var(--bg-card);
+                border-top: 1px solid var(--border-color);
+            }
+            
+            .mobile-input-wrapper {
+                display: flex;
+                gap: 10px;
+                align-items: flex-end;
+            }
+            
+            .mobile-input-field {
+                flex: 1;
+                background: transparent;
+                border: none;
+                outline: none;
+                color: var(--text-primary);
+                font-size: 15px;
+                line-height: 1.5;
+                resize: none;
+                min-height: 24px;
+                max-height: 100px;
+                font-family: inherit;
+            }
+            
+            .mobile-input-field::placeholder {
+                color: var(--text-muted);
+            }
+            
+            .mobile-input-actions {
+                display: flex;
+                gap: 8px;
+                align-items: flex-end;
+            }
+            
+            .mobile-voice-btn {
+                width: 40px;
+                height: 40px;
+                border-radius: 10px;
+                background: transparent;
+                border: 1px solid var(--border-color);
+                color: var(--text-secondary);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 18px;
+                flex-shrink: 0;
+                transition: all 0.3s ease;
+            }
+            
+            .mobile-voice-btn:hover {
+                border-color: #555555;
+                color: var(--text-primary);
+            }
+            
+            .mobile-voice-btn.recording {
+                background: rgba(255, 59, 48, 0.15);
+                border-color: #FF3B30;
+                color: #FF3B30;
+                animation: voicePulse 1s ease-in-out infinite;
+            }
+            
+            .mobile-send-btn {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: #1A1A1A;
+                border: 1px solid #333333;
+                color: #FFFFFF;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 16px;
+                flex-shrink: 0;
+                box-shadow: none;
+                transition: all 0.2s ease;
+            }
+            
+            .mobile-input-hint {
+                font-size: 11px;
+                color: var(--text-muted);
+                margin-top: 6px;
+                text-align: center;
+            }
+            
+            /* 手机版 Battle */
+            .mobile-battle {
+                display: none;
+                flex: 1;
+                flex-direction: column;
+            }
+            
+            .mobile-battle.active {
+                display: flex;
+            }
+            
+            .mobile-question {
+                background: var(--bg-card);
+                border-radius: 10px;
+                padding: 12px;
+                margin-bottom: 12px;
+                border: 1px solid var(--border-color);
+            }
+            
+            .mobile-question-label {
+                font-size: 11px;
+                color: var(--text-muted);
+                margin-bottom: 4px;
+            }
+            
+            .mobile-question-text {
+                font-size: 14px;
+            }
+            
+            .mobile-battle-panels {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            flex: 1;
+            padding: 12px;
+        }
+            
+            .mobile-battle-panel {
+                background: var(--bg-card);
+                border-radius: 10px;
+                border: 1px solid var(--border-color);
+                overflow: hidden;
+            }
+            
+            .mobile-panel-header {
+                padding: 10px 12px;
+                border-bottom: 1px solid var(--border-color);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 13px;
+            }
+            
+            .mobile-panel-content {
+                padding: 12px;
+                font-size: 13px;
+                line-height: 1.6;
+                color: var(--text-secondary);
+                max-height: 180px;
+                overflow-y: auto;
+                overflow-x: hidden;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            .mobile-vote-area {
+                display: none;
+                background: var(--bg-card);
+                border-radius: 12px;
+                border: 1px solid var(--border-color);
+                padding: 14px;
+                margin-top: 10px;
+            }
+            
+            .mobile-vote-area.active {
+                display: block;
+            }
+            
+            .mobile-vote-hint {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 12px;
+                color: var(--tech-cyan);
+                background: rgba(0, 200, 255, 0.08);
+                border: 1px solid rgba(0, 200, 255, 0.15);
+                border-radius: 8px;
+                padding: 8px 10px;
+                margin-bottom: 12px;
+            }
+            .mobile-vote-hint .hint-icon { font-size: 14px; }
+            
+            .mobile-vote-section { }
+            
+            .mobile-vote-title {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--text-primary);
+                margin-bottom: 8px;
+                display: flex;
+                align-items: center;
+                gap: 4px;
+            }
+            .vote-icon-best { color: #FFD700; }
+            .vote-icon-worst { }
+            .vote-optional { font-weight: 400; font-size: 11px; color: var(--text-muted); }
+            
+            .mobile-vote-row {
+                display: flex;
+                gap: 6px;
+                flex-wrap: wrap;
+            }
+            
+            .mobile-best-btn {
+                flex: 1 1 auto;
+                min-width: 0;
+                padding: 8px 6px;
+                border-radius: 8px;
+                border: 1.5px solid rgba(255, 215, 0, 0.3);
+                background: rgba(255, 215, 0, 0.05);
+                color: var(--text-secondary);
+                font-size: 11px;
+                font-weight: 500;
+                cursor: pointer;
+                font-family: inherit;
+                transition: all 0.2s;
+                text-align: center;
+            }
+            .mobile-best-btn:hover {
+                border-color: rgba(255, 215, 0, 0.6);
+                background: rgba(255, 215, 0, 0.1);
+            }
+            .mobile-best-btn.selected {
+                background: rgba(255, 215, 0, 0.2);
+                border-color: #FFD700;
+                color: #FFD700;
+            }
+            .mobile-best-btn.tie-btn {
+                border-color: rgba(147, 112, 219, 0.3);
+                background: rgba(147, 112, 219, 0.05);
+            }
+            .mobile-best-btn.tie-btn.selected {
+                background: rgba(147, 112, 219, 0.2);
+                border-color: #9370DB;
+                color: #9370DB;
+            }
+            
+            .mobile-worst-btn {
+                flex: 1 1 auto;
+                min-width: 0;
+                padding: 8px 6px;
+                border-radius: 8px;
+                border: 1.5px solid rgba(255, 59, 48, 0.2);
+                background: rgba(255, 59, 48, 0.03);
+                color: var(--text-secondary);
+                font-size: 11px;
+                font-weight: 500;
+                cursor: pointer;
+                font-family: inherit;
+                transition: all 0.2s;
+                text-align: center;
+            }
+            .mobile-worst-btn:hover {
+                border-color: rgba(255, 59, 48, 0.5);
+                background: rgba(255, 59, 48, 0.08);
+            }
+            .mobile-worst-btn.selected-worst {
+                background: rgba(255, 59, 48, 0.18);
+                border-color: #FF3B30;
+                color: #FF3B30;
+            }
+
+            /* Issue 1: 桌面版评价提示 */
+            .vote-hint-text {
+                display: block;
+                font-size: 12px;
+                color: var(--tech-cyan);
+                margin-bottom: 8px;
+            }
+            
+            /* 桌面版元素隐藏 */
+            .sidebar, .main-content {
+                display: none !important;
+            }
+        }
+        
+        /* ========== 通用组件 ========== */
+        .generating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+        
+        .generating-dots {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .generating-dots span {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #666666;
+            animation: bounce 1.4s infinite ease-in-out both;
+            box-shadow: none;
+        }
+        
+        .generating-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .generating-dots span:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        /* 弹窗 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: rgba(20, 20, 20, 0.95);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            border: 1px solid #333333;
+        }
+        
+        .modal-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .modal-textarea {
+            width: 100%;
+            height: 80px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            color: var(--text-primary);
+            font-size: 13px;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+        }
+        
+        .modal-textarea:focus {
+            border-color: var(--deep-blue-light);
+        }
+        
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        
+        .modal-btn {
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .modal-btn.skip {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        
+        .modal-btn.submit {
+            background: #1A1A1A;
+            border: 1px solid #FFFFFF;
+            color: white;
+            box-shadow: none;
+        }
+        
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 13px;
+            z-index: 300;
+            animation: toastIn 0.3s ease;
+        }
+        
+        .toast.success { border-color: var(--success-green); }
+        .toast.error { border-color: #FF3B30; }
+        
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+        
+        /* Reveal area */
+        .reveal-area {
+            display: none;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            border: 1px solid #333333;
+            padding: 16px;
+            text-align: center;
+        }
+        
+        .reveal-area.active {
+            display: block;
+        }
+        
+        /* 安全区适配 */
+        @supports (padding-bottom: env(safe-area-inset-bottom)) {
+            .mobile-input-area {
+                padding-bottom: calc(12px + env(safe-area-inset-bottom));
+            }
+        }
+
+        /* ===== DPO 标签面板 ===== */
+        .dpo-panel {
+            display: none;
+            margin-top: 12px;
+            padding: 16px;
+            background: rgba(0, 240, 255, 0.03);
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            border-radius: 8px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .dpo-panel.active { display: block; }
+        .dpo-section-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .dpo-section-title.winner { color: #00f0ff; }
+        .dpo-section-title.worst { color: #ff4757; }
+        .dpo-tags-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+        .dpo-tag {
+            padding: 5px 14px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.04);
+            color: rgba(255,255,255,0.7);
+        }
+        .dpo-tag:hover {
+            border-color: rgba(0, 240, 255, 0.4);
+            background: rgba(0, 240, 255, 0.08);
+            color: #fff;
+        }
+        .dpo-tag.selected {
+            border-color: #00f0ff;
+            background: rgba(0, 240, 255, 0.15);
+            color: #00f0ff;
+        }
+        .dpo-tag.worst-tag.selected {
+            border-color: #ff4757;
+            background: rgba(255, 71, 87, 0.15);
+            color: #ff4757;
+        }
+        .dpo-tag.worst-tag:hover {
+            border-color: rgba(255, 71, 87, 0.4);
+            background: rgba(255, 71, 87, 0.08);
+        }
+        .dpo-submit-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 4px;
+        }
+        .dpo-submit-btn {
+            padding: 7px 24px;
+            border: 1px solid rgba(0, 240, 255, 0.5);
+            background: rgba(0, 240, 255, 0.1);
+            color: #00f0ff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        .dpo-submit-btn:hover {
+            background: rgba(0, 240, 255, 0.2);
+        }
+        .dpo-submit-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .dpo-crosscheck-btn {
+            padding: 7px 20px;
+            border: 1px solid rgba(46, 213, 115, 0.5);
+            background: rgba(46, 213, 115, 0.1);
+            color: #2ed573;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            display: none;
+            transition: all 0.2s;
+        }
+        .dpo-crosscheck-btn.visible { display: inline-block; }
+        .dpo-crosscheck-btn:hover { background: rgba(46, 213, 115, 0.2); }
+        .dpo-hint {
+            font-size: 11px;
+            color: rgba(255,255,255,0.3);
+            margin-top: 6px;
+        }
+
+        /* ===== V-Verification: Quota Bar + Think Toggle ===== */
+        .battle-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .quota-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        .quota-bar .quota-dots {
+            display: flex;
+            gap: 3px;
+        }
+        .quota-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            transition: background 0.3s;
+        }
+        .quota-dot.filled { background: var(--tech-cyan); }
+        .quota-dot.exhausted { background: rgba(255,255,255,0.06); }
+        .quota-label { font-size: 11px; letter-spacing: 0.5px; }
+
+        /* Think Mode Toggle */
+        .think-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            user-select: none;
+        }
+        .think-toggle-switch {
+            width: 32px; height: 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            position: relative;
+            transition: background 0.3s;
+        }
+        .think-toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            top: 2px; left: 2px;
+            transition: all 0.3s;
+        }
+        .think-toggle-switch.active {
+            background: rgba(251, 191, 36, 0.3);
+        }
+        .think-toggle-switch.active::after {
+            left: 18px;
+            background: #fbbf24;
+        }
+        .think-toggle-label { font-size: 11px; }
+        .think-toggle-hint {
+            font-size: 10px;
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* Think Warning Modal */
+        .think-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        .think-modal-overlay.active { display: flex; }
+        .think-modal {
+            background: #111;
+            border: 1px solid #fbbf24;
+            border-radius: 12px;
+            padding: 28px 32px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+        .think-modal-icon { font-size: 32px; margin-bottom: 12px; }
+        .think-modal-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fbbf24;
+            margin-bottom: 10px;
+        }
+        .think-modal-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .think-modal-btns {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+        .think-modal-btn {
+            padding: 8px 20px;
+            border-radius: 8px;
+            border: none;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .think-modal-btn.confirm {
+            background: rgba(251,191,36,0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(251,191,36,0.3);
+        }
+        .think-modal-btn.confirm:hover {
+            background: rgba(251,191,36,0.25);
+        }
+        .think-modal-btn.cancel {
+            background: rgba(255,255,255,0.06);
+            color: var(--text-secondary);
+        }
+        .think-modal-btn.cancel:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Thinking Process Collapse */
+        .thinking-block {
+            margin: 8px 0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .thinking-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            background: #0D1117;
+            border: 1px solid rgba(251,191,36,0.2);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            color: rgba(251,191,36,0.7);
+            user-select: none;
+            transition: all 0.2s;
+        }
+        .thinking-toggle:hover {
+            border-color: rgba(251,191,36,0.4);
+            color: rgba(251,191,36,0.9);
+        }
+        .thinking-toggle-arrow {
+            transition: transform 0.2s;
+            font-size: 10px;
+        }
+        .thinking-toggle-arrow.open { transform: rotate(90deg); }
+        .thinking-content {
+            display: none;
+            background: #0D1117;
+            border: 1px solid rgba(251,191,36,0.1);
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            padding: 10px 12px;
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            color: rgba(251,191,36,0.6);
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .thinking-content.open { display: block; }
+
+        /* Mobile quota + toggle */
+        .mobile-battle-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+        }
+    </style>
+</head>
+<body>
+<!-- 手机版侧边栏 (app-container外) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+    
+    <!-- ========== 手机版侧边栏抽屉 ========== -->
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="mobile-sidebar-header">
+            <div class="logo-icon"></div>
+            <div class="logo-text">LLMVECT<span style="color: var(--accent-blue);"></span></div>
+        </div>
+        <div class="mobile-sidebar-nav">
+            <a href="#" class="active" onclick="switchMode('battle'); toggleSidebar(); return false;">
+                <span class="nav-icon">⚔️</span> <span data-i18n="arena">Arena</span>
+            </a>
+            <a href="/leaderboard.html" onclick="toggleSidebar()">
+                <span class="nav-icon">🏆</span> <span data-i18n="leaderboard">Leaderboard</span>
+            </a>
+            <a href="/rules.html" onclick="toggleSidebar()">
+                <span class="nav-icon">📋</span> <span data-i18n="rules">Rules</span>
+            </a>
+            <a href="/protocol.html" onclick="toggleSidebar()">
+                <span class="nav-icon">🔒</span> <span data-i18n="protocol">Protocol</span>
+            </a>
+            <a href="/sponsor.html" onclick="toggleSidebar()">
+                <span class="nav-icon">❤️</span> <span data-i18n="sponsor">Sponsor</span>
+            </a>
+        </div>
+        <div class="mobile-sidebar-footer">
+            LLMVECT · LLM Arena
+        </div>
+    </div>
+    
+
+    <div class="app-container">
+        <!-- ========== 桌面版侧边栏 ========== -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="sidebar-logo-icon"></div>
+                <div style="letter-spacing:-0.02em;">LLMVECT<span style="color: var(--accent-blue);"></span></div>
+            </div>
+            
+            <button class="new-chat-btn" onclick="resetDesktop()">
+                <span>+</span> <span data-i18n="newChat">New Chat</span>
+            </button>
+            
+            <div class="nav-section">
+                <div class="nav-title"><span data-i18n="modeSwitch">Mode</span></div>
+                <div class="nav-item active" onclick="switchMode('battle')">
+                    <span data-i18n="arena">Arena</span>
+                </div>
+            </div>
+            
+            <div class="nav-section" style="flex: 1;">
+                <div class="nav-title"><span data-i18n="history">History</span></div>
+                <div class="history-list" id="historyList">
+                    <div class="history-item">Explain quantum computing...</div>
+                    <div class="history-item">Write a poem about spring</div>
+                    <div class="history-item">Python async/await guide</div>
+                </div>
+            </div>
+            
+            <div class="nav-section mini-leaderboard-section">
+                <div class="nav-title"><span data-i18n="liveRankings">Live Rankings</span> <span id="miniLbMode" class="mini-lb-mode"><span data-i18n="speed">Speed</span></span></div>
+                <div class="mini-leaderboard" id="miniLeaderboard">
+                    <div class="mini-lb-loading">Loading...</div>
+                </div>
+                <div class="mini-lb-footer" onclick="window.location.href='/leaderboard.html'">
+                    <span data-i18n="viewFullLB">View full leaderboard &rarr;</span>
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-item" onclick="window.location.href='/leaderboard.html'">
+                    <span data-i18n="leaderboard">Leaderboard</span>
+                </div>
+                <div class="nav-item" onclick="window.location.href='/rules.html'">
+                    <span data-i18n="rules">Rules</span>
+                </div>
+                <div class="nav-item" onclick="window.location.href='/protocol.html'">
+                    <span data-i18n="protocol">Protocol</span>
+                </div>
+                <div class="nav-item" onclick="window.location.href='/sponsor.html'">
+                    ❤️ <span data-i18n="sponsor">Sponsor</span>
+                </div>
+                <div class="nav-item">
+                    <span data-i18n="settings">Settings</span>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- ========== 桌面版主内容 ========== -->
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="top-bar-title"><span data-i18n="subtitle">LLM Arena</span></div>
+                <button id="langToggleDesktop" class="lang-toggle lang-toggle-desktop" onclick="setLang(currentLang==='en'?'zh':'en')">中</button>
+            </div>
+            
+            <div class="content-area">
+                <!-- 桌面版欢迎页 -->
+                <div class="desktop-welcome" id="desktopWelcome">
+                    <div class="desktop-welcome-icon"></div>
+                    <h1><span data-i18n="subtitle">LLM Arena</span></h1>
+                    <p data-i18n="welcomeDesc">Covering 20+ major LLM providers. No more switching platforms, no more single-perspective "AI hallucinations". One question, multi-dimensional cross-validation, the most comprehensive and rigorous decision reference. You decide who's smarter.</p>
+                    <div class="desktop-input-area">
+                        <div class="desktop-input-wrapper">
+                            <textarea class="desktop-input-field" id="desktopInput" data-i18n-placeholder="mobilePlaceholder" placeholder="" rows="1" onkeydown="handleKeyDown(event, 'desktop')" oninput="autoResize(this)"></textarea>
+                            <div class="desktop-input-actions">
+                                <button class="voice-btn" id="desktopVoiceBtn" onclick="toggleVoiceInput('desktop')" title="Voice Input">🎤</button>
+                                <button class="desktop-send-btn" onclick="startBattle('desktop')">➤</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 桌面版 Battle -->
+                <div class="desktop-battle" id="desktopBattle">
+                    <div class="battle-header">
+                        <div>
+                            <div class="battle-question">Current Question</div>
+                            <div class="battle-question-text" id="desktopQuestionText"></div>
+                        </div>
+                        <div class="battle-header-row">
+                            <div class="quota-bar" id="desktopQuotaBar">
+                                <span class="quota-label">ELO</span>
+                                <div class="quota-dots" id="desktopQuotaDots"></div>
+                                <span id="desktopQuotaText">5/5</span>
+                            </div>
+                            <div class="think-toggle" id="desktopThinkToggle" onclick="toggleThinkMode('desktop')">
+                                <span class="think-toggle-label">&#x1F50D; Think</span>
+                                <div class="think-toggle-switch" id="desktopThinkSwitch"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="battle-panels-desktop">
+                        <div class="battle-panel-desktop">
+                            <div class="panel-header-desktop"><span class="panel-dot a"></span><span>Model A</span></div>
+                            <div class="panel-content-desktop" id="desktopPanelA"></div>
+                        </div>
+                        <div class="battle-panel-desktop">
+                            <div class="panel-header-desktop"><span class="panel-dot b"></span><span>Model B</span></div>
+                            <div class="panel-content-desktop" id="desktopPanelB"></div>
+                        </div>
+                        <div class="battle-panel-desktop">
+                            <div class="panel-header-desktop"><span class="panel-dot c"></span><span>Model C</span></div>
+                            <div class="panel-content-desktop" id="desktopPanelC"></div>
+                        </div>
+                        <div class="battle-panel-desktop">
+                            <div class="panel-header-desktop"><span class="panel-dot d"></span><span>Model D</span></div>
+                            <div class="panel-content-desktop" id="desktopPanelD"></div>
+                        </div>
+                    </div>
+                    <div class="vote-area-desktop" id="desktopVoteArea">
+                        <span class="vote-hint-text">💡 Identities revealed after voting</span>
+                        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                            <span style="color: var(--text-secondary);">🥇 BEST：</span>
+                            <button class="vote-btn-desktop" onclick="selectBest('A', this)">Model A</button>
+                            <button class="vote-btn-desktop" onclick="selectBest('B', this)">Model B</button>
+                            <button class="vote-btn-desktop" onclick="selectBest('C', this)">Model C</button>
+                            <button class="vote-btn-desktop" onclick="selectBest('D', this)">Model D</button>
+                            <button class="vote-btn-desktop" onclick="selectBest('tie', this)">🤝 Tie</button>
+                            <span style="color: var(--text-secondary); margin-left: 12px;">👎 WORST：</span>
+                            <button class="vote-btn-desktop vote-btn-worst" onclick="selectWorst('A')">Model A</button>
+                            <button class="vote-btn-desktop vote-btn-worst" onclick="selectWorst('B')">Model B</button>
+                            <button class="vote-btn-desktop vote-btn-worst" onclick="selectWorst('C')">Model C</button>
+                            <button class="vote-btn-desktop vote-btn-worst" onclick="selectWorst('D')">Model D</button>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:12px;padding:4px 0 8px 0;">
+                        <button class="dpo-submit-btn" id="confirmVoteDesktop" onclick="confirmVote()" disabled style="opacity:1;">Submit Vote</button>
+                        <span class="dpo-hint">Pick BEST first, then WORST</span>
+                    </div>
+
+                    <!-- DPO 标签面板（桌面版） -->
+                    <div class="dpo-panel" id="dpoPanelDesktop">
+                        <div class="dpo-section-title winner"><span data-i18n="winnerWhyBetter">Winner - Why better?</span></div>
+                        <div class="dpo-tags-row" id="winnerTagsDesktop">
+                            <span class="dpo-tag" data-tag="factual_grounded" onclick="toggleDpoTag(this,'winner')"><span data-i18n="tagFactualAccurate">Factually accurate / No hallucination</span></span>
+                            <span class="dpo-tag" data-tag="code_executable" onclick="toggleDpoTag(this,'winner')"><span data-i18n="tagCodeFormatCorrect">Code / format correct</span></span>
+                            <span class="dpo-tag" data-tag="strong_cot" onclick="toggleDpoTag(this,'winner')"><span data-i18n="tagRigorousReasoning">Rigorous reasoning</span></span>
+                            <span class="dpo-tag" data-tag="perfect_follow" onclick="toggleDpoTag(this,'winner')"><span data-i18n="tagPreciseFollow">Precise instruction following</span></span>
+                        </div>
+                        <div class="dpo-section-title worst"><span data-i18n="loserWhyWorse">Loser - Why worse?</span></div>
+                        <div class="dpo-tags-row" id="worstTagsDesktop">
+                            <span class="dpo-tag worst-tag" data-tag="severe_hallucination" onclick="toggleDpoTag(this,'worst')"><span data-i18n="tagSevereHallu">Severe hallucination</span></span>
+                            <span class="dpo-tag worst-tag" data-tag="over_aligned" onclick="toggleDpoTag(this,'worst')"><span data-i18n="tagOverAligned">Over-aligned / verbose</span></span>
+                            <span class="dpo-tag worst-tag" data-tag="logical_flaws" onclick="toggleDpoTag(this,'worst')"><span data-i18n="tagLogicFlaws">Logic flaws / infinite loop</span></span>
+                            <span class="dpo-tag worst-tag" data-tag="format_breakdown" onclick="toggleDpoTag(this,'worst')"><span data-i18n="tagFormatBreak">Format / code breakdown</span></span>
+                        </div>
+                        <div class="dpo-submit-row">
+                            <button class="dpo-crosscheck-btn" id="crosscheckBtnDesktop" onclick="triggerCrossCheck()" style="display:inline-block"><span data-i18n="crossCheckBtn">Get Better Answer</span></button>
+                            <span class="dpo-hint">Totoro Engine cross-validates all four answers to find the truth</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- ========== 手机版侧边栏 ========== -->
+                <!-- ========== 手机版顶部栏 ========== -->
+        <header class="mobile-header">
+            <button class="mobile-hamburger" id="hamburgerBtn" onclick="toggleSidebar()">
+                <span></span><span></span><span></span>
+            </button>
+                <div class="mobile-logo" onclick="resetMobile()">
+                <div class="mobile-logo-icon" style="font-size:0;"></div>
+                <div style="letter-spacing:-0.02em;">LLMVECT<span style="color: var(--accent-blue);"></span></div>
+            </div>
+            <button id="langToggle" class="lang-toggle" onclick="setLang(currentLang==='en'?'zh':'en')">中</button>
+        </header>
+        
+        <!-- ========== 手机版主内容 ========== -->
+        <main class="mobile-main">
+            <!-- 手机版欢迎页 -->
+            <div class="mobile-welcome" id="mobileWelcome">
+                <div class="mobile-welcome-icon"></div>
+                <h1><span data-i18n="subtitle">LLM Arena</span></h1>
+                <p data-i18n="welcomeDesc">Covering 20+ major LLM providers. No more switching platforms, no more single-perspective "AI hallucinations". One question, multi-dimensional cross-validation, the most comprehensive and rigorous decision reference. You decide who's smarter.</p>
+                <div class="mobile-features">
+                    <span class="feature-tag">Free Trial</span>
+                    <span class="feature-tag">Privacy</span>
+                    <span class="feature-tag">Fast Response</span>
+                </div>
+            </div>
+            
+            <!-- 手机版 Battle -->
+            <div class="mobile-battle" id="mobileBattle">
+                <div class="mobile-question">
+                    <div class="mobile-question-label">Current Question</div>
+                    <div class="mobile-question-text" id="mobileQuestionText"></div>
+                </div>
+                <div class="mobile-battle-header">
+                    <div class="quota-bar" id="mobileQuotaBar">
+                        <span class="quota-label">ELO</span>
+                        <div class="quota-dots" id="mobileQuotaDots"></div>
+                        <span id="mobileQuotaText">5/5</span>
+                    </div>
+                    <div class="think-toggle" id="mobileThinkToggle" onclick="toggleThinkMode('mobile')">
+                        <span class="think-toggle-label">&#x1F50D; Think</span>
+                        <div class="think-toggle-switch" id="mobileThinkSwitch"></div>
+                    </div>
+                </div>
+                <div class="mobile-battle-panels">
+                    <div class="mobile-battle-panel">
+                        <div class="mobile-panel-header"><span class="panel-dot a"></span><span>Model A</span></div>
+                        <div class="mobile-panel-content" id="mobilePanelA"></div>
+                    </div>
+                    <div class="mobile-battle-panel">
+                        <div class="mobile-panel-header"><span class="panel-dot b"></span><span>Model B</span></div>
+                        <div class="mobile-panel-content" id="mobilePanelB"></div>
+                    </div>
+                    <div class="mobile-battle-panel">
+                        <div class="mobile-panel-header"><span class="panel-dot c"></span><span>Model C</span></div>
+                        <div class="mobile-panel-content" id="mobilePanelC"></div>
+                    </div>
+                    <div class="mobile-battle-panel">
+                        <div class="mobile-panel-header"><span class="panel-dot d"></span><span>Model D</span></div>
+                        <div class="mobile-panel-content" id="mobilePanelD"></div>
+                    </div>
+                    <!-- 移动端评价区 -->
+                    <div class="mobile-vote-area" id="mobileVoteArea">
+                        <div class="mobile-vote-hint" id="mobileVoteHint">
+                            <span class="hint-icon">💡</span>
+                            <span>Identities revealed after voting</span>
+                        </div>
+                        
+                        <div class="mobile-vote-section">
+                            <div class="mobile-vote-title">
+                                <span class="vote-icon-best">🥇</span> Best Answer
+                            </div>
+                            <div class="mobile-vote-row">
+                                <button class="mobile-best-btn" onclick="selectBest('A', this)">Model A</button>
+                                <button class="mobile-best-btn" onclick="selectBest('B', this)">Model B</button>
+                                <button class="mobile-best-btn" onclick="selectBest('C', this)">Model C</button>
+                                <button class="mobile-best-btn" onclick="selectBest('D', this)">Model D</button>
+                                <button class="mobile-best-btn tie-btn" onclick="selectBest('tie', this)">🤝 Tie</button>
+                            </div>
+                        </div>
+                        
+                        <div class="mobile-vote-section" style="margin-top:10px">
+                            <div class="mobile-vote-title">
+                                <span class="vote-icon-worst">👎</span> Worst Answer <span class="vote-optional">(optional)</span>
+                            </div>
+                            <div class="mobile-vote-row">
+                                <button class="mobile-worst-btn" data-worst="A" onclick="selectWorst('A');updateMobileWorstBtn(this)">Model A</button>
+                                <button class="mobile-worst-btn" data-worst="B" onclick="selectWorst('B');updateMobileWorstBtn(this)">Model B</button>
+                                <button class="mobile-worst-btn" data-worst="C" onclick="selectWorst('C');updateMobileWorstBtn(this)">Model C</button>
+                                <button class="mobile-worst-btn" data-worst="D" onclick="selectWorst('D');updateMobileWorstBtn(this)">Model D</button>
+                            </div>
+                        </div>
+                        
+                        <button class="dpo-submit-btn" id="confirmVoteMobile" onclick="confirmVote()" disabled style="margin-top:10px;width:100%;opacity:1;font-size:14px;padding:12px"><span data-i18n="voteBtn">Submit Vote</span></button>
+                    </div>
+                    <!-- Mobile DPO Panel -->
+                    <div class="dpo-panel" id="dpoPanelMobile" style="margin-top:12px">
+                        <div class="dpo-section-title winner">Winner - Why better?</div>
+                        <div class="dpo-tags-row" id="winnerTagsMobile">
+                            <span class="dpo-tag" data-tag="factual_grounded" onclick="toggleDpoTag(this,'winner')"><span data-i18n="tagAccurate">Accurate</span></span>
+                            <span class="dpo-tag" data-tag="code_executable" onclick="toggleDpoTag(this,'winner')"><span data-i18n="tagCodeCorrect">Code correct</span></span>
+                            <span class="dpo-tag" data-tag="strong_cot" onclick="toggleDpoTag(this,'winner')"><span data-i18n="tagRigorousLogic">Rigorous logic</span></span>
+                            <span class="dpo-tag" data-tag="perfect_follow" onclick="toggleDpoTag(this,'winner')"><span data-i18n="tagPreciseExec">Precise execution</span></span>
+                        </div>
+                        <div class="dpo-section-title worst">Loser - Why worse?</div>
+                        <div class="dpo-tags-row" id="worstTagsMobile">
+                            <span class="dpo-tag worst-tag" data-tag="severe_hallucination" onclick="toggleDpoTag(this,'worst')"><span data-i18n="tagSevereHallu">Severe hallucination</span></span>
+                            <span class="dpo-tag worst-tag" data-tag="over_aligned" onclick="toggleDpoTag(this,'worst')"><span data-i18n="tagOverAligned">Over-aligned</span></span>
+                            <span class="dpo-tag worst-tag" data-tag="logical_flaws" onclick="toggleDpoTag(this,'worst')"><span data-i18n="tagLogicFlaws">Logic flaws</span></span>
+                            <span class="dpo-tag worst-tag" data-tag="format_breakdown" onclick="toggleDpoTag(this,'worst')"><span data-i18n="tagFormatBreak">Format breakdown</span></span>
+                        </div>
+                        <div class="dpo-submit-row">
+                            <button class="dpo-crosscheck-btn" id="crosscheckBtnMobile" onclick="triggerCrossCheck()" style="display:inline-block"><span data-i18n="crossCheckBtn">Get Better Answer</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- ========== 手机版输入区 ========== -->
+        <div class="mobile-input-area">
+            <div class="mobile-input-wrapper">
+                <textarea class="mobile-input-field" id="mobileInput" data-i18n-placeholder="mobilePlaceholder" placeholder="" rows="1" onkeydown="handleKeyDown(event, 'mobile')" oninput="autoResize(this)"></textarea>
+                <div class="mobile-input-actions">
+                    <button class="mobile-voice-btn" id="mobileVoiceBtn" onclick="toggleVoiceInput('mobile')" title="Voice Input">🎤</button>
+                    <button class="mobile-send-btn" onclick="startBattle('mobile')">➤</button>
+                </div>
+            </div>
+            <div class="mobile-input-hint"><span data-i18n="mobileHint">Enter to send · Shift+Enter for newline · 🎤 Voice</span></div>
+        </div>
+    </div>
+    
+    <!-- 理由弹窗已移除（死代码） -->
+
+    <script>
+        const API_BASE = 'http://localhost:8000';
+        let currentBattleId = null;
+        let currentModels = [];  // 存储4个Model的真实身份（从API返回）
+        let modelRevealed = false;  // 是否已揭晓
+        let currentWinner = null;
+        let isGenerating = false;
+        let renderCompleteTime = 0;  // 渲染完成时间戳
+        let maxScrollDepth = 0;  // 4面板中最大滚动深度(0-100%)
+        let isRecording = false;
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let currentWorst = null;  // 当前选中的WORSTModel标签(A/B/C/D/null)
+        
+        // ===== V-Verification 状态 =====
+        let thinkModeEnabled = false;  // Think Mode开关
+        let quotaBlindRemaining = 5;   // 剩余盲测额度
+        let quotaThinkRemaining = 1;   // 剩余Think额度
+        let thinkModalResolve = null;  // 弹窗回调
+        
+        // Model品牌色映射
+        const MODEL_BRAND_COLORS = {
+            'alibaba': '#FF6A00', 'baidu': '#2932E1', 'tencent': '#07C160',
+            'byteDance': '#325AB4', 'zhipu': '#3B5FDB', 'moonshot': '#6C5CE7',
+            'deepseek': '#4D6BFE', 'baichuan': '#FF6B6B', 'minimax': '#00B4D8',
+            'stepfun': '#845EF7', 'xiaomi': '#FF6900', 'sensetime': '#00C9A7',
+            'internlm': '#4ECDC4', 'kunlun': '#E84393', '360': '#4CAF50',
+            'huawei': '#CF0A2C', 'kuaishou': '#FF9500', 'meituan': '#FFD100'
+        };
+        function getBrandColor(modelId) {
+            const provider = modelId.split(':')[0];
+            return MODEL_BRAND_COLORS[provider] || '#7C3AED';
+        }
+
+        // 厂商英文ID → 中文名映射（与后端 LLM_PROVIDERS 对齐）
+        const MODEL_CN_NAMES = {
+            'alibaba': '阿里巴巴', 'baidu': '百度', 'tencent': '腾讯',
+            'byteDance': '字节跳动', 'zhipu': '智谱AI', 'moonshot': '月之暗面',
+            'deepseek': 'DeepSeek', 'baichuan': '百川智能', 'minimax': 'MiniMax',
+            'lingyiwanwu': '零一万物', 'stepfun': '阶跃星辰', 'xiaomi': '小米',
+            'sensetime': '商汤科技', 'internlm': '书生·浦语', 'kunlun': '昆仑万维',
+            '360': '360智脑', 'huawei': '华为云', 'kuaishou': '快手可灵',
+            'meituan': '美团', 'xfyun': '科大讯飞', 'wangyi': '网易有道',
+            'modelbest': '面壁智能'
+        };
+        
+        function getCnName(modelId) {
+            const provider = modelId.split(':')[0];
+            return MODEL_CN_NAMES[provider] || modelId;
+        }
+
+        function getDisplayName(modelId) {
+            const parts = modelId.split(':');
+            if (parts.length >= 2) {
+                const cn = MODEL_CN_NAMES[parts[0]] || parts[0];
+                return cn + ':' + parts.slice(1).join(':');
+            }
+            return MODEL_CN_NAMES[modelId] || modelId;
+        }
+        
+        // 手机版侧边栏开关
+        function toggleSidebar() {
+            const overlay = document.getElementById('sidebarOverlay');
+            const sidebar = document.getElementById('mobileSidebar');
+            const hamburger = document.getElementById('hamburgerBtn');
+            if (!overlay || !sidebar) return;
+            const isOpen = sidebar.classList.contains('open');
+            if (isOpen) {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('open');
+                hamburger?.classList.remove('open');
+                document.body.style.overflow = '';
+            } else {
+                sidebar.classList.add('open');
+                overlay.classList.add('open');
+                hamburger?.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        async function loadMiniLeaderboard() {
+            const container = document.getElementById('miniLeaderboard');
+            const modeLabel = document.getElementById('miniLbMode');
+            if (!container) return;
+            const categoryLabels = { overall: 'Overall', coding: 'Coding', writing: 'Creative Writing' };
+            modeLabel.textContent = categoryLabels[currentLbCategory] || 'Overall';
+            try {
+                const res = await fetch(`${API_BASE}/api/arena/leaderboard?mode=${currentLbCategory}`);
+                const data = await res.json();
+                const lb = data.leaderboard || [];
+                if (lb.length === 0) {
+                    container.innerHTML = '<div class="mini-lb-loading">No data yet</div>';
+                    return;
+                }
+                const top5 = lb.slice(0, 5);
+                container.innerHTML = top5.map((item, idx) => {
+                    const rankClass = idx === 0 ? 'top1' : idx === 1 ? 'top2' : idx === 2 ? 'top3' : 'other';
+                    const brandColor = getBrandColor(item.model_id);
+                    return `<div class="mini-lb-row" onclick="window.location.href='/leaderboard.html'">
+                        <div class="mini-lb-rank ${rankClass}">${idx + 1}</div>
+                        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${brandColor};flex-shrink:0;"></span>
+                        <div class="mini-lb-name">${getCnName(item.model_id)}</div>
+                        <div class="mini-lb-score">${item.arena_score}</div>
+                    </div>`;
+                }).join('');
+            } catch (e) {
+                container.innerHTML = '<div class="mini-lb-loading"><span data-i18n="error">Load Failed</span></div>';
+            }
+        }
+        
+        // 页面加载时初始化mini排行榜
+        loadMiniLeaderboard();
+        // 每30秒自动刷新Live Rankings
+        setInterval(loadMiniLeaderboard, 30000);
+        
+        // 自动调整输入框
+        function autoResize(el) {
+            el.style.height = 'auto';
+            el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+        }
+        
+        // ========== 语音输入功能 ==========
+        async function toggleVoiceInput(platform) {
+            const btnId = platform === 'desktop' ? 'desktopVoiceBtn' : 'mobileVoiceBtn';
+            const inputId = platform === 'desktop' ? 'desktopInput' : 'mobileInput';
+            const btn = document.getElementById(btnId);
+            const input = document.getElementById(inputId);
+            
+            if (!isRecording) {
+                // 开始录音
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+                    
+                    mediaRecorder.ondataavailable = (event) => {
+                        audioChunks.push(event.data);
+                    };
+                    
+                    mediaRecorder.onstop = async () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                        await transcribeAudio(audioBlob, input);
+                        
+                        // 停止所有音轨
+                        stream.getTracks().forEach(track => track.stop());
+                    };
+                    
+                    mediaRecorder.start();
+                    isRecording = true;
+                    btn.classList.add('recording');
+                    showToast('🎤 Recording, tap to stop', 'info');
+                    
+                } catch (err) {
+                    console.error('录音失败:', err);
+                    showToast('Cannot access microphone, check permissions', 'error');
+                }
+            } else {
+                // 停止录音
+                if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                    mediaRecorder.stop();
+                }
+                isRecording = false;
+                btn.classList.remove('recording');
+                showToast('📝 Recognizing...', 'info');
+            }
+        }
+        
+        // 语音识别 - 调用后端 API
+        async function transcribeAudio(audioBlob, inputElement) {
+            try {
+                // 转换为 base64
+                const reader = new FileReader();
+                reader.readAsDataURL(audioBlob);
+                
+                reader.onloadend = async () => {
+                    const base64Audio = reader.result.split(',')[1];
+                    
+                    const response = await fetch(`${API_BASE}/api/speech-to-text`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            audio_base64: base64Audio,
+                            model: 'SenseVoiceSmall'
+                        })
+                    });
+                    
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.detail || 'Recognition failed');
+                    }
+                    
+                    const result = await response.json();
+                    
+                    if (result.text) {
+                        inputElement.value = result.text;
+                        autoResize(inputElement);
+                        showToast('✅ Voice recognition done', 'success');
+                    } else {
+                        showToast('⚠️ Could not recognize, try again', 'warning');
+                    }
+                };
+                
+            } catch (err) {
+                console.error('语音识别Error:', err);
+                showToast(`Recognition failed: ${err.message}`, 'error');
+            }
+        }
+        
+        // 键盘事件
+        function handleKeyDown(e, platform) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                startBattle(platform);
+            }
+        }
+        
+        // 重置桌面版
+        function resetDesktop() {
+            document.getElementById('desktopWelcome').style.display = 'flex';
+            document.getElementById('desktopBattle').classList.remove('active');
+            document.getElementById('desktopInput').value = '';
+            document.getElementById('desktopVoteArea').style.display = 'none';
+        }
+        
+        // 重置手机版
+        function resetMobile() {
+            document.getElementById('mobileWelcome').style.display = 'flex';
+            document.getElementById('mobileBattle').classList.remove('active');
+            document.getElementById('mobileInput').value = '';
+            document.getElementById('mobileVoteArea').classList.remove('active');
+        }
+
+        // 手机侧边栏
+
+
+        
+        // 切换极速/Expert Mode
+        let currentLbCategory = 'overall';  // 侧栏排行榜当前分类
+        let currentSpeed = 'fast';  // 对战速度：fast 或 expert
+
+        function setLeaderboardCategory(category) {
+            currentLbCategory = category;
+            const categoryNames = { overall: 'Overall', coding: 'Coding', writing: 'Creative Writing' };
+            showToast(categoryNames[category] || t("leaderboard"), 'info');
+            loadMiniLeaderboard();
+        }
+        
+        function switchMode(mode) {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+        
+        // 选择WORSTModel（可选，投BEST前/后均可点）
+        function selectWorst(label) {
+            if (modelRevealed) return;
+            if (currentWorst === label) {
+                currentWorst = null;
+                document.querySelectorAll('.vote-btn-worst, .mobile-worst-btn').forEach(b => b.classList.remove('selected-worst'));
+                return;
+            }
+            currentWorst = label;
+            document.querySelectorAll('.vote-btn-worst, .mobile-worst-btn').forEach(b => b.classList.remove('selected-worst'));
+            document.querySelectorAll('.vote-btn-worst, .mobile-worst-btn').forEach(b => {
+                const t = b.textContent.trim();
+                if (t.includes(label) || t === label || b.dataset.worst === label) b.classList.add('selected-worst');
+            });
+        }
+
+        function updateMobileWorstBtn(btn) {
+            // CSS handles via selected-worst class in selectWorst
+        }
+
+        // 选择BESTModel（不直接提交，等用户点Submit Vote）
+        function selectBest(label, btnEl) {
+            if (modelRevealed) return;
+            if (currentWinner === label) {
+                currentWinner = null;
+                document.querySelectorAll('.vote-btn-desktop:not(.vote-btn-worst), .mobile-vote-btn:not(.vote-btn-worst), .mobile-best-btn').forEach(b => b.classList.remove('selected'));
+                updateConfirmBtn();
+                return;
+            }
+            currentWinner = label;
+            document.querySelectorAll('.vote-btn-desktop:not(.vote-btn-worst), .mobile-vote-btn:not(.vote-btn-worst), .mobile-best-btn').forEach(b => b.classList.remove('selected'));
+            document.querySelectorAll('.vote-btn-desktop:not(.vote-btn-worst), .mobile-vote-btn:not(.vote-btn-worst), .mobile-best-btn').forEach(b => {
+                const t = b.textContent.trim();
+                if (t.includes(label) || t === label) b.classList.add('selected');
+            });
+            updateConfirmBtn();
+        }
+
+        function updateConfirmBtn() {
+            const enabled = !!currentWinner;
+            ['confirmVoteDesktop', 'confirmVoteMobile'].forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) btn.disabled = !enabled;
+            });
+        }
+
+        async function confirmVote() {
+            if (!currentWinner || modelRevealed) return;
+            await submitVote(currentWinner, null);
+        }
+        
+        // 重置投票状态
+        function resetVoteState() {
+            currentWinner = null;
+            currentWorst = null;
+            modelRevealed = false;
+            document.querySelectorAll('.vote-btn-worst').forEach(b => b.classList.remove('selected-worst'));
+            document.querySelectorAll('.vote-btn-desktop:not(.vote-btn-worst), .mobile-vote-btn:not(.vote-btn-worst)').forEach(b => b.classList.remove('selected'));
+            updateConfirmBtn();
+        }
+        
+        // 开始 Battle
+        async function startBattle(platform) {
+            const inputId = platform === 'desktop' ? 'desktopInput' : 'mobileInput';
+            const input = document.getElementById(inputId);
+            const question = input.value.trim();
+            
+            if (!question || isGenerating) return;
+            
+            isGenerating = true;
+            input.value = '';
+            
+            if (platform === 'desktop') {
+                document.getElementById('desktopWelcome').style.display = 'none';
+                document.getElementById('desktopBattle').classList.add('active');
+                document.getElementById('desktopQuestionText').textContent = question;
+                document.getElementById('desktopPanelA').innerHTML = generatingHTML();
+                document.getElementById('desktopPanelB').innerHTML = generatingHTML();
+                document.getElementById('desktopPanelC').innerHTML = generatingHTML();
+                document.getElementById('desktopPanelD').innerHTML = generatingHTML();
+            } else {
+                document.getElementById('mobileWelcome').style.display = 'none';
+                document.getElementById('mobileBattle').classList.add('active');
+                document.getElementById('mobileQuestionText').textContent = question;
+                document.getElementById('mobilePanelA').innerHTML = generatingHTML();
+                document.getElementById('mobilePanelB').innerHTML = generatingHTML();
+                document.getElementById('mobilePanelC').innerHTML = generatingHTML();
+                document.getElementById('mobilePanelD').innerHTML = generatingHTML();
+            }
+
+            // Issue 3: Progress indicator — 非Think Mode显示进度
+            let progressTimer = null;
+            if (!thinkModeEnabled) {
+                const panels = document.querySelectorAll('.panel-content, .mobile-panel-content');
+                progressTimer = setTimeout(() => {
+                    panels.forEach(p => {
+                        if (p.innerHTML.includes('generating')) {
+                            p.innerHTML = '<div class="generating"><div class="generating-dots"><span></span><span></span><span></span></div>Thinking...</div>';
+                        }
+                    });
+                }, 1200);
+                setTimeout(() => {
+                    panels.forEach(p => {
+                        if (p.innerHTML.includes('Thinking...')) {
+                            p.innerHTML = '<div class="generating"><div class="generating-dots"><span></span><span></span><span></span></div>Generating answer...</div>';
+                        }
+                    });
+                }, 2500);
+            }
+
+            try {
+                const chatRes = await fetch(`${API_BASE}/api/arena/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question, mode: currentSpeed, think_mode: thinkModeEnabled })
+                });
+                
+                const data = await chatRes.json();
+                currentBattleId = data.battle_id;
+                // 显示自动分类结果
+                if (data.category_name) {
+                    const categoryIcons = { 'Overall': '🏆', 'Coding': '💻', 'Creative Writing': '✍️' };
+                    const icon = categoryIcons[data.category_name] || '🏆';
+                    showToast(`${icon} Auto-classified: ${data.category_name}`, 'info');
+                }
+                renderCompleteTime = 0;  // 重置，待4面板DOM渲染完成后赋值
+                maxScrollDepth = 0;  // 重置滚动深度
+                modelRevealed = false;  // 重置揭晓状态
+                currentWorst = null;  // 重置WORST选择
+                document.querySelectorAll('.vote-btn-worst').forEach(b => b.classList.remove('selected-worst'));
+                
+                if (platform === 'desktop') {
+                    // 处理4个Model响应
+                    const panels = ['desktopPanelA', 'desktopPanelB', 'desktopPanelC', 'desktopPanelD'];
+                    const headerNames = ['Model A', 'Model B', 'Model C', 'Model D'];
+                    if (data.responses) {
+                        for (let i = 0; i < 4; i++) {
+                            const resp = data.responses[i];
+                            const content = resp && resp.content ? resp.content : (resp && resp.error ? 'Error: ' + resp.error : 'No response');
+                            document.getElementById(panels[i]).innerHTML = formatResponseWithThinking(content);
+                        }
+                    } else {
+                        // 兼容旧API
+                        document.getElementById('desktopPanelA').innerHTML = formatResponse(data.response_a || data.error_a);
+                        document.getElementById('desktopPanelB').innerHTML = formatResponse(data.response_b || data.error_b);
+                    }
+                    document.getElementById('desktopVoteArea').style.display = 'flex';
+                    // 确保标题是匿名状态
+                    document.querySelectorAll('.panel-header-desktop span:last-child').forEach((el, i) => {
+                        el.textContent = headerNames[i];
+                    });
+                    // 挂scroll depth监听
+                    panels.forEach(pid => {
+                        const el = document.getElementById(pid);
+                        if (el) {
+                            el.onscroll = function() {
+                                if (el.scrollHeight > el.clientHeight) {
+                                    const pct = Math.round(el.scrollTop / (el.scrollHeight - el.clientHeight) * 100);
+                                    if (pct > maxScrollDepth) maxScrollDepth = pct;
+                                }
+                            };
+                        }
+                    });
+                    // 4面板DOM写入完成，等浏览器渲染后记录时间戳
+                    requestAnimationFrame(() => { renderCompleteTime = Date.now() / 1000; });
+                } else {
+                    // 处理4个Model响应
+                    const mobilePanels = ['mobilePanelA', 'mobilePanelB', 'mobilePanelC', 'mobilePanelD'];
+                    const headerNames = ['Model A', 'Model B', 'Model C', 'Model D'];
+                    if (data.responses) {
+                        for (let i = 0; i < 4; i++) {
+                            const resp = data.responses[i];
+                            const content = resp && resp.content ? resp.content : (resp && resp.error ? 'Error: ' + resp.error : 'No response');
+                            document.getElementById(mobilePanels[i]).innerHTML = formatResponseWithThinking(content);
+                        }
+                    } else {
+                        document.getElementById('mobilePanelA').innerHTML = formatResponse(data.response_a || data.error_a);
+                        document.getElementById('mobilePanelB').innerHTML = formatResponse(data.response_b || data.error_b);
+                    }
+                    document.getElementById('mobileVoteArea').classList.add('active');
+                    // 确保标题是匿名状态
+                    document.querySelectorAll('.mobile-panel-header span:last-child').forEach((el, i) => {
+                        el.textContent = headerNames[i];
+                    });
+                    // 挂scroll depth监听
+                    mobilePanels.forEach(pid => {
+                        const el = document.getElementById(pid);
+                        if (el) {
+                            el.onscroll = function() {
+                                if (el.scrollHeight > el.clientHeight) {
+                                    const pct = Math.round(el.scrollTop / (el.scrollHeight - el.clientHeight) * 100);
+                                    if (pct > maxScrollDepth) maxScrollDepth = pct;
+                                }
+                            };
+                        }
+                    });
+                    // 4面板DOM写入完成，等浏览器渲染后记录时间戳
+                    requestAnimationFrame(() => { renderCompleteTime = Date.now() / 1000; });
+                }
+            } catch (err) {
+                const errorMsg = `<p style="color: #EF4444;">Error: ${err.message}</p>`;
+                if (platform === 'desktop') {
+                    document.getElementById('desktopPanelA').innerHTML = errorMsg;
+                    document.getElementById('desktopPanelB').innerHTML = '<p style="color: var(--text-muted);">Please ensure backend is running</p>';
+                } else {
+                    document.getElementById('mobilePanelA').innerHTML = errorMsg;
+                    document.getElementById('mobilePanelB').innerHTML = '<p style="color: var(--text-muted);">Please ensure backend is running</p>';
+                }
+            } finally {
+                isGenerating = false;
+            }
+        }
+        
+        function generatingHTML() {
+            return '<div class="generating"><div class="generating-dots"><span></span><span></span><span></span></div>Generating...</div>';
+        }
+        
+        function formatResponse(text) {
+            if (!text) return '<p style="color: var(--text-muted);">No response</p>';
+            if (text.startsWith('Error:') || text.startsWith('⚠️')) return `<p style="color: #EF4444;">${text}</p>`;
+            return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                      .replace(/\n/g, '<br>');
+        }
+        
+        // 投票
+        async function submitVote(winner, btnEl) {
+            if (!currentBattleId || modelRevealed) return;
+            
+            currentWinner = winner;
+            
+            const userClickTime = Date.now() / 1000;
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/arena/vote`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        battle_id: currentBattleId,
+                        winner_label: winner,
+                        worst_label: currentWorst,
+                        user_id: getUserId(),
+                        fingerprint: localStorage.getItem('arena_fingerprint') || generateFingerprint(),
+                        render_complete_time: renderCompleteTime,
+                        user_click_time: userClickTime,
+                        scroll_depth: maxScrollDepth,
+                        think_mode: thinkModeEnabled,
+                        device_hash: localStorage.getItem("axiom_device_hash") || generateDeviceHash()
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    modelRevealed = true;
+                    
+                    // Reveal Models身份
+                    if (data.reveal) {
+                        // 桌面版
+                        const desktopHeaders = document.querySelectorAll('.panel-header-desktop span:last-child');
+                        ['A', 'B', 'C', 'D'].forEach((label, i) => {
+                            if (data.reveal[label]) {
+                                const brand = data.reveal[label].sponsor_brand;
+                                desktopHeaders[i].textContent = getDisplayName(data.reveal[label].model_id) + (brand ? ` (${brand}sponsored)` : '');
+                                desktopHeaders[i].style.color = 'var(--tech-cyan)';
+                            }
+                        });
+                        
+                        // 手机版
+                        const mobileHeaders = document.querySelectorAll('.mobile-panel-header span:last-child');
+                        ['A', 'B', 'C', 'D'].forEach((label, i) => {
+                            if (data.reveal[label]) {
+                                const brand = data.reveal[label].sponsor_brand;
+                                mobileHeaders[i].textContent = getDisplayName(data.reveal[label].model_id) + (brand ? ` (${brand}sponsored)` : '');
+                                mobileHeaders[i].style.color = 'var(--tech-cyan)';
+                            }
+                        });
+                    }
+                    
+                    // 更新额度状态
+                    if (data.quota) {
+                        quotaBlindRemaining = data.quota.blind_remaining;
+                        quotaThinkRemaining = data.quota.think_remaining;
+                        renderQuotaBar('desktop');
+                        renderQuotaBar('mobile');
+                    }
+                    
+                    // 投票结果提示
+                    let voteMsg = `Voted: ${winner}${currentWorst ? ' | WORST: ' + currentWorst : ''}`;
+                    if (!data.is_valid_for_elo) {
+                        voteMsg += ' (Over quota, not counted)';
+                    } else {
+                        voteMsg += ` (Weight: ${data.vote_weight.toFixed(2)})`;
+                    }
+                    showToast(voteMsg, data.is_valid_for_elo ? 'success' : 'warning');
+                    
+                    // Issue 6: 投票后自动触发龙猫交叉验证
+                    showDpoPanel(winner, currentWorst);
+                    setTimeout(() => triggerCrossCheck(), 500);
+                }
+            } catch (err) {
+                console.error('Vote error:', err);
+                showToast('Vote failed: ' + err.message, 'error');
+            }
+        }
+        
+        // 获取用户ID
+        function getUserId() {
+            // 优先使用服务端签发的ID
+            let id = localStorage.getItem('arena_user_id');
+            if (!id) {
+                // 首次访问，向服务端申请ID
+                requestServerUserId();
+                id = 'pending';
+            }
+            return id;
+        }
+
+        // ===== Axiom 全端设备指纹采集 (Canvas+WebGL+Audio) =====
+        function generateFingerprint() {
+            // Canvas fingerprint
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.textBaseline = 'top'; ctx.font = '14px Arial';
+            ctx.fillStyle = 'rgb(255,0,0)'; ctx.fillText('axiom\u00B5', 2, 2);
+            ctx.fillStyle = 'rgb(0,0,255)'; ctx.fillText('\u2603\u2764', 5, 16);
+            const canvasFP = canvas.toDataURL().slice(-120);
+
+            // WebGL fingerprint
+            let webglFP = '';
+            try {
+                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                if (gl) {
+                    const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+                    webglFP = (dbg ? gl.getParameter(dbg.UNMASKED_VENDOR_WEBGL)+'|'+gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : '');
+                }
+            } catch(e) { webglFP = 'no_webgl'; }
+
+            // AudioContext fingerprint
+            let audioFP = '';
+            try {
+                const ac = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ac.createOscillator();
+                const ana = ac.createAnalyser();
+                osc.connect(ana); ana.connect(ac.destination);
+                audioFP = String(ac.sampleRate) + '|' + String(ana.fftSize) + '|' + String(osc.type);
+                osc.disconnect(); ana.disconnect(); ac.close();
+            } catch(e) { audioFP = 'no_audio'; }
+
+            // System attributes
+            const screenInfo = `${screen.width}x${screen.height}x${screen.colorDepth}`;
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const lang = navigator.language;
+            const cores = navigator.hardwareConcurrency || 0;
+            const mem = navigator.deviceMemory || 0;
+            const platform = navigator.platform || '';
+
+            // Composite raw fingerprint
+            const raw = [canvasFP, webglFP, audioFP, screenInfo, tz, lang, cores, mem, platform].join('\x00');
+
+            // djb2-like hash
+            let hash = 5381;
+            for (let i = 0; i < raw.length; i++) {
+                hash = ((hash << 5) + hash) + raw.charCodeAt(i);
+                hash = hash & hash; // 32-bit
+            }
+            return 'fp_' + Math.abs(hash).toString(36);
+        }
+
+        // ===== 生成设备指纹 Hash (Axiom-512, 日级稳定) =====
+        function generateDeviceHash() {
+            const fp = generateFingerprint();
+            // Second-pass hash
+            let hash = 0;
+            for (let i = 0; i < fp.length; i++) {
+                hash = ((hash << 5) - hash) + fp.charCodeAt(i);
+                hash |= 0;
+            }
+            // Day-level salt for stability (same device = same hash within 24h)
+            const salt = Math.floor(Date.now() / 86400000).toString(36);
+            const combined = fp + '|' + salt;
+            let dhash = 0;
+            for (let i = 0; i < combined.length; i++) {
+                dhash = ((dhash << 5) + dhash) + combined.charCodeAt(i);
+                dhash = dhash & dhash;
+            }
+            return 'dh_' + Math.abs(dhash).toString(36);
+        }
+
+        // 请求服务端签发user_id + 注册设备指纹 (Axiom)
+        async function requestServerUserId() {
+            try {
+                const fp = generateFingerprint();
+                const dh = generateDeviceHash();
+                localStorage.setItem('arena_fingerprint', fp);
+                localStorage.setItem('axiom_device_hash', dh);
+                const resp = await fetch(API_BASE + '/api/fingerprint/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ fingerprint: fp, device_hash: dh })
+                });
+                if (resp.ok) {
+                    const data = await resp.json();
+                    localStorage.setItem('arena_user_id', data.user_id);
+                    // 更新配额状态
+                    if (data.quota) {
+                        quotaBlindRemaining = data.quota.blind_remaining;
+                        quotaThinkRemaining = data.quota.think_remaining;
+                        renderQuotaBar('desktop');
+                        renderQuotaBar('mobile');
+                    }
+                    console.log('[Axiom] device registered uid=' + data.user_id.slice(0,12) + ' dh=' + dh.slice(0,12));
+                }
+            } catch (e) {
+                console.warn('[Axiom] fingerprint register failed: ' + e.message);
+                // Fallback: 自生成ID + 本地device_hash
+                const fallbackId = 'user_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('arena_user_id', fallbackId);
+                const dh = generateDeviceHash();
+                localStorage.setItem('axiom_device_hash', dh);
+            }
+        }
+
+        // reasonModal and related functions removed (dead code never shown)
+
+        // 页面加载时获取服务端ID
+        (function initUserId() {
+            const existingId = localStorage.getItem('arena_user_id');
+            if (!existingId || existingId.startsWith('user_')) {
+                requestServerUserId();
+            }
+        })();
+
+        // skipReason() and submitReason() removed (dead code)
+
+        // Toast - 支持 info, success, error, warning 类型
+        // ===== V-Verification: Quota + Think Mode =====
+        function renderQuotaBar(platform) {
+            const dotsId = platform === 'desktop' ? 'desktopQuotaDots' : 'mobileQuotaDots';
+            const textId = platform === 'desktop' ? 'desktopQuotaText' : 'mobileQuotaText';
+            const dotsEl = document.getElementById(dotsId);
+            const textEl = document.getElementById(textId);
+            if (!dotsEl || !textEl) return;
+            const remaining = thinkModeEnabled ? quotaThinkRemaining : quotaBlindRemaining;
+            const total = thinkModeEnabled ? 1 : 5;
+            let html = '';
+            for (let i = 0; i < total; i++) {
+                const cls = i < remaining ? 'quota-dot filled' : 'quota-dot exhausted';
+                html += `<div class="${cls}"></div>`;
+            }
+            dotsEl.innerHTML = html;
+            textEl.textContent = `${remaining}/${total}`;
+        }
+
+        function fetchQuotaStatus() {
+            const fp = localStorage.getItem('arena_fingerprint') || '';
+            fetch(`${API_BASE}/api/arena/quota?fingerprint=${encodeURIComponent(fp)}`)
+                .then(r => r.json())
+                .then(data => {
+                    if (data.blind_remaining !== undefined) {
+                        quotaBlindRemaining = data.blind_remaining;
+                        quotaThinkRemaining = data.think_remaining;
+                        renderQuotaBar('desktop');
+                        renderQuotaBar('mobile');
+                    }
+                })
+                .catch(() => {});
+        }
+
+        async function toggleThinkMode(platform) {
+            if (!thinkModeEnabled) {
+                // 开启前弹窗确认
+                const confirmed = await showThinkModal();
+                if (!confirmed) return;
+            }
+            thinkModeEnabled = !thinkModeEnabled;
+            const desktopSwitch = document.getElementById('desktopThinkSwitch');
+            const mobileSwitch = document.getElementById('mobileThinkSwitch');
+            if (desktopSwitch) desktopSwitch.classList.toggle('active', thinkModeEnabled);
+            if (mobileSwitch) mobileSwitch.classList.toggle('active', thinkModeEnabled);
+            renderQuotaBar('desktop');
+            renderQuotaBar('mobile');
+        }
+
+        function showThinkModal() {
+            return new Promise(resolve => {
+                thinkModalResolve = resolve;
+                document.getElementById('thinkModal').classList.add('active');
+            });
+        }
+
+        function closeThinkModal(confirmed) {
+            document.getElementById('thinkModal').classList.remove('active');
+            if (thinkModalResolve) {
+                thinkModalResolve(confirmed);
+                thinkModalResolve = null;
+            }
+        }
+
+        // 思考过程折叠渲染
+        function formatResponseWithThinking(content) {
+            if (!thinkModeEnabled || !content) return formatResponse(content);
+            // 检测 <think>...</think> 或 <thinking>...</thinking> 标签
+            const thinkRegex = /<(?:think|thinking)>([\s\S]*?)<\/(?:think|thinking)>/i;
+            const match = content.match(thinkRegex);
+            if (!match) return formatResponse(content);
+            const thinkContent = match[1].trim();
+            const mainContent = content.replace(thinkRegex, '').trim();
+            const thinkId = 'think_' + Math.random().toString(36).substr(2, 8);
+            const thinkHtml = `<div class="thinking-block">
+                <div class="thinking-toggle" onclick="toggleThinkingBlock('${thinkId}', this)">
+                    <span class="thinking-toggle-arrow" id="arrow_${thinkId}">\u25B6</span>
+                    <span>[+] Axiom \u63A8\u6F14\u8FFD\u8E2A</span>
+                </div>
+                <div class="thinking-content" id="${thinkId}">${escapeHtml(thinkContent)}</div>
+            </div>`;
+            return thinkHtml + formatResponse(mainContent);
+        }
+
+        function toggleThinkingBlock(id, toggleEl) {
+            const el = document.getElementById(id);
+            const arrow = document.getElementById('arrow_' + id);
+            if (!el) return;
+            el.classList.toggle('open');
+            arrow.classList.toggle('open');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showToast(message, type = 'info') {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+            
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            
+            // 不同类型不同边框颜色
+            if (type === 'info') {
+                toast.style.borderColor = 'var(--tech-cyan)';
+            } else if (type === 'warning') {
+                toast.style.borderColor = 'var(--warning-yellow)';
+            }
+            
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+    </script>
+    <script>
+        // Force prevent horizontal overflow
+        document.addEventListener('DOMContentLoaded', function() {
+            document.documentElement.style.overflowX = 'hidden';
+            document.body.style.overflowX = 'hidden';
+            document.body.style.maxWidth = '100vw';
+            // 初始化额度条
+            renderQuotaBar('desktop');
+            renderQuotaBar('mobile');
+            fetchQuotaStatus();
+        });
+        if ('serviceWorker' in navigator) {
+            // ===== DPO 标签系统 =====
+        let dpoWinnerTags = [];
+        let dpoWorstTags = [];
+        let dpoWinner = null;
+        let dpoWorst = null;
+        let dpoSubmitted = false;
+
+        function showDpoPanel(winner, worst) {
+            dpoWinner = winner;
+            dpoWorst = worst;
+            dpoWinnerTags = [];
+            dpoWorstTags = [];
+            dpoSubmitted = false;
+            // Clear选中状态
+            document.querySelectorAll('.dpo-tag').forEach(t => t.classList.remove('selected'));
+            // Desktop
+            const ds = document.getElementById('dpoSubmitDesktop');
+            if (ds) ds.disabled = true;
+            const dc = document.getElementById('crosscheckBtnDesktop');
+            if (dc) dc.disabled = false;
+            const dp = document.getElementById('dpoPanelDesktop');
+            if (dp) dp.classList.add('active');
+            // Mobile
+            const ms = document.getElementById('dpoSubmitMobile');
+            if (ms) ms.disabled = true;
+            const mc = document.getElementById('crosscheckBtnMobile');
+            if (mc) mc.disabled = false;
+            const mp = document.getElementById('dpoPanelMobile');
+            if (mp) mp.classList.add('active');
+        }
+
+        function toggleDpoTag(el, type) {
+            const tag = el.dataset.tag;
+            if (type === 'winner') {
+                if (dpoWinnerTags.includes(tag)) {
+                    dpoWinnerTags = dpoWinnerTags.filter(t => t !== tag);
+                    el.classList.remove('selected');
+                } else {
+                    dpoWinnerTags.push(tag);
+                    el.classList.add('selected');
+                }
+            } else {
+                if (dpoWorstTags.includes(tag)) {
+                    dpoWorstTags = dpoWorstTags.filter(t => t !== tag);
+                    el.classList.remove('selected');
+                } else {
+                    dpoWorstTags.push(tag);
+                    el.classList.add('selected');
+                }
+            }
+            // 有任何标签选中时启用提交
+            const hasAny = dpoWinnerTags.length > 0 || dpoWorstTags.length > 0;
+            const ds = document.getElementById('dpoSubmitDesktop');
+            if (ds) ds.disabled = !hasAny;
+            const ms = document.getElementById('dpoSubmitMobile');
+            if (ms) ms.disabled = !hasAny;
+        }
+
+        async function submitDpoTags(source) {
+            if (dpoSubmitted) return;
+            if (dpoWinnerTags.length === 0 && dpoWorstTags.length === 0) return;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/arena/dpo-tags`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        battle_id: currentBattleId,
+                        winner_label: dpoWinner || '',
+                        worst_label: dpoWorst || '',
+                        winner_tags: dpoWinnerTags,
+                        worst_tags: dpoWorstTags,
+                        user_id: getUserId()
+                    })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    dpoSubmitted = true;
+                    // Desktop
+                    const ds = document.getElementById('dpoSubmitDesktop');
+                    if (ds) { ds.disabled = true; ds.textContent = 'Submitted'; }
+                    const dc = document.getElementById('crosscheckBtnDesktop');
+                    if (dc) dc.classList.add('visible');
+                    // Mobile
+                    const ms = document.getElementById('dpoSubmitMobile');
+                    if (ms) { ms.disabled = true; ms.textContent = 'Submitted'; }
+                    const mc = document.getElementById('crosscheckBtnMobile');
+                    if (mc) mc.classList.add('visible');
+                    showToast('DPO tags submitted', 'success');
+                }
+            } catch (err) {
+                showToast('Tag submission failed: ' + err.message, 'error');
+            }
+        }
+
+        async function triggerCrossCheck() {
+            if (!currentBattleId) {
+                showToast('Start a battle first', 'error');
+                return;
+            }
+            try {
+                const btn = document.getElementById('crosscheckBtnDesktop');
+                const btnM = document.getElementById('crosscheckBtnMobile');
+                if (btn) btn.disabled = true;
+                if (btnM) btnM.disabled = true;
+                showToast('Cross-validating four answers...', 'info');
+                const response = await fetch(`${API_BASE}/api/arena/cross-validate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        battle_id: currentBattleId,
+                        winner_label: currentWinner || '',
+                        worst_label: currentWorst || '',
+                        winner_tags: dpoWinnerTags,
+                        worst_tags: dpoWorstTags,
+                        context_data: ''
+                    })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    showTotoroResult(data);
+                } else {
+                    showToast(t("crossFailed"), 'error');
+                }
+                const btn2 = document.getElementById('crosscheckBtnDesktop');
+                const btnM2 = document.getElementById('crosscheckBtnMobile');
+                if (btn2) btn2.disabled = false;
+                if (btnM2) btnM2.disabled = false;
+            } catch (err) {
+                const btn3 = document.getElementById('crosscheckBtnDesktop');
+                const btnM3 = document.getElementById('crosscheckBtnMobile');
+                if (btn3) btn3.disabled = false;
+                if (btnM3) btnM3.disabled = false;
+                showToast('Cross-validation failed: ' + err.message, 'error');
+            }
+        }
+
+        function showTotoroResult(data) {
+            window._totoroData = data;
+            const isMobile = window.innerWidth <= 768;
+            const panelId = isMobile ? 'dpoPanelMobile' : 'dpoPanelDesktop';
+            const resultId = isMobile ? 'totoroResultMobile' : 'totoroResultDesktop';
+
+            let resultDiv = document.getElementById(resultId);
+            if (!resultDiv) {
+                resultDiv = document.createElement('div');
+                resultDiv.id = resultId;
+                resultDiv.style.cssText = 'margin-top:12px;padding:16px;background:rgba(46,213,115,0.05);border:1px solid rgba(46,213,115,0.2);border-radius:8px;max-width:900px;margin-left:auto;margin-right:auto;';
+                document.getElementById(panelId).after(resultDiv);
+            }
+
+            // Build proof log HTML
+            const proofHtml = data.proof_hash ? `
+                <details style="margin-top:10px">
+                    <summary style="font-size:11px;color:rgba(46,213,115,0.6);cursor:pointer;letter-spacing:1px;user-select:none">VERIFICATION PROOF LOG</summary>
+                    <div style="margin-top:8px;padding:10px;background:rgba(46,213,115,0.03);border:1px solid rgba(46,213,115,0.1);border-radius:4px;font-size:11px;color:rgba(255,255,255,0.45);line-height:1.7">
+                        <div><span style="color:#2ed573">Hash:</span> ${data.proof_hash}</div>
+                        <div><span style="color:#2ed573">Time:</span> ${data.proof_timestamp || 'N/A'}</div>
+                        <div><span style="color:#2ed573">Model:</span> ${data.totoro_model}</div>
+                        <div style="margin-top:4px"><span style="color:#2ed573">Weights:</span> ${JSON.stringify(data.weights_used || {})}</div>
+                        <div style="margin-top:4px"><span style="color:#2ed573">User Signal:</span> ${JSON.stringify(data.user_signal_applied || {})}</div>
+                    </div>
+                </details>
+            ` : '';
+
+            resultDiv.innerHTML = `
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                    <div style="font-size:12px;text-transform:uppercase;letter-spacing:2px;color:#2ed573;font-weight:600">CROSS-VALIDATION RESULT <span style="color:rgba(255,255,255,0.3);font-weight:400">${data.totoro_model}</span></div>
+                    <div style="display:flex;gap:8px">
+                        <button onclick="copyPureAnswer()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#aaa;padding:4px 12px;border-radius:4px;font-size:11px;cursor:pointer;letter-spacing:0.5px;transition:all .2s" onmouseover="this.style.borderColor='#00f0ff';this.style.color='#00f0ff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)';this.style.color='#aaa'">COPY</button>
+                        <button onclick="renderBattleCard()" style="background:rgba(0,240,255,0.08);border:1px solid rgba(0,240,255,0.3);color:#00f0ff;padding:4px 12px;border-radius:4px;font-size:11px;cursor:pointer;letter-spacing:0.5px;transition:all .2s" onmouseover="this.style.background='rgba(0,240,255,0.15)'" onmouseout="this.style.background='rgba(0,240,255,0.08)'">BATTLE CARD</button>
+                    </div>
+                </div>
+                <div style="color:#e0e0e0;font-size:14px;line-height:1.7;margin-bottom:12px;white-space:pre-wrap" id="totoroAnswerContent">${data.refined_answer}</div>
+                ${data.battle_report ? `<div style="font-size:11px;color:rgba(255,255,255,0.4);border-top:1px solid rgba(255,255,255,0.08);padding-top:8px;white-space:pre-wrap">${data.battle_report}</div>` : ''}
+                ${proofHtml}
+            `;
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            showToast('Cross-validation complete', 'success');
+        }
+
+        // ===== 纯净复制：只复制答案，0广告 =====
+        function copyPureAnswer() {
+            const data = window._totoroData;
+            if (!data || !data.refined_answer) return;
+            navigator.clipboard.writeText(data.refined_answer).then(() => {
+                showToast('Copied clean content', 'success');
+            }).catch(() => {
+                // Fallback
+                const ta = document.createElement('textarea');
+                ta.value = data.refined_answer;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                showToast('Copied clean content', 'success');
+            });
+        }
+
+        // ===== 极客战报 Canvas 渲染 =====
+        function renderBattleCard() {
+            const data = window._totoroData;
+            if (!data) return;
+
+            const W = 900, H = 520;
+            const canvas = document.createElement('canvas');
+            canvas.width = W * 2; canvas.height = H * 2; // 2x for retina
+            const ctx = canvas.getContext('2d');
+            ctx.scale(2, 2);
+
+            // Background: deep dark with gradient
+            const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+            bgGrad.addColorStop(0, '#0d0d0d');
+            bgGrad.addColorStop(1, '#0a0f14');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, W, H);
+
+            // Frosted glass panel
+            ctx.fillStyle = 'rgba(18, 24, 32, 0.7)';
+            ctx.beginPath();
+            ctx.roundRect(40, 70, W - 80, H - 140, 12);
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(0, 240, 255, 0.12)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // Top brand stamp
+            ctx.fillStyle = '#00f0ff';
+            ctx.font = '600 11px "SF Mono", "Fira Code", monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText('Cross-validated by LLMVECT via 4 top models | Truth-seeking', W / 2, 50);
+
+            // Decorative line under stamp
+            const stampGrad = ctx.createLinearGradient(100, 56, W - 100, 56);
+            stampGrad.addColorStop(0, 'rgba(0,240,255,0)');
+            stampGrad.addColorStop(0.5, 'rgba(0,240,255,0.4)');
+            stampGrad.addColorStop(1, 'rgba(0,240,255,0)');
+            ctx.strokeStyle = stampGrad;
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(100, 56); ctx.lineTo(W - 100, 56); ctx.stroke();
+
+            // Stats row
+            const statsY = 100;
+            const hallCount = data.hallucination_count || 0;
+            const leverage = data.token_leverage || 0;
+            const stats = [
+                { label: 'HALLUCINATIONS ELIMINATED', value: hallCount, color: '#ff4757' },
+                { label: 'TOKEN LEVERAGE', value: leverage + 'x', color: '#00f0ff' },
+                { label: 'VERIFIED BY', value: data.totoro_model || 'Totoro', color: '#2ed573' },
+            ];
+            const statW = (W - 120) / 3;
+            stats.forEach((s, i) => {
+                const sx = 60 + i * statW;
+                // Value
+                ctx.fillStyle = s.color;
+                ctx.font = '700 28px "SF Mono", "Fira Code", monospace';
+                ctx.textAlign = 'left';
+                ctx.fillText(String(s.value), sx, statsY + 28);
+                // Label
+                ctx.fillStyle = 'rgba(255,255,255,0.3)';
+                ctx.font = '400 9px "SF Mono", "Fira Code", monospace';
+                ctx.fillText(s.label, sx, statsY + 46);
+            });
+
+            // Question
+            ctx.fillStyle = 'rgba(255,255,255,0.35)';
+            ctx.font = '400 11px "SF Mono", "Fira Code", monospace';
+            ctx.textAlign = 'left';
+            const qText = (data.question_summary || '').substring(0, 80);
+            ctx.fillText('Q: ' + qText, 60, statsY + 75);
+
+            // Refined answer preview
+            ctx.fillStyle = 'rgba(255,255,255,0.25)';
+            ctx.fillRect(60, statsY + 88, W - 120, 1);
+
+            ctx.fillStyle = '#d0d0d0';
+            ctx.font = '400 13px "SF Mono", "Fira Code", monospace';
+            const answerLines = (data.refined_answer || '').split('\n').slice(0, 8);
+            let ay = statsY + 110;
+            answerLines.forEach(line => {
+                if (ay > H - 110) return;
+                const truncated = line.substring(0, 80);
+                ctx.fillText(truncated, 60, ay);
+                ay += 20;
+            });
+            if ((data.refined_answer || '').split('\n').length > 8) {
+                ctx.fillStyle = 'rgba(255,255,255,0.3)';
+                ctx.fillText('...', 60, ay);
+            }
+
+            // Proof hash (bottom of glass panel)
+            if (data.proof_hash) {
+                ctx.fillStyle = 'rgba(46,213,115,0.4)';
+                ctx.font = '400 9px "SF Mono", "Fira Code", monospace';
+                ctx.textAlign = 'left';
+                ctx.fillText('PROOF: ' + data.proof_hash.substring(0, 32) + '...', 60, H - 95);
+            }
+
+            // Bottom brand stamp
+            ctx.fillStyle = '#00f0ff';
+            ctx.font = '600 11px "SF Mono", "Fira Code", monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText('Cross-validated by LLMVECT via 4 top models | Truth-seeking', W / 2, H - 55);
+
+            // Bottom decorative line
+            const btmGrad = ctx.createLinearGradient(100, H - 48, W - 100, H - 48);
+            btmGrad.addColorStop(0, 'rgba(0,240,255,0)');
+            btmGrad.addColorStop(0.5, 'rgba(0,240,255,0.3)');
+            btmGrad.addColorStop(1, 'rgba(0,240,255,0)');
+            ctx.strokeStyle = btmGrad;
+            ctx.beginPath(); ctx.moveTo(100, H - 48); ctx.lineTo(W - 100, H - 48); ctx.stroke();
+
+            // Download
+            const link = document.createElement('a');
+            link.download = `llm-china-battle-${Date.now()}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            showToast('Battle report generated', 'success');
+        }
+
+        // resetVoteState中也要重置DPO
+        const _origReset = resetVoteState;
+        resetVoteState = function() {
+            _origReset();
+            const dp = document.getElementById('dpoPanelDesktop');
+            if (dp) dp.classList.remove('active');
+            const mp = document.getElementById('dpoPanelMobile');
+            if (mp) mp.classList.remove('active');
+            dpoWinnerTags = [];
+            dpoWorstTags = [];
+            dpoSubmitted = false;
+        };
+
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+        }
+    </script>
+
+    <!-- Think Mode Warning Modal -->
+    <div class="think-modal-overlay" id="thinkModal">
+        <div class="think-modal">
+            <div class="think-modal-icon">&#x26A0;&#xFE0F;</div>
+            <div class="think-modal-title"><span data-i18n="thinkModeTitle">Enable Think Mode</span></div>
+            <div class="think-modal-text">View model reasoning, but only <strong>1 vote</strong> per day counts toward rankings.<br>Extra votes in Think Mode are logged but don't affect scores.</div>
+            <div class="think-modal-btns">
+                <button class="think-modal-btn cancel" onclick="closeThinkModal(false)"><span data-i18n="cancel">Cancel</span></button>
+                <button class="think-modal-btn confirm" onclick="closeThinkModal(true)"><span data-i18n="confirm">Confirm</span></button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

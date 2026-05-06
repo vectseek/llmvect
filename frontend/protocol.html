@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Protocol - LLMVECT</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            color: #c8c8c8;
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            line-height: 1.8;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+        }
+        a.back {
+            color: #00f0ff;
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+        a.back:hover { text-decoration: underline; }
+        h1 {
+            font-size: 28px;
+            font-weight: 300;
+            color: #00f0ff;
+            margin: 32px 0 8px;
+            letter-spacing: 3px;
+        }
+        .subtitle {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+        h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #e0e0e0;
+            margin: 40px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+            letter-spacing: 1px;
+        }
+        h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #00f0ff;
+            margin: 24px 0 10px;
+        }
+        p {
+            font-size: 14px;
+            margin-bottom: 14px;
+            color: rgba(255,255,255,0.75);
+        }
+        .formula {
+            background: rgba(0, 240, 255, 0.04);
+            border: 1px solid rgba(0, 240, 255, 0.12);
+            border-radius: 6px;
+            padding: 16px 20px;
+            margin: 14px 0 20px;
+            font-size: 14px;
+            color: #e0e0e0;
+            overflow-x: auto;
+        }
+        .formula .var {
+            color: #00f0ff;
+            font-style: italic;
+        }
+        .formula .op {
+            color: #ff4757;
+        }
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin: 0 3px;
+        }
+        .tag-winner {
+            border: 1px solid rgba(0,240,255,0.4);
+            color: #00f0ff;
+            background: rgba(0,240,255,0.08);
+        }
+        .tag-worst {
+            border: 1px solid rgba(255,71,87,0.4);
+            color: #ff4757;
+            background: rgba(255,71,87,0.08);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 20px;
+            font-size: 13px;
+        }
+        th, td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        th {
+            color: #00f0ff;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        td { color: rgba(255,255,255,0.6); }
+        .section-divider {
+            border: none;
+            border-top: 1px solid rgba(0,240,255,0.08);
+            margin: 48px 0;
+        }
+        .proof-box {
+            background: rgba(46,213,115,0.04);
+            border: 1px solid rgba(46,213,115,0.15);
+            border-radius: 6px;
+            padding: 16px 20px;
+            margin: 14px 0 20px;
+        }
+        .proof-box .hash {
+            font-size: 12px;
+            word-break: break-all;
+            color: #2ed573;
+        }
+        .footnote {
+            font-size: 11px;
+            color: rgba(255,255,255,0.25);
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a class="back" href="/">← Back to Arena</a>
+
+    <h1>Verification Protocol</h1>
+    <div class="subtitle">Verification Protocol & Algorithm Transparency</div>
+
+    <!-- ==================== Part 1: Auto-Router ==================== -->
+    <h2>Part I — Auto-Router Engine</h2>
+
+    <p>Each question selects 4 models from different providers for blind testing. Selection uses <strong>intent classification + four-slot forced exploration</strong>:</p>
+
+    <h3>1.1 Intent Classifier</h3>
+    <p>Lightweight regex + keyword classifier categorizes questions into:</p>
+    <table>
+        <tr><th>Domain</th><th>Trigger</th></tr>
+        <tr><td>code</td><td>code, programming, bug, API, function, implementation</td></tr>
+        <tr><td>math</td><td>calculation, equation, proof, integral, probability</td></tr>
+        <tr><td>creative</td><td>story, poetry, creative, continuation, novel</td></tr>
+        <tr><td>factual</td><td>what is, explain, history, science, principle</td></tr>
+        <tr><td>reasoning</td><td>analysis, comparison, logic, reasoning, argument</td></tr>
+    </table>
+
+    <h3>1.2 Four-Slot Stratified Selection</h3>
+    <p>4 slots each serve a purpose, balancing <strong>exploration vs exploitation</strong>:</p>
+    <table>
+        <tr><th>Slot</th><th>Strategy</th><th>Role</th></tr>
+        <tr><td>Slot 1</td><td>Strongest Baseline</td><td>Current P-L #1, ensures baseline quality</td></tr>
+        <tr><td>Slot 2</td><td>UCB Dynamic Challenge</td><td>UCB selects potential models to challenge the leader</td></tr>
+        <tr><td>Slot 3</td><td>Observing Gray-zone</td><td>Randomly pick from models with impressions &lt; threshold, accumulate data</td></tr>
+        <tr><td>Slot 4</td><td>30% Upset</td><td>30% chance from bottom tier, preventing filter bubbles</td></tr>
+    </table>
+
+    <p>Slot 2 UCB-E score formula:</p>
+    <div class="formula">
+        <span class="var">UCB(m)</span> <span class="op">=</span>
+        <span class="var">&#x3B3;<sub>m</sub></span> <span class="op">+</span>
+        <span class="var">c</span> <span class="op">&times;</span>
+        &radic;( ln(<span class="var">N</span>) / <span class="var">n<sub>m</sub></span> )
+    </div>
+    <p>Where <span class="var">&#x3B3;<sub>m</sub></span> is the Plackett-Luce inferred model strength, <span class="var">N</span> is total battles, <span class="var">n<sub>m</sub></span> is model m's battle count, <span class="var">c</span> is the exploration constant.</p>
+
+    <hr class="section-divider">
+
+    <!-- ==================== Part 2: Totoro ==================== -->
+    <h2>Part II — Totoro Cross-Validation Engine</h2>
+
+    <p>After voting, users can trigger <strong>cross-validation</strong>. Totoro refines the 4 model responses through factual distillation, producing an ultimate truth-seeking answer. Core algorithm: <strong>Four-Dimensional Weighted Consensus</strong>:</p>
+
+    <div class="formula">
+        <span class="var">FinalScore(claim)</span> <span class="op">=</span>
+        <span class="var">W<sub>rank</sub></span> <span class="op">&times;</span>
+        <span class="var">W<sub>consensus</sub></span> <span class="op">&times;</span>
+        <span class="var">W<sub>user</sub></span> <span class="op">&times;</span>
+        <span class="var">W<sub>evidence</sub></span>
+    </div>
+
+    <h3>2.1 Ranking Baseline Weight W<sub>rank</sub></h3>
+    <p>Each model's information is weighted by its P-L rank via Sigmoid mapping:</p>
+    <div class="formula">
+        <span class="var">W<sub>rank</sub>(m)</span> <span class="op">=</span>
+        0.5 <span class="op">+</span> &sigma;(<span class="var">score<sub>m</sub></span> <span class="op">-</span> 1000) / 200) <span class="op">&times;</span> 1.5
+    </div>
+    <p>Mapped to [0.5, 2.0]. Rank #1 ≈ 1.5, bottom ≈ 0.8.</p>
+
+    <h3>2.2 Consensus Mention Rate W<sub>consensus</sub></h3>
+    <p>If a core data point / logic block is independently mentioned by 3+ models:</p>
+    <div class="formula">
+        <span class="var">W<sub>consensus</sub></span> <span class="op">=</span>
+        1.0 <span class="op">+</span> 0.5 <span class="op">&times;</span> (<span class="var">overlap_count</span> <span class="op">-</span> 2), &nbsp; if overlap &ge; 3<br>
+        <span class="var">W<sub>consensus</sub></span> <span class="op">=</span> 1.0, &nbsp; otherwise
+    </div>
+
+    <h3>2.3 User Verification Boost W<sub>user</sub></h3>
+    <p>Weight modifiers based on user votes and DPO labels:</p>
+    <table>
+        <tr><th>Tag</th><th>Effect</th><th>Modifier</th></tr>
+        <tr><td><span class="tag tag-winner">Factually rigorous / no hallucination</span></td><td>Winner unique info boosted</td><td>&times; 2.0</td></tr>
+        <tr><td><span class="tag tag-winner">Code / format zero errors</span></td><td>Winner code blocks boosted</td><td>&times; 2.0</td></tr>
+        <tr><td><span class="tag tag-winner">Extremely strong logic</span></td><td>Winner logic chain boosted</td><td>&times; 1.5</td></tr>
+        <tr><td><span class="tag tag-winner">Excellent instruction following</span></td><td>Winner structure boosted</td><td>&times; 1.5</td></tr>
+        <tr><td><span class="tag tag-worst">Severe factual hallucination</span></td><td>Loser info circuit-breaker</td><td>&times; 0.0</td></tr>
+        <tr><td><span class="tag tag-worst">Over-aligned / verbose</span></td><td>Loser downweighted</td><td>&times; 0.3</td></tr>
+        <tr><td><span class="tag tag-worst">Logic break / infinite loop</span></td><td>Loser downweighted</td><td>&times; 0.2</td></tr>
+        <tr><td><span class="tag tag-worst">Format crash / broken code</span></td><td>Loser downweighted</td><td>&times; 0.3</td></tr>
+    </table>
+
+    <h3>2.4 Evidence Parameter Check W<sub>evidence</sub></h3>
+    <p>Information with exact values, API params, or perfectly aligned with external search context gets highest priority; vague claims and uncited theories are forcibly removed.</p>
+
+    <hr class="section-divider">
+
+    <!-- ==================== Part 3: Proof of Truth ==================== -->
+    <h2>Part III — Proof of Truth (Hash Attestation)</h2>
+
+    <p>Each cross-validation output includes an <strong>immutable verification trace log</strong>:</p>
+
+    <div class="proof-box">
+        <p style="margin-bottom:8px;color:rgba(255,255,255,0.5);font-size:12px;letter-spacing:1px">VERIFICATION PROOF STRUCTURE</p>
+        <p style="font-size:13px;color:#e0e0e0">
+            proof_hash = SHA256(<br>
+            &nbsp;&nbsp;battle_id +<br>
+            &nbsp;&nbsp;question +<br>
+            &nbsp;&nbsp;M1..M4 responses +<br>
+            &nbsp;&nbsp;weights_applied +<br>
+            &nbsp;&nbsp;user_signal +<br>
+            &nbsp;&nbsp;refined_answer +<br>
+            &nbsp;&nbsp;timestamp<br>
+            )
+        </p>
+        <p style="margin-top:10px"><span class="hash">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</span></p>
+    </div>
+
+    <p>Trace log includes:</p>
+    <ul style="margin:10px 0 20px 20px;font-size:14px;color:rgba(255,255,255,0.6)">
+        <li>Which models' core data points were adopted (with model ID references)</li>
+        <li>Which model's erroneous params were discarded (with circuit-breaker reason)</li>
+        <li>Referenced real web URLs (if search context available)</li>
+        <li>SHA-256 attestation hash (unique, immutable)</li>
+    </ul>
+
+    <p>Hash generated in real-time by backend, displayed as collapsible log on frontend, ensuring every answer is <strong>traceable</strong>.</p>
+
+    <hr class="section-divider">
+
+    <!-- ==================== Part 4: Ranking ==================== -->
+    <h2>Part IV — Plackett-Luce Ranking System</h2>
+
+    <p>Arena ranking based on Plackett-Luce model + UCB-E anti-cheat strategy:</p>
+    <div class="formula">
+        P(model <span class="var">i</span> wins) <span class="op">=</span>
+        <span class="var">&#x3B3;<sub>i</sub></span> / <span class="op">&Sigma;</span><span class="var">&#x3B3;<sub>j</sub></span>
+    </div>
+    <p>EM algorithm iteratively estimates &#x3B3; parameter, combined with UCB-E (Upper Confidence Bound - Explorer) strategy balancing exploration vs exploitation.</p>
+
+    <hr class="section-divider">
+
+    <!-- ==================== Part 5: Axiom V-Verification ==================== -->
+    <h2>Part V — Axiom V-Verification System</h2>
+
+    <p>Axiom V is LLMVECT's <strong>full-stack anti-cheat and vote credibility engine</strong>, composed of four modules forming an <strong>unbypassable security pipeline</strong>:</p>
+
+    <h3>5.1 Security Pipeline</h3>
+    <p>Each vote must pass 7 layers of protection before counting toward rankings:</p>
+    <table>
+        <tr><th>#</th><th>Layer</th><th>Rejection Code</th><th>Threshold</th></tr>
+        <tr><td>1</td><td>IP Rate Limiting</td><td>429</td><td>10 req / 60s</td></tr>
+        <tr><td>2</td><td>Duplicate Vote Detection</td><td>409</td><td>Same user_id + battle_id</td></tr>
+        <tr><td>3</td><td>Cooldown Period</td><td>425</td><td>5s cooldown</td></tr>
+        <tr><td>4</td><td>Daily Cap</td><td>429</td><td>Blind 5 votes / Think 1 vote</td></tr>
+        <tr><td>5</td><td>Device Fingerprint Check</td><td>403</td><td>device_hash blacklist</td></tr>
+        <tr><td>6</td><td>Anomaly Pattern Detection</td><td>Downweight</td><td>High-frequency / extreme bias</td></tr>
+        <tr><td>7</td><td>Dual-Track Quota</td><td>429</td><td>Blind + Think counted independently</td></tr>
+    </table>
+
+    <h3>5.2 Full-Stack Device Fingerprinting</h3>
+    <p>Each voting device generates a unique device_hash via <strong>triple hardware fingerprinting</strong>:</p>
+    <div class="formula">
+        <span class="var">F<sub>device</sub></span> <span class="op">=</span>
+        h(<span class="var">Canvas<sub>texels</sub></span> <span class="op">||</span>
+        <span class="var">WebGL<sub>vendor+renderer</sub></span> <span class="op">||</span>
+        <span class="var">AudioContext<sub>sample+fft</sub></span> <span class="op">||</span>
+        <span class="var">System<sub>screen+tz+cores+mem</sub></span>)
+    </div>
+    <p>device_hash uses <strong>daily salt</strong> (same device produces stable hash within 24h), ensuring tracking continuity. Constraints:</p>
+    <table>
+        <tr><th>Constraint</th><th>Value</th><th>Violation</th></tr>
+        <tr><td>Max user_ids per device</td><td>3</td><td>Registration rejected (403)</td></tr>
+        <tr><td>Daily vote cap per device</td><td>30</td><td>Device banned (403)</td></tr>
+        <tr><td>Banned device blacklist</td><td>Permanent</td><td>All linked user_ids circuit-broken</td></tr>
+    </table>
+
+    <h3>5.3 Dynamic Difficulty Factor (D-Factor)</h3>
+    <p>Each battle's ELO K-value is dynamically adjusted by <strong>vote consensus rate</strong> — contested battles get higher weight, landslide battles get minimal weight:</p>
+    <div class="formula">
+        <span class="var">K<sub>dynamic</sub></span> <span class="op">=</span>
+        <span class="var">K<sub>base</sub></span> <span class="op">&times;</span>
+        <span class="var">D-Factor</span>, &nbsp;&nbsp;
+        <span class="var">K<sub>base</sub></span> <span class="op">=</span> 32
+    </div>
+    <p>D-Factor mapping function:</p>
+    <table>
+        <tr><th>Consensus Rate</th><th>D-Factor</th><th>Semantics</th></tr>
+        <tr><td>&ge; 1.00 (unanimous)</td><td>0.2</td><td> / Landslide, minimal ranking impact</td></tr>
+        <tr><td>0.75</td><td>1.67</td><td>Majority agree, moderate impact</td></tr>
+        <tr><td>0.50 (split)</td><td>2.33</td><td>Even split, high-weight decisive</td></tr>
+        <tr><td>&le; 0.25 (contentious)</td><td>3.0</td><td>Fierce contest, maximum weight impact</td></tr>
+    </table>
+    <p>Consensus rate = leader votes / total votes, <strong>updated in real-time</strong> after each round, ensuring subsequent voters face ELO params adapted to current contention.</p>
+
+    <h3>5.4 Dual-Track Quota</h3>
+    <p>Blind and Think modes are <strong>counted independently</strong>, no cross-consumption:</p>
+    <table>
+        <tr><th>Mode</th><th>Daily Quota</th><th>Reveal</th><th>ELO Eligible</th></tr>
+        <tr><td>Blind</td><td>5 / day</td><td>Revealed after voting</td><td>✅ Yes</td></tr>
+        <tr><td>Think</td><td>1 / day</td><td>Real-time visible reasoning</td><td>✅ Yes</td></tr>
+    </table>
+    <p>When Think Mode is on, users see the full reasoning chain, but limited to 1 per day to prevent over-reliance on a single model's reasoning.</p>
+
+    <div class="proof-box">
+        <p style="margin-bottom:8px;color:rgba(255,255,255,0.5);font-size:12px;letter-spacing:1px">AXIOM V INTEGRITY GUARANTEE</p>
+        <p style="font-size:13px;color:#e0e0e0">
+            Each vote record carries: device_hash | is_think_enabled | task_difficulty_factor<br>
+            Each battle carries: total_votes | consensus_rate | difficulty_factor<br>
+            All fields auditable, SHA-256 attested as V-Verification Hash Chain
+        </p>
+    </div>
+
+    <div class="footnote">
+        LLMVECT Verification Protocol v2.0 &mdash; Last updated: 2026-05-02<br>
+        All algorithms are open for audit. This page is the single source of truth.
+    </div>
+</div>
+</body>
+</html>

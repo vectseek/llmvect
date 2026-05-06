@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Center - LLMVECT</title>
+<script>
+const SPONSOR_I18N = {
+  en: {
+    userCenter: 'User Center', back: 'Back', arena: 'Arena', leaderboard: 'Leaderboard',
+    rules: 'Rules', login: 'Login', register: 'Register', username: 'Username',
+    password: 'Password', enterUser: 'Enter username', enterPwd: 'Enter password',
+    logout: 'Logout', newSponsor: 'New Sponsorship', selectProvider: 'Select Provider',
+    apiKey: 'API Key (must be official)', apiKeyPH: 'sk-...', brandName: 'Brand Name (max 5 chars)',
+    brandPH: 'e.g. GeekCloud', testKey: 'Test Key', testing: 'Testing...',
+    submit: 'Submit Sponsorship', mySponsors: 'My Sponsorships', noRecords: 'No sponsorship records',
+    sponsorNotice1: 'We only accept', sponsorNotice2: 'compute sponsorship', sponsorNotice3: ', no financial donations.',
+    sponsorNotice4: 'Sponsors only get', sponsorNotice5: 'ad space display', sponsorNotice6: ', no influence on rankings or data.',
+    sponsorNotice7: 'No suggestions that compromise ranking fairness are accepted.',
+    sponsorNotice8: 'This is a', sponsorNotice9: 'fully automated global AI ranking platform', sponsorNotice10: ', unattended.',
+    enterUserPwd: 'Please enter username and password', userLen: 'Username must be 2-20 characters',
+    pwdLen: 'Password must be at least 6 characters', loginOk: 'Login successful!',
+    registerOk: 'Registration successful!', loginFail: 'Login failed', regFail: 'Registration failed',
+    selectProviderMsg: 'Please select a provider', enterApiKey: 'Please enter API Key',
+    enterSecret: 'Please enter Secret Key', enterSecretAppId: 'Please enter API Secret and APP ID',
+    enterBrand: 'Please enter brand name', brandMax: 'Brand name max 5 characters',
+    submitOk: 'Sponsorship submitted!', submitFail: 'Submission failed',
+    loadFail: 'Load failed', loggedOut: 'Logged out',
+    active: 'Active', invalid: 'Invalid', pending: 'Pending', replaced: 'Replaced', exhausted: 'Exhausted',
+    langBtn: '中文'
+  },
+  zh: {
+    userCenter: '用户中心', back: '返回', arena: '竞技场', leaderboard: '排行榜',
+    rules: '规则', login: '登录', register: '注册', username: '用户名',
+    password: '密码', enterUser: '输入用户名', enterPwd: '输入密码',
+    logout: '退出登录', newSponsor: '新增赞助', selectProvider: '选择厂商',
+    apiKey: 'API 密钥（需官方正式密钥）', apiKeyPH: 'sk-...', brandName: '品牌名称（最多5字）',
+    brandPH: '例如 极客云', testKey: '测试密钥', testing: '测试中...',
+    submit: '提交赞助', mySponsors: '我的赞助', noRecords: '暂无赞助记录',
+    sponsorNotice1: '我们仅接受', sponsorNotice2: '算力赞助', sponsorNotice3: '，不接受资金捐赠。',
+    sponsorNotice4: '赞助者仅获得', sponsorNotice5: '广告位展示', sponsorNotice6: '，不影响排名和数据。',
+    sponsorNotice7: '不接受任何影响排名公平性的建议。',
+    sponsorNotice8: '这是一个', sponsorNotice9: '全自动全球AI排名平台', sponsorNotice10: '，无人值守。',
+    enterUserPwd: '请输入用户名和密码', userLen: '用户名需2-20个字符',
+    pwdLen: '密码至少6个字符', loginOk: '登录成功！',
+    registerOk: '注册成功！', loginFail: '登录失败', regFail: '注册失败',
+    selectProviderMsg: '请选择厂商', enterApiKey: '请输入API密钥',
+    enterSecret: '请输入Secret Key', enterSecretAppId: '请输入API Secret和APP ID',
+    enterBrand: '请输入品牌名称', brandMax: '品牌名称最多5个字符',
+    submitOk: '赞助已提交！', submitFail: '提交失败',
+    loadFail: '加载失败', loggedOut: '已退出登录',
+    active: '有效', invalid: '无效', pending: '待审核', replaced: '已替换', exhausted: '已耗尽',
+    langBtn: 'EN'
+  }
+};
+let sponsorLang = localStorage.getItem('sponsor_lang') || 'en';
+function t(k) { return (SPONSOR_I18N[sponsorLang] || SPONSOR_I18N.en)[k] || k; }
+function switchSponsorLang() {
+  sponsorLang = sponsorLang === 'en' ? 'zh' : 'en';
+  localStorage.setItem('sponsor_lang', sponsorLang);
+  applySponsorLang();
+}
+function applySponsorLang() {
+  document.querySelectorAll('[data-t]').forEach(el => {
+    const k = el.getAttribute('data-t');
+    if (k) el.textContent = t(k);
+  });
+  document.querySelectorAll('[data-t-ph]').forEach(el => {
+    const k = el.getAttribute('data-t-ph');
+    if (k) el.placeholder = t(k);
+  });
+  const lb = document.getElementById('langBtn');
+  if (lb) lb.textContent = t('langBtn');
+  // Render sponsor notice
+  const notice = document.getElementById('sponsorNotice');
+  if (notice) {
+    notice.innerHTML = '⚠️ ' + t('sponsorNotice1') + ' <strong style="color:#fff">' + t('sponsorNotice2') + '</strong>' + t('sponsorNotice3') + '<br>' +
+      t('sponsorNotice4') + ' <strong style="color:#fff">' + t('sponsorNotice5') + '</strong>' + t('sponsorNotice6') + '<br>' +
+      t('sponsorNotice7') + '<br>' +
+      t('sponsorNotice8') + ' <strong style="color:#fff">' + t('sponsorNotice9') + '</strong>' + t('sponsorNotice10');
+  }
+}
+</script>
+<style>
+:root {
+    --bg: #0a0a0f;
+    --card: #12121a;
+    --border: #1e1e2e;
+    --text: #e0e0e0;
+    --muted: #888;
+    --accent: #3B82F6;
+    --green: #4ADE80;
+    --pink: #F472B6;
+    --red: #EF4444;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, 'Segoe UI', sans-serif;
+    min-height: 100vh; display: flex; flex-direction: column;
+}
+.top-bar {
+    background: #0d0d18; border-bottom: 1px solid var(--border);
+    padding: 12px 20px; display: flex; align-items: center; gap: 12px;
+    position: sticky; top: 0; z-index: 100;
+}
+.top-bar a { color: var(--muted); text-decoration: none; font-size: 14px; flex-shrink: 0; }
+.top-bar a:hover { color: #fff; }
+.top-bar h1 { font-size: 18px; color: #fff; flex: 1; text-align: center; margin: 0; }
+.container { max-width: 520px; margin: 24px auto; padding: 0 20px; width: 100%; }
+.card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 32px;
+}
+.card h2 { font-size: 22px; margin-bottom: 24px; text-align: center; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; color: var(--muted); font-size: 13px; margin-bottom: 6px; }
+.form-group input, .form-group select {
+    width: 100%; background: #0a0a14; border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 14px; color: #fff; font-size: 15px;
+}
+.form-group input:focus { border-color: var(--accent); outline: none; }
+.btn {
+    width: 100%; padding: 12px; border: none; border-radius: 8px;
+    font-size: 15px; font-weight: 600; cursor: pointer; transition: .2s;
+    margin-top: 8px;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: #2563EB; }
+.btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.btn-outline:hover { border-color: #555; }
+.btn-danger { background: var(--red); color: #fff; }
+.link-text { color: var(--accent); cursor: pointer; font-size: 14px; }
+.link-text:hover { text-decoration: underline; }
+.toggle { text-align: center; margin-top: 16px; font-size: 14px; color: var(--muted); }
+
+/* Sponsor list */
+.sponsor-list { margin-top: 24px; }
+.sponsor-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px; border: 1px solid var(--border); border-radius: 8px;
+    margin-bottom: 8px; background: #0a0a14;
+}
+.sponsor-item .icon { font-size: 24px; }
+.sponsor-item .info { flex: 1; }
+.sponsor-item .info .pname { font-weight: 600; font-size: 15px; }
+.sponsor-item .info .brand { color: var(--muted); font-size: 13px; }
+.sponsor-item .status { font-size: 12px; padding: 2px 8px; border-radius: 4px; }
+.status-active { background: #0a2a0a; color: var(--green); }
+.status-invalid { background: #2a0a0a; color: var(--red); }
+.status-pending { background: #1a1a0a; color: #FBBF24; }
+
+/* Provider grid */
+.provider-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    margin-bottom: 16px;
+}
+.provider-item {
+    background: #0a0a14; border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px 8px; text-align: center;
+    cursor: pointer; transition: .2s; font-size: 13px;
+}
+.provider-item:hover { border-color: #555; }
+.provider-item.selected { border-color: var(--accent); background: #0a0a20; }
+.provider-item .p-icon { font-size: 22px; display: block; margin-bottom: 4px; }
+
+/* Notice */
+.toast {
+    position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+    padding: 10px 20px; border-radius: 8px; font-size: 14px;
+    z-index: 999; display: none;
+}
+.toast-success { background: #0a2a0a; color: var(--green); border: 1px solid var(--green); }
+.toast-error { background: #2a0a0a; color: var(--red); border: 1px solid var(--red); }
+
+/* Sidebar: hidden on mobile by default */
+.sidebar { display: none; }
+
+/* Desktop sidebar */
+@media (min-width: 769px) {
+    body { flex-direction: row; }
+    .sidebar {
+        display: block; width: 200px; min-height: 100vh; background: #0d0d18;
+        border-right: 1px solid var(--border); padding: 20px 0;
+        position: relative; z-index: 10; flex-shrink: 0;
+    }
+    .sidebar a {
+        display: block; padding: 10px 20px; color: var(--muted);
+        text-decoration: none; font-size: 14px; transition: .2s;
+    }
+    .sidebar a:hover, .sidebar a.active { color: #fff; background: #111122; }
+    .main { flex: 1; }
+    .top-bar { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Desktop sidebar -->
+<div class="sidebar">
+    <div style="padding: 8px 20px 20px; font-size: 20px; font-weight: 800; color: #fff;">⚔️ LLMVECT</div>
+    <a href="/arena4">⚔️ <span data-t="arena">Arena</span></a>
+    <a href="leaderboard.html">🏆 <span data-t="leaderboard">Leaderboard</span></a>
+    <a href="rules.html">📖 <span data-t="rules">Rules</span></a>
+    <a href="sponsor.html" class="active">❤️ <span data-t="userCenter">User Center</span></a>
+</div>
+
+<div class="main">
+<div class="top-bar">
+    <a href="/">← <span data-t="back">Back</span></a>
+    <h1>❤️ <span data-t="userCenter">User Center</span></h1>
+    <button id="langBtn" onclick="switchSponsorLang()" style="flex-shrink:0;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;">中文</button>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<div class="container">
+    <!-- Not logged in: login/register -->
+    <div id="loginSection" class="card">
+        <h2 id="formTitle" data-t="login">Login</h2>
+        <div class="form-group"><label data-t="username">Username</label><input id="loginUser" data-t-ph="enterUser" placeholder="Enter username" maxlength="20"></div>
+        <div class="form-group"><label data-t="password">Password</label><input id="loginPwd" type="password" data-t-ph="enterPwd" placeholder="Enter password"></div>
+        <div style="display:flex;gap:10px;margin-top:8px">
+            <button class="btn btn-primary" onclick="doLogin()" id="btnLogin" style="flex:1" data-t="login">Login</button>
+            <button class="btn btn-outline" onclick="doRegister()" id="btnRegister" style="flex:1" data-t="register">Register</button>
+        </div>
+    </div>
+
+    <!-- Logged in: sponsorship -->
+    <div id="sponsorSection" style="display:none">
+        <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px">
+                <h2 style="margin:0">❤️ <span id="userName"></span></h2>
+                <button class="btn btn-outline" style="width:auto; margin:0; padding:6px 14px" onclick="logout()" data-t="logout">Logout</button>
+            </div>
+
+            <!-- Sponsorship form -->
+            <div id="addSponsorForm" style="margin-bottom: 20px;">
+                <h3 style="font-size:16px; margin-bottom:8px;" data-t="newSponsor">New Sponsorship</h3>
+                <p style="font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:14px;padding:10px;background:rgba(255,255,255,0.03);border-radius:6px;border-left:2px solid var(--accent)" id="sponsorNotice">
+                    </p>
+                <div class="form-group"><label data-t="selectProvider">Select Provider</label></div>
+                <div class="provider-grid" id="providerGrid"></div>
+                <div class="form-group" id="apiKeyGroup"><label id="apiKeyLabel" data-t="apiKey">API Key (must be official)</label><input id="apiKey" data-t-ph="apiKeyPH" placeholder="sk-..."></div>
+                <div class="form-group" id="secretKeyGroup" style="display:none"><label id="secretKeyLabel">Secret Key</label><input id="apiSecret" placeholder="Enter Secret Key"></div>
+                <div class="form-group" id="appIdGroup" style="display:none"><label>APP ID</label><input id="apiAppId" placeholder="Enter APP ID"></div>
+                <div class="form-group"><label data-t="brandName">Brand Name (max 5 chars)</label><input id="brandName" data-t-ph="brandPH" placeholder="e.g. GeekCloud" maxlength="5"></div>
+                <button class="btn btn-outline" style="background:#10B981;color:#fff;border-color:#10B981;width:auto;margin:0 8px 0 0" onclick="testSponsorKey()" id="testKeyBtn" data-t="testKey">Test Key</button>
+                <button class="btn btn-primary" id="submitSponsorBtn" onclick="submitSponsor()" disabled data-t="submit">Submit Sponsorship</button>
+                <span id="testStatus" style="font-size:12px;margin-left:8px;"></span>
+            </div>
+
+            <!-- Sponsorship list -->
+            <div class="sponsor-list" id="sponsorList">
+                <h3 style="font-size:16px; margin-bottom:12px;" data-t="mySponsors">My Sponsorships</h3>
+                <div id="sponsorListInner" style="color: var(--muted);" data-t="noRecords">No sponsorship records</div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+const API = window.location.origin + '/api/sponsor';
+let token = localStorage.getItem('sponsor_token');
+
+function showToast(msg, type) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.className = 'toast toast-' + type; t.style.display = 'block';
+    setTimeout(() => t.style.display = 'none', 3000);
+}
+
+async function doLogin() {
+    const u = document.getElementById('loginUser').value.trim();
+    const p = document.getElementById('loginPwd').value;
+    if (!u || !p) return showToast(t('enterUserPwd'), 'error');
+    try {
+        const r = await fetch(API + '/login', {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({username: u, password: p})
+        });
+        const d = await r.json();
+        if (!r.ok) throw new Error(d.detail || 'Login failed');
+        token = d.token;
+        localStorage.setItem('sponsor_token', token);
+        showToast(t('loginOk'), 'success');
+        loadSponsorPage();
+    } catch(e) { showToast(e.message, 'error'); }
+}
+
+async function doRegister() {
+    const u = document.getElementById('loginUser').value.trim();
+    const p = document.getElementById('loginPwd').value;
+    if (!u || !p) return showToast(t('enterUserPwd'), 'error');
+    if (u.length < 2 || u.length > 20) return showToast(t('userLen'), 'error');
+    if (p.length < 6) return showToast(t('pwdLen'), 'error');
+    try {
+        const r = await fetch(API + '/register', {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({username: u, password: p})
+        });
+        const d = await r.json();
+        if (!r.ok) throw new Error(d.detail || 'Registration failed');
+        token = d.token;
+        localStorage.setItem('sponsor_token', token);
+        showToast(t('registerOk'), 'success');
+        loadSponsorPage();
+    } catch(e) { showToast(e.message, 'error'); }
+}
+
+let providerAuthType = {};
+async function loadProviders() {
+    try {
+        const r = await fetch(API + '/providers');
+        const d = await r.json();
+        const grid = document.getElementById('providerGrid');
+        grid.innerHTML = d.providers.map(p => {
+            providerAuthType[p.key] = p.auth_type || 'standard';
+            return `<div class="provider-item" data-provider="${p.key}" onclick="selectProvider('${p.key}', this)">
+                <span class="p-icon">${p.icon}</span>${p.name}
+            </div>`;
+        }).join('');
+    } catch(e) {}
+}
+
+let selectedProvider = '';
+function selectProvider(key, el) {
+    document.querySelectorAll('.provider-item').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedProvider = key;
+    
+    const at = providerAuthType[key] || 'standard';
+    const secretGrp = document.getElementById('secretKeyGroup');
+    const appIdGrp = document.getElementById('appIdGroup');
+    const keyLbl = document.querySelector('#apiKeyGroup label');
+    const keyInput = document.getElementById('apiKey');
+    const secretLbl = document.getElementById('secretKeyLabel');
+    
+    if (at === 'baidu') {
+        keyLbl.textContent = 'API Key (AK / client_id)';
+        keyInput.placeholder = 'Enter Baidu API Key (AK)';
+        secretGrp.style.display = ''; secretLbl.textContent = 'Secret Key (SK / client_secret)';
+        appIdGrp.style.display = 'none';
+    } else if (at === 'xfyun') {
+        keyLbl.textContent = 'API Key';
+        keyInput.placeholder = 'Enter Xfyun API Key';
+        secretGrp.style.display = ''; secretLbl.textContent = 'API Secret';
+        appIdGrp.style.display = '';
+    } else if (at === 'huawei') {
+        keyLbl.textContent = 'Access Key (AK)';
+        keyInput.placeholder = 'Enter Huawei Access Key';
+        secretGrp.style.display = ''; secretLbl.textContent = 'Secret Key (SK)';
+        appIdGrp.style.display = 'none';
+    } else {
+        keyLbl.textContent = 'API Key (must be official)';
+        keyInput.placeholder = 'sk-...';
+        secretGrp.style.display = 'none';
+        appIdGrp.style.display = 'none';
+    }
+}
+
+async function testSponsorKey() {
+    if (!selectedProvider) return showToast(t('selectProviderMsg'), 'error');
+    const btn = document.getElementById('testKeyBtn');
+    const statusEl = document.getElementById('testStatus');
+    const submitBtn = document.getElementById('submitSponsorBtn');
+    if (btn) { btn.disabled = true; btn.textContent = t('testing'); }
+    if (statusEl) statusEl.innerHTML = '';
+
+    const apiKey = document.getElementById('apiKey').value.trim();
+    const secretKey = document.getElementById('apiSecret').value.trim();
+    const appId = document.getElementById('apiAppId').value.trim();
+    const brandName = document.getElementById('brandName').value.trim();
+
+    try {
+        const r = await fetch(API + '/test', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token},
+            body: JSON.stringify({provider: selectedProvider, api_key: apiKey, secret_key: secretKey, app_id: appId, brand_name: brandName || 'test'})
+        });
+        const d = await r.json();
+        if (d.success) {
+            if (statusEl) statusEl.innerHTML = '<span style="color:#10B981">✓ ' + d.message + '</span>';
+            if (submitBtn) submitBtn.disabled = false;
+        } else {
+            if (statusEl) statusEl.innerHTML = '<span style="color:#EF4444">✗ ' + d.message + '</span>';
+            if (submitBtn) submitBtn.disabled = true;
+        }
+    } catch(e) {
+        if (statusEl) statusEl.innerHTML = '<span style="color:#EF4444">✗ Request failed: ' + e.message + '</span>';
+        if (submitBtn) submitBtn.disabled = true;
+    }
+    if (btn) { btn.disabled = false; btn.textContent = t('testKey'); }
+}
+
+async function submitSponsor() {
+    if (!selectedProvider) return showToast(t('selectProviderMsg'), 'error');
+    const apiKey = document.getElementById('apiKey').value.trim();
+    const brandName = document.getElementById('brandName').value.trim();
+    const secretKey = document.getElementById('apiSecret').value.trim();
+    const appId = document.getElementById('apiAppId').value.trim();
+    
+    const at = providerAuthType[selectedProvider] || 'standard';
+    if (!apiKey) return showToast(t('enterApiKey'), 'error');
+    if ((at === 'baidu' || at === 'huawei') && !secretKey) return showToast(t('enterSecret'), 'error');
+    if (at === 'xfyun' && (!secretKey || !appId)) return showToast(t('enterSecretAppId'), 'error');
+    if (!brandName) return showToast(t('enterBrand'), 'error');
+    if (brandName.length > 5) return showToast(t('brandMax'), 'error');
+
+    try {
+        const r = await fetch(API + '/submit', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token},
+            body: JSON.stringify({provider: selectedProvider, api_key: apiKey, secret_key: secretKey, app_id: appId, brand_name: brandName})
+        });
+        const d = await r.json();
+        if (!r.ok) throw new Error(d.detail || 'Submission failed');
+        if (d.success) {
+            showToast(t('submitOk'), 'success');
+            document.getElementById('apiKey').value = '';
+            document.getElementById('apiSecret').value = '';
+            document.getElementById('apiAppId').value = '';
+            document.getElementById('brandName').value = '';
+            loadSponsorPage();
+        } else {
+            showToast(d.error || t('submitFail'), 'error');
+        }
+    } catch(e) { showToast(e.message, 'error'); }
+}
+
+async function loadSponsorPage() {
+    if (!token) { showLogin(); return; }
+    try {
+        const r = await fetch(API + '/me', {
+            headers: {'Authorization': 'Bearer ' + token}
+        });
+        if (!r.ok) { token = null; localStorage.removeItem('sponsor_token'); showLogin(); return; }
+        const d = await r.json();
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('sponsorSection').style.display = '';
+        document.getElementById('userName').textContent = d.username;
+
+        const inner = document.getElementById('sponsorListInner');
+        if (d.sponsors.length === 0) {
+            inner.innerHTML = '<div style="color:var(--muted); text-align:center; padding:20px;">' + t('noRecords') + '</div>';
+        } else {
+            inner.innerHTML = d.sponsors.map(s => {
+                const picon = getProviderIcon(s.provider);
+                const sc = s.status === 'active' ? 'status-active' : (s.status === 'invalid' ? 'status-invalid' : 'status-pending');
+                const stext = {active:t('active'), invalid:t('invalid'), pending:t('pending'), replaced:t('replaced'), exhausted:t('exhausted')}[s.status] || s.status;
+                return `<div class="sponsor-item">
+                    <span class="icon">${picon}</span>
+                    <div class="info">
+                        <div class="pname">${s.provider_name}</div>
+                        <div class="brand">${s.brand_name} · ${s.verify_detail || s.created_at}</div>
+                    </div>
+                    <span class="status ${sc}">${stext}</span>
+                </div>`;
+            }).join('');
+        }
+    } catch(e) { showToast(t('loadFail') + ': ' + e.message, 'error'); }
+}
+
+function getProviderIcon(provider) {
+    const icons = {
+        alibaba:'🔷', baidu:'🔵', tencent:'🟢', byteDance:'⚫', xfyun:'🔴',
+        xiaomi:'🟠', zhipu:'💜', moonshot:'🌙', deepseek:'🐳', baichuan:'🏔️',
+        stepfun:'🌟', minimax:'🤖', internlm:'📘', yi:'🔮'
+    };
+    return icons[provider] || '🏢';
+}
+
+function showLogin() {
+    document.getElementById('loginSection').style.display = '';
+    document.getElementById('sponsorSection').style.display = 'none';
+}
+
+function logout() {
+    token = null;
+    localStorage.removeItem('sponsor_token');
+    showLogin();
+    showToast(t('loggedOut'), 'success');
+}
+
+// Init
+if (token) { loadSponsorPage(); loadProviders(); applySponsorLang(); }
+else { showLogin(); loadProviders(); applySponsorLang(); }
+</script>
+</body>
+</html>

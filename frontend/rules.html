@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rules - LLMVECT</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0A0A0A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="LLMVECT">
+<link rel="apple-touch-icon" href="/icons/icon-512.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --china-red: #007AFF;
+  --china-red-glow: rgba(0, 122, 255, 0.10);
+  --tech-blue: #007AFF;
+  --tech-cyan: #007AFF;
+  --tech-purple: #007AFF;
+  --bg-dark: #0A0A0A;
+  --bg-card: rgba(18, 18, 18, 0.75);
+  --text-primary: #FFFFFF;
+  --text-secondary: #888888;
+  --border-color: #222222;
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-bg: rgba(18, 18, 18, 0.65);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --accent-blue: #007AFF;
+  --accent-green: #00D68F;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+  background: #0A0A0A;
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0, 122, 255, 0.03) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: -2;
+}
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: radial-gradient(circle 1px, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: -1;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.mobile-header { display: none; }
+.mobile-sidebar { display: none; }
+
+/* Hide mobile elements on desktop */
+@media (min-width: 769px) {
+    .mobile-sidebar,
+    .mobile-header,
+    .mobile-hamburger,
+    .sidebar-overlay {
+        display: none !important;
+    }
+}
+.header {
+  position: sticky; top:0; z-index:100;
+  background: rgba(8, 13, 20, 0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 16px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.header-logo {
+  font-size:22px; font-weight:700; text-decoration:none;
+  display: flex; align-items: center; gap: 12px;
+}
+.header-logo .logo-icon {
+  width: 40px; height: 40px;
+  background: #1A1A1A;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0; position: relative;
+  color: #FFFFFF;
+}
+.header-logo .logo-icon::before {
+  content: ''; position: absolute;
+  width: 20px; height: 1.5px;
+  background: #FFFFFF; opacity: 0.6;
+  transform: rotate(-15deg);
+}
+.header-logo .logo-icon::after {
+  content: ''; position: absolute;
+  width: 20px; height: 1.5px;
+  background: #FFFFFF; opacity: 0.6;
+  transform: rotate(15deg);
+}
+.header-nav { display:flex; gap:20px; align-items:center; }
+.header-nav a { color:var(--text-secondary); text-decoration:none; font-size:14px; transition:all .25s; padding:6px 12px; border-radius:var(--radius-sm); }
+.header-nav a:hover { color:var(--accent-blue); background:rgba(0,122,255,0.06); }
+.header-nav a.active { color:var(--accent-blue); font-weight:600; background:rgba(0,122,255,0.08); }
+.container { max-width:920px; margin:0 auto; padding:40px 24px 80px; }
+.page-title {
+  font-size:36px; font-weight:900; text-align:center; margin-bottom:12px;
+  color: #FFFFFF;
+  animation: fadeInUp 0.5s ease;
+}
+.page-subtitle { text-align:center; color:var(--text-secondary); margin-bottom:48px; font-size:15px; letter-spacing:1px; animation: fadeInUp 0.6s ease; }
+.section { margin-bottom:32px; }
+.card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 28px 32px;
+  backdrop-filter: blur(15px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: rgba(255,255,255,0.08);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.card:hover::before { opacity: 1; }
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+.section:nth-child(1) .card { animation: fadeInUp 0.5s ease; }
+.section:nth-child(2) .card { animation: fadeInUp 0.6s ease; }
+.section:nth-child(3) .card { animation: fadeInUp 0.7s ease; }
+.section:nth-child(4) .card { animation: fadeInUp 0.8s ease; }
+.section:nth-child(5) .card { animation: fadeInUp 0.9s ease; }
+.card-title {
+  font-size:20px; font-weight:700; margin-bottom:20px;
+  display:flex; align-items:center; gap:12px;
+}
+.card-title .icon {
+  width:40px; height:40px; border-radius:10px;
+  background: #1A1A1A;
+  border: 1px solid rgba(255,255,255,0.06);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink:0;
+  color: var(--text-secondary);
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 600;
+}
+.card p, .card li { color:var(--text-secondary); font-size:14.5px; }
+.card ul { padding-left:20px; }
+.card li { margin-bottom:10px; line-height:1.7; }
+.card li strong { color:var(--text-primary); }
+.highlight-box {
+  background: rgba(0, 122, 255, 0.04);
+  border: 1px solid rgba(0, 122, 255, 0.15);
+  border-radius: var(--radius-md);
+  padding: 32px 36px;
+  margin-top: 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.highlight-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: rgba(0, 122, 255, 0.3);
+}
+.highlight-box p { color:var(--text-primary); font-size:16px; font-weight:500; }
+.highlight-box .big { font-size:22px; font-weight:900; color:#FFFFFF; margin:12px 0; letter-spacing:1px; }
+.formula-box {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  margin: 14px 0;
+  font-family: 'Roboto Mono', 'Courier New', monospace;
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+.state-flow {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  flex-wrap:wrap; margin:16px 0;
+}
+.state-tag {
+  padding:8px 16px; border-radius:var(--radius-sm); font-size:13px; font-weight:700;
+  transition: all 0.2s ease;
+}
+.state-tag:hover { transform: scale(1.05); }
+.state-active { background:rgba(0,122,255,0.12); color:#007AFF; border:1px solid rgba(0,122,255,0.25); }
+.state-observing { background:rgba(255,255,255,0.06); color:#999999; border:1px solid rgba(255,255,255,0.12); }
+.state-eliminated { background:rgba(255,255,255,0.04); color:#666666; border:1px solid rgba(255,255,255,0.08); }
+.state-probation { background:rgba(255,255,255,0.06); color:#999999; border:1px solid rgba(255,255,255,0.12); }
+.arrow { color:var(--text-secondary); font-size:18px; }
+.footer { text-align:center; padding:40px 20px; color:var(--text-secondary); font-size:13px; border-top:1px solid var(--glass-border); }
+@media (max-width:600px) {
+  .container { padding:24px 12px 60px; }
+  .card { padding:20px 16px; }
+  .page-title { font-size:24px; }
+  .header { display:none; }
+  .mobile-header {
+    display: flex;
+    padding: 12px 16px;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #222222;
+    background: rgba(10, 10, 10, 0.9);
+    backdrop-filter: blur(24px);
+    position: sticky; top:0; z-index:100;
+  }
+  .mobile-hamburger {
+    width: 32px; height: 32px;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    gap: 5px; cursor: pointer;
+    background: none; border: none; padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mobile-hamburger span {
+    display: block; width: 18px; height: 1.5px;
+    background: #AAAAAA; border-radius: 1px;
+    transition: all 0.3s ease;
+  }
+  .mobile-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4.5px, 4.5px); }
+  .mobile-hamburger.open span:nth-child(2) { opacity: 0; }
+  .mobile-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4.5px, -4.5px); }
+  .mobile-logo {
+    display: flex; align-items: center;
+    gap: 8px; font-size: 18px; font-weight: 600;
+  }
+  .mobile-logo-icon {
+    width: 32px; height: 32px;
+    background: transparent; border: 1.5px solid #444444;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0; position: relative; color: #FFFFFF;
+  }
+  .mobile-logo-icon::before {
+    content: ''; position: absolute;
+    width: 16px; height: 1.5px;
+    background: #FFFFFF; opacity: 0.6;
+    transform: rotate(-15deg);
+  }
+  .mobile-logo-icon::after {
+    content: ''; position: absolute;
+    width: 16px; height: 1.5px;
+    background: #FFFFFF; opacity: 0.6;
+    transform: rotate(15deg);
+  }
+  .sidebar-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 999; opacity: 0;
+    pointer-events: none; transition: opacity 0.3s ease;
+  }
+  .sidebar-overlay.open { opacity: 1; pointer-events: auto; }
+  .mobile-sidebar {
+    position: fixed; top:0; left:0;
+    width: 280px; height: 100%; height: 100dvh;
+    background: #0A0A0A; z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex; flex-direction: column;
+    border-right: 1px solid #222222;
+  }
+  .mobile-sidebar.open { transform: translateX(0); }
+  .mobile-sidebar-header {
+    padding: 20px 20px 16px;
+    border-bottom: 1px solid #222222;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .mobile-sidebar-header .sb-logo-icon {
+    width: 36px; height: 36px;
+    background: transparent; border: 1.5px solid #444444;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0; position: relative; color: #FFFFFF;
+  }
+  .mobile-sidebar-header .sb-logo-icon::before {
+    content: ''; position: absolute;
+    width: 18px; height: 1.5px;
+    background: #FFFFFF; opacity: 0.6;
+    transform: rotate(-15deg);
+  }
+  .mobile-sidebar-header .sb-logo-icon::after {
+    content: ''; position: absolute;
+    width: 18px; height: 1.5px;
+    background: #FFFFFF; opacity: 0.6;
+    transform: rotate(15deg);
+  }
+  .mobile-sidebar-header .sb-logo-text {
+    font-size: 18px; font-weight: 600;
+    letter-spacing: -0.02em; color: #FFFFFF;
+  }
+  .mobile-sidebar-nav {
+    flex: 1; padding: 12px 0; overflow-y: auto;
+  }
+  .mobile-sidebar-nav a {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 20px; color: #888888;
+    text-decoration: none; font-size: 14px; font-weight: 500;
+    transition: all 0.15s ease;
+    border-left: 2px solid transparent;
+  }
+  .mobile-sidebar-nav a:hover,
+  .mobile-sidebar-nav a.active {
+    color: #FFFFFF; background: #1A1A1A;
+    border-left-color: var(--accent-blue);
+  }
+  .mobile-sidebar-nav a .nav-icon {
+    width: 20px; text-align: center;
+    font-size: 13px; color: #666666;
+  }
+  .mobile-sidebar-nav a.active .nav-icon { color: var(--accent-blue); }
+  .mobile-sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid #222222;
+    font-size: 11px; color: #444444;
+  }
+  .state-flow { gap:4px; }
+  .state-tag { padding:4px 10px; font-size:12px; }
+  .highlight-box { padding: 20px 16px; }
+  .highlight-box .big { font-size:18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Mobile sidebar -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<nav class="mobile-sidebar" id="mobileSidebar">
+  <div class="mobile-sidebar-header">
+    <div class="sb-logo-icon"></div>
+    <div class="sb-logo-text">LLMVECT</div>
+  </div>
+  <div class="mobile-sidebar-nav">
+    <a href="/"><span class="nav-icon">&#9876;&#65039;</span> Arena</a>
+    <a href="/leaderboard.html"><span class="nav-icon">&#127942;</span> Leaderboard</a>
+    <a href="/rules.html" class="active"><span class="nav-icon">&#128214;</span> Rules</a>
+  </div>
+  <div class="mobile-sidebar-footer">
+    LLMVECT — Independent Third-Party AI Evaluation
+  </div>
+</nav>
+<header class="mobile-header">
+  <button class="mobile-hamburger" id="hamburgerBtn" onclick="toggleSidebar()">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="mobile-logo">
+    <div class="mobile-logo-icon"></div>
+    <div style="letter-spacing:-0.02em;">LLMVECT</div>
+  </div>
+</header>
+
+<div class="header">
+  <a href="/" class="header-logo"><div class="logo-icon"></div><span>LLMVECT</span></a>
+  <div class="header-nav">
+    <a href="/">Arena</a>
+    <a href="/leaderboard.html">Leaderboard</a>
+    <a href="/rules.html" class="active">Rules</a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="page-title">Rules</div>
+  <div class="page-subtitle">Transparent, Fair, Independent — Every Vote Counts</div>
+
+  <!-- Voting rules -->
+  <div class="section">
+    <div class="card">
+      <div class="card-title"><span class="icon">01</span> Voting Rules</div>
+      <ul>
+        <li><strong>Blind Comparison</strong>: Each question gets 4 anonymous model responses (A/B/C/D), identities hidden until voting</li>
+        <li><strong>Dual Extreme Voting</strong>: Pick the best (winner) and worst (loser), winners gain points, losers get penalized</li>
+        <li><strong>Optional Tie</strong>: Choose "About the same" or "Both bad" if hard to distinguish</li>
+        <li><strong>Instant Reveal</strong>: Model identities revealed immediately after voting for transparency</li>
+        <li><strong>Dual Mode</strong>: Speed mode (fast response) and Expert mode (deep reasoning) ranked independently</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Ranking algorithm -->
+  <div class="section">
+    <div class="card">
+      <div class="card-title"><span class="icon">02</span> Ranking Algorithm</div>
+      <p>We use <strong>Plackett-Luce probabilistic model</strong> + <strong>UCB-E exposure control</strong>. Key points:</p>
+      <ul>
+        <li><strong>Dimensionality Note</strong>: 4-way choice treated as "1 clear winner vs 3 undifferentiated losers" — an engineering tradeoff, not a flaw</li>
+        <li><strong>Winner Bonus</strong>: 
+          <div class="formula-box">Winner gain = K × (1 - P_win) × weight</div>
+          More underestimated models gain more from a win (similar to ELO)
+        </li>
+        <li><strong>Loser Penalty</strong>: The "worst" model takes directed penalty (2/3 of penalty pool), remaining losers share the rest</li>
+        <li><strong>Arena Score</strong>：
+          <div class="formula-box">Score = 1200 + 400 × log₁₀(γ)</div>
+          γ is the model intrinsic strength parameter, estimated by MLE iteration
+        </li>
+        <li><strong>Sincerity Weight</strong>: Dwell time &lt;2s = weight 0, 2-10s linear interpolation, 10s+ = 1.0; scroll depth included to block instant voters</li>
+        <li><strong>Model Lifecycle</strong> (4-state machine): 
+          <div class="state-flow">
+            <span class="state-tag state-active">Active</span>
+            <span class="arrow">→</span>
+            <span class="state-tag state-observing">Observing</span>
+            <span class="arrow">→</span>
+            <span class="state-tag state-eliminated">Eliminated</span>
+            <span class="arrow">↔</span>
+            <span class="state-tag state-probation">Probation</span>
+          </div>
+          <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">Eliminated models enter Probation period, LCB (Lower Confidence Bound) determines revival, not "revive with one win"</p>
+        </li>
+        <li><strong>Monthly Reset</strong>: Rankings archived on the 1st of each month, new month starts fresh, history available</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Anti-cheat -->
+  <div class="section">
+    <div class="card">
+      <div class="card-title"><span class="icon">03</span> Anti-Cheat</div>
+      <ul>
+        <li><strong>Server-side User ID</strong>: user_id issued via HMAC, preventing client-side forgery</li>
+        <li><strong>IP Rate Limiting</strong>: Max 20 requests per 60s per IP, 429 on excess</li>
+        <li><strong>Vote Cooldown</strong>: Minimum 10s between votes per user</li>
+        <li><strong>Daily Vote Cap</strong>: Max 50 votes per user per day</li>
+        <li><strong>Browser Fingerprint</strong>: Canvas/WebGL/Audio fingerprinting to detect multi-account same-device</li>
+        <li><strong>Anomaly Detection</strong>: Repeated votes on same question, highly repetitive patterns flagged</li>
+        <li><strong>Sincerity Filter</strong>: Dwell time + scroll depth dual check, instant voter weight = 0</li>
+        <li><strong>Audit Log</strong>: Complete audit trail for all voting behavior, fully traceable</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Data transparency -->
+  <div class="section">
+    <div class="card">
+      <div class="card-title"><span class="icon">04</span> Data Transparency</div>
+      <ul>
+        <li><strong>Vote & Reveal</strong>: Model identities disclosed after each vote, no black-box operations</li>
+        <li><strong>Open Source Ranking</strong>: Core ranking engine (lobster.py) algorithm fully public and auditable</li>
+        <li><strong>Transparent Scoring</strong>: Arena Score formula, weight factors, state transition rules all public</li>
+        <li><strong>Monthly Archives</strong>: Historical ranking data archived monthly, any period queryable</li>
+        <li><strong>Auditable</strong>: Complete voting audit logs retained, community oversight welcome</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Independence declaration -->
+  <div class="section">
+    <div class="card">
+      <div class="card-title"><span class="icon">05</span> Independence Declaration</div>
+      <div class="highlight-box">
+        <p>This platform has no corporate backing</p>
+        <p class="big">No AI model provider intervention allowed</p>
+        <p>Driving better AI development through real user evaluation data</p>
+      </div>
+      <ul style="margin-top:20px;">
+        <li><strong>No Corporate Ties</strong>: Independently operated, no financial ties to any AI provider</li>
+        <li><strong>Tamper-proof Algorithm</strong>: Rankings computed automatically by Plackett-Luce, no manual override</li>
+        <li><strong>Data = Truth</strong>: All rankings independently reproducible from raw vote data</li>
+        <li><strong>Open Oversight</strong>: Community welcome to independently audit algorithms, data, and results</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  LLMVECT — LLM Arena | Transparent · Fair · Independent
+</div>
+
+<script>
+function toggleSidebar() {
+  const sidebar = document.getElementById('mobileSidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const btn = document.getElementById('hamburgerBtn');
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('open');
+  btn.classList.toggle('open');
+}
+function closeSidebar() {
+  document.getElementById('mobileSidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+  document.getElementById('hamburgerBtn').classList.remove('open');
+}
+</script>
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+</script>
+</body>
+</html>
