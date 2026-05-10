@@ -381,6 +381,25 @@ def init_db():
     """)
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_sponsors_provider ON sponsors(provider, status)")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_sponsors_user ON sponsors(user_id)")
+
+    # ===== 模型自动发现系统表 =====
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS model_discovery (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            provider TEXT NOT NULL,
+            model_id TEXT NOT NULL,
+            status TEXT DEFAULT 'discovered',
+            source TEXT DEFAULT 'api',
+            first_seen TEXT DEFAULT CURRENT_TIMESTAMP,
+            last_checked TEXT DEFAULT CURRENT_TIMESTAMP,
+            last_healthy TEXT,
+            fail_count INTEGER DEFAULT 0,
+            metadata TEXT DEFAULT '',
+            UNIQUE(provider, model_id)
+        )
+    """)
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_md_status ON model_discovery(status)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_md_provider ON model_discovery(provider, status)")
     conn.commit()
     
     # 创建默认管理员账号: 首次启动随机生成密码
@@ -597,8 +616,20 @@ def issue_user_id(fingerprint: str, ip: str) -> str:
 async def lifespan(app: FastAPI):
     init_db()
     task = asyncio.create_task(monthly_archive_scheduler())
+    # 启动模型发现 + 健康检查定时任务
+    try:
+        from apscheduler.schedulers.asyncio import AsyncIOScheduler
+        scheduler = AsyncIOScheduler()
+        scheduler.add_job(run_discovery, 'interval', hours=6, id='model_discovery', replace_existing=True)
+        scheduler.add_job(run_health_check, 'interval', hours=1, id='health_check', replace_existing=True)
+        scheduler.start()
+    except ImportError:
+        print("[WARN] apscheduler not installed, model discovery scheduler disabled")
+        scheduler = None
     yield
     task.cancel()
+    if scheduler:
+        scheduler.shutdown()
 
 app = FastAPI(
     title="LLM.中国 API",
@@ -1109,6 +1140,338 @@ async def test_api_key(request: ApiKeyRequest, authorization: str = Header(None)
                 return {"success": False, "message": f"{provider['name']} 返回错误 (HTTP {resp.status_code}): {resp.text[:200]}"}
             except Exception as e:
                 return {"success": False, "message": f"{provider['name']} 连接失败: {str(e)}"}
+
+# ==================== 模型自动发现 + 健康检查 ====================
+
+# 不支持 /v1/models 的特殊厂商，仅靠健康探测
+_NO_MODELS_API_PROVIDERS = {"baidu", "xfyun", "huawei"}
+
+async def discover_provider_models(provider_id: str, api_key: str, api_base: str):
+    """调用厂商 /v1/models 接口，发现所有可用模型"""
+    if provider_id in _NO_MODELS_API_PROVIDERS:
+        return []
+    try:
+        async with httpx.AsyncClient(timeout=15.0) as client:
+            # 尝试 /models 和 /v1/models 两种路径
+            for path in ["/models", "/v1/models"]:
+                try:
+                    resp = await client.get(
+                        f"{api_base.rstrip('/')}{path}",
+                        headers={"Authorization": f"Bearer {api_key}"}
+                    )
+                    if resp.status_code == 200:
+                        data = resp.json()
+                        models = data.get("data", [])
+                        return [m["id"] for m in models if "id" in m]
+                except Exception:
+                    continue
+        return []
+    except Exception:
+        return []
+
+
+async def run_discovery():
+    """遍历所有已配置 API Key 的厂商，拉取模型列表"""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT provider, api_key, COALESCE(secret_key,'') FROM api_keys WHERE enabled = 1")
+    keys = cursor.fetchall()
+
+    new_models = []
+    deprecated_models = []
+
+    for provider_id, api_key, secret_key in keys:
+        provider = LLM_PROVIDERS.get(provider_id, {})
+        api_base = provider.get("api_base", "")
+        if not api_base or not api_key:
+            continue
+
+        remote_models = await discover_provider_models(provider_id, api_key, api_base)
+        if not remote_models:
+            continue
+
+        # 已知模型（本地配置中的）
+        known = set(m["id"] for m in ALL_MODELS if m["provider"] == provider_id)
+        remote_set = set(remote_models)
+
+        # 新发现的模型
+        for mid in remote_set - known:
+            new_models.append({"provider": provider_id, "model_id": mid, "provider_name": provider.get("name", provider_id)})
+            cursor.execute("""
+                INSERT OR IGNORE INTO model_discovery (provider, model_id, status, source)
+                VALUES (?, ?, 'discovered', 'api')
+            """, (provider_id, mid))
+
+        # 可能下架的模型
+        for mid in known - remote_set:
+            deprecated_models.append({"provider": provider_id, "model_id": mid, "provider_name": provider.get("name", provider_id)})
+            cursor.execute("""
+                UPDATE model_discovery SET status = 'deprecated'
+                WHERE provider = ? AND model_id = ? AND status != 'disabled'
+            """, (provider_id, mid))
+
+        # 更新已知模型的状态为 verified
+        for mid in remote_set & known:
+            cursor.execute("""
+                INSERT OR IGNORE INTO model_discovery (provider, model_id, status, source)
+                VALUES (?, ?, 'verified', 'api')
+            """, (provider_id, mid))
+            cursor.execute("""
+                UPDATE model_discovery SET last_checked = datetime('now'),
+                last_healthy = datetime('now'), fail_count = 0, status = 'verified'
+                WHERE provider = ? AND model_id = ?
+            """, (provider_id, mid))
+
+    conn.commit()
+    conn.close()
+    return new_models, deprecated_models
+
+
+async def health_check_model(provider_id: str, model_id: str, api_key: str, secret_key: str = "", app_id: str = ""):
+    """发一个极短请求测试模型是否可用"""
+    provider = LLM_PROVIDERS.get(provider_id, {})
+    api_base = provider.get("api_base", "")
+    auth_type = provider.get("auth_type", "standard")
+
+    if not api_base or not api_key:
+        return False, "no api_base or api_key"
+
+    try:
+        async with httpx.AsyncClient(timeout=15.0) as client:
+            # 百度：先换 token
+            if auth_type == "baidu" and secret_key:
+                try:
+                    token_resp = await client.post(
+                        "https://aip.baidubce.com/oauth/2.0/token",
+                        params={"grant_type": "client_credentials", "client_id": api_key, "client_secret": secret_key}
+                    )
+                    if token_resp.status_code == 200 and "access_token" in token_resp.json():
+                        access_token = token_resp.json()["access_token"]
+                        resp = await client.post(
+                            f"{api_base}/completions",
+                            params={"access_token": access_token},
+                            json={"model": model_id, "messages": [{"role": "user", "content": "hi"}], "max_tokens": 1}
+                        )
+                        return resp.status_code == 200, f"HTTP {resp.status_code}"
+                except Exception as e:
+                    return False, str(e)
+
+            # 科大讯飞：REST API
+            elif auth_type == "xfyun":
+                try:
+                    resp = await client.post(
+                        "https://spark-api-open.xf-yun.com/v1/chat/completions",
+                        headers={"Authorization": f"Bearer {api_key}:{secret_key}", "Content-Type": "application/json"},
+                        json={"model": model_id, "messages": [{"role": "user", "content": "hi"}], "max_tokens": 1}
+                    )
+                    return resp.status_code == 200, f"HTTP {resp.status_code}"
+                except Exception as e:
+                    return False, str(e)
+
+            # Anthropic
+            elif auth_type == "anthropic":
+                resp = await client.post(
+                    "https://api.anthropic.com/v1/messages",
+                    headers={"x-api-key": api_key, "anthropic-version": "2023-06-01", "Content-Type": "application/json"},
+                    json={"model": model_id, "max_tokens": 1, "messages": [{"role": "user", "content": "hi"}]}
+                )
+                return resp.status_code == 200, f"HTTP {resp.status_code}"
+
+            # Google Gemini
+            elif auth_type == "google":
+                resp = await client.post(
+                    f"https://generativelanguage.googleapis.com/v1beta/models/{model_id}:generateContent?key={api_key}",
+                    headers={"Content-Type": "application/json"},
+                    json={"contents": [{"parts": [{"text": "hi"}]}], "generationConfig": {"maxOutputTokens": 1}}
+                )
+                return resp.status_code == 200, f"HTTP {resp.status_code}"
+
+            # Cohere
+            elif auth_type == "cohere":
+                resp = await client.post(
+                    "https://api.cohere.ai/v2/chat",
+                    headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+                    json={"model": model_id, "messages": [{"role": "user", "content": "hi"}]}
+                )
+                return resp.status_code == 200, f"HTTP {resp.status_code}"
+
+            # 字节跳动
+            elif provider_id == "byteDance":
+                resp = await client.post(
+                    api_base,
+                    headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+                    json={"model": model_id, "input": [{"role": "user", "content": [{"type": "input_text", "text": "hi"}]}]}
+                )
+                return resp.status_code == 200, f"HTTP {resp.status_code}"
+
+            # 标准OpenAI兼容
+            else:
+                resp = await client.post(
+                    f"{api_base}/chat/completions",
+                    headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+                    json={"model": model_id, "messages": [{"role": "user", "content": "hi"}], "max_tokens": 1}
+                )
+                return resp.status_code == 200, f"HTTP {resp.status_code}"
+    except Exception as e:
+        return False, str(e)
+
+
+async def run_health_check():
+    """对所有已启用厂商的模型做健康探测"""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT provider, api_key, COALESCE(secret_key,''), COALESCE(app_id,'') FROM api_keys WHERE enabled = 1")
+    keys = {row[0]: (row[1], row[2], row[3]) for row in cursor.fetchall()}
+
+    # 获取需要探测的模型：所有已知模型 + 已发现的模型
+    models_to_check = []
+
+    # 已知模型（BATTLE_MODELS 中的）
+    for m in BATTLE_MODELS:
+        pid = m["provider"]
+        if pid in keys:
+            models_to_check.append((pid, m["model"]))
+
+    # 已发现但未在已知列表中的模型
+    cursor.execute("SELECT provider, model_id FROM model_discovery WHERE status != 'disabled'")
+    for row in cursor.fetchall():
+        if (row[0], row[1]) not in set(models_to_check) and row[0] in keys:
+            models_to_check.append((row[0], row[1]))
+
+    results = {"healthy": 0, "unhealthy": 0, "newly_disabled": 0}
+
+    for provider_id, model_id in models_to_check:
+        api_key, secret_key, app_id = keys[provider_id]
+        healthy, detail = await health_check_model(provider_id, model_id, api_key, secret_key, app_id)
+
+        if healthy:
+            cursor.execute("""
+                INSERT OR IGNORE INTO model_discovery (provider, model_id, status, source)
+                VALUES (?, ?, 'verified', 'healthcheck')
+            """, (provider_id, model_id))
+            cursor.execute("""
+                UPDATE model_discovery SET
+                last_healthy = datetime('now'),
+                last_checked = datetime('now'),
+                fail_count = 0,
+                status = 'verified'
+                WHERE provider = ? AND model_id = ?
+            """, (provider_id, model_id))
+            results["healthy"] += 1
+        else:
+            cursor.execute("""
+                INSERT OR IGNORE INTO model_discovery (provider, model_id, status, source, fail_count)
+                VALUES (?, ?, 'discovered', 'healthcheck', 1)
+            """, (provider_id, model_id))
+            cursor.execute("""
+                UPDATE model_discovery SET
+                last_checked = datetime('now'),
+                fail_count = fail_count + 1
+                WHERE provider = ? AND model_id = ?
+            """, (provider_id, model_id))
+            # 连续3次失败 -> 自动禁用
+            cursor.execute("""
+                UPDATE model_discovery SET status = 'disabled'
+                WHERE provider = ? AND model_id = ? AND fail_count >= 3 AND status != 'disabled'
+            """, (provider_id, model_id))
+            if cursor.rowcount > 0:
+                results["newly_disabled"] += 1
+            results["unhealthy"] += 1
+
+    conn.commit()
+    conn.close()
+    return results
+
+
+def get_disabled_models_set():
+    """获取当前被禁用的模型ID集合（供 arena 调用过滤）"""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT provider, model_id FROM model_discovery WHERE status = 'disabled'")
+    disabled = set((row[0], row[1]) for row in cursor.fetchall())
+    conn.close()
+    return disabled
+
+
+@app.post("/api/admin/discover")
+async def trigger_discovery(authorization: str = Header(None)):
+    """手动触发模型发现"""
+    require_admin(authorization)
+    new, deprecated = await run_discovery()
+    return {
+        "new_models": new,
+        "deprecated_models": deprecated,
+        "new_count": len(new),
+        "deprecated_count": len(deprecated)
+    }
+
+
+@app.post("/api/admin/health-check")
+async def trigger_health_check(authorization: str = Header(None)):
+    """手动触发健康探测"""
+    require_admin(authorization)
+    results = await run_health_check()
+    return results
+
+
+@app.get("/api/admin/model-health")
+async def get_model_health(authorization: str = Header(None)):
+    """获取所有模型健康状态"""
+    require_admin(authorization)
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT provider, model_id, status, fail_count,
+               last_checked, last_healthy, first_seen, source
+        FROM model_discovery ORDER BY
+        CASE status
+            WHEN 'disabled' THEN 1
+            WHEN 'deprecated' THEN 2
+            WHEN 'discovered' THEN 3
+            WHEN 'verified' THEN 4
+        END, provider, model_id
+    """)
+    rows = cursor.fetchall()
+    conn.close()
+    return [{
+        "provider": r[0],
+        "model_id": r[1],
+        "provider_name": LLM_PROVIDERS.get(r[0], {}).get("name", r[0]),
+        "status": r[2],
+        "fail_count": r[3],
+        "last_checked": r[4],
+        "last_healthy": r[5],
+        "first_seen": r[6],
+        "source": r[7]
+    } for r in rows]
+
+
+@app.post("/api/admin/model-health/{provider}/{model_id}/toggle")
+async def toggle_model_status(provider: str, model_id: str, authorization: str = Header(None)):
+    """启用/禁用模型"""
+    require_admin(authorization)
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT status FROM model_discovery WHERE provider = ? AND model_id = ?", (provider, model_id))
+    row = cursor.fetchone()
+    if not row:
+        cursor.execute("""
+            INSERT INTO model_discovery (provider, model_id, status, source)
+            VALUES (?, ?, 'disabled', 'manual')
+        """, (provider, model_id))
+        conn.commit()
+        conn.close()
+        return {"provider": provider, "model_id": model_id, "status": "disabled"}
+
+    new_status = "verified" if row[0] == "disabled" else "disabled"
+    cursor.execute("""
+        UPDATE model_discovery SET status = ?, fail_count = 0
+        WHERE provider = ? AND model_id = ?
+    """, (new_status, provider, model_id))
+    conn.commit()
+    conn.close()
+    return {"provider": provider, "model_id": model_id, "status": new_status}
+
 
 # ==================== 自定义厂商管理 ====================
 class CustomProviderRequest(BaseModel):
@@ -1863,8 +2226,10 @@ async def arena4_chat(request: Arena4Request, http_request: Request):
         if row[0] not in key_map:
             key_map[row[0]] = (row[1], row[2] or "", row[3] or "")
     conn.close()
+    # 过滤被健康检查禁用的模型
+    disabled_models = get_disabled_models_set()
     available_providers = set(m["provider"] for m in BATTLE_MODELS if m["provider"] in key_map)
-    available_ids = [m["id"] for m in BATTLE_MODELS if m["provider"] in key_map]
+    available_ids = [m["id"] for m in BATTLE_MODELS if m["provider"] in key_map and (m["provider"], m["model"]) not in disabled_models]
 
     if len(available_providers) < 2:
         raise HTTPException(status_code=400, detail=f"需要至少2个不同厂商的API Key，当前{len(available_providers)}个")
@@ -1946,8 +2311,43 @@ async def arena4_chat(request: Arena4Request, http_request: Request):
     for i, (m, r) in enumerate(zip(models, responses)):
         if isinstance(r, Exception):
             logger.error(f"[Arena4] {m[0]['id']} FAILED: {type(r).__name__}: {str(r)[:100]}")
+            # 实时熔断：记录失败到 model_discovery
+            try:
+                conn2 = sqlite3.connect(DB_PATH)
+                cur2 = conn2.cursor()
+                cur2.execute("""
+                    INSERT OR IGNORE INTO model_discovery (provider, model_id, status, source, fail_count)
+                    VALUES (?, ?, 'discovered', 'arena', 1)
+                """, (m[0]["provider"], m[0]["model"]))
+                cur2.execute("""
+                    UPDATE model_discovery SET
+                    last_checked = datetime('now'),
+                    fail_count = fail_count + 1
+                    WHERE provider = ? AND model_id = ?
+                """, (m[0]["provider"], m[0]["model"]))
+                cur2.execute("""
+                    UPDATE model_discovery SET status = 'disabled'
+                    WHERE provider = ? AND model_id = ? AND fail_count >= 3
+                """, (m[0]["provider"], m[0]["model"]))
+                conn2.commit()
+                conn2.close()
+            except Exception:
+                pass
         else:
             logger.info(f"[Arena4] {m[0]['id']} OK: {r[:50]}...")
+            # 成功则重置失败计数
+            try:
+                conn2 = sqlite3.connect(DB_PATH)
+                cur2 = conn2.cursor()
+                cur2.execute("""
+                    UPDATE model_discovery SET fail_count = 0,
+                    last_healthy = datetime('now'), status = 'verified'
+                    WHERE provider = ? AND model_id = ?
+                """, (m[0]["provider"], m[0]["model"]))
+                conn2.commit()
+                conn2.close()
+            except Exception:
+                pass
 
     # 自动分类问题
     category = classify_category(request.question)

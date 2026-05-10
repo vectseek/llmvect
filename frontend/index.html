@@ -2555,7 +2555,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <!-- 理由弹窗已移除（死代码） -->
 
     <script>
-        const API_BASE = 'http://localhost:8000';
+        const API_BASE = window.location.origin;
         let currentBattleId = null;
         let currentModels = [];  // 存储4个Model的真实身份（从API返回）
         let modelRevealed = false;  // 是否已揭晓
