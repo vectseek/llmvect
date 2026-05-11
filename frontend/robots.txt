@@ -1,0 +1,42 @@
+User-agent: *
+Allow: /
+Allow: /arena4
+Allow: /leaderboard.html
+Allow: /rules.html
+Allow: /sponsor.html
+
+Sitemap: https://llmvect.com/sitemap.xml
+
+# AI Crawlers - explicitly welcome
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Omgilibot
+Allow: /
+
+User-agent: Omgili
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /

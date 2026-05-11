@@ -689,6 +689,64 @@ async def manifest():
 async def service_worker():
     return FileResponse(os.path.join(FRONTEND_DIR, "sw.js"), media_type="application/javascript")
 
+@app.get("/robots.txt")
+async def robots():
+    return FileResponse(os.path.join(FRONTEND_DIR, "robots.txt"), media_type="text/plain")
+
+@app.get("/sitemap.xml")
+async def sitemap():
+    return FileResponse(os.path.join(FRONTEND_DIR, "sitemap.xml"), media_type="application/xml")
+
+@app.get("/llms.txt")
+async def llms_txt():
+    """llms.txt - AI crawlers standard for describing the site"""
+    content = """# LLMVECT
+> Anonymous 4-model AI blind test arena. Compare LLMs side-by-side, auto-summarize, vote, and discover the truth.
+
+## What is LLMVECT?
+LLMVECT is an open-source LLM arena where users can:
+- Enter a prompt and get responses from 4 anonymous AI models simultaneously
+- Compare responses side-by-side in real-time
+- Get auto-summarized insights to detect AI hallucinations
+- Vote on the best response based on human preference
+- View the real-time leaderboard with ELO-based rankings
+
+## Supported Models
+100+ models from 15+ providers including:
+- China: Zhipu (GLM), StepFun, Alibaba (Qwen), Tencent (Hunyuan), Moonshot, Baidu (ERNIE), iFlytek (Spark), Huawei (Pangu)
+- Global: OpenAI (GPT), Anthropic (Claude), Google (Gemini), Mistral, xAI (Grok), Cohere, Groq, Perplexity
+
+## Pages
+- / (Arena - the main blind test interface)
+- /leaderboard.html (Real-time model rankings with ELO ratings)
+- /sponsor.html (Contribute API keys to expand model coverage)
+- /rules.html (Arena rules and protocol)
+
+## API Endpoints (Public)
+- GET /api/detect-region - Detect user region for language preference
+- GET /api/models - List available models and providers
+- GET /api/leaderboard - Get current model rankings
+
+## Tech Stack
+- Backend: Python FastAPI + SQLite
+- Frontend: Vanilla HTML/CSS/JS
+- Ranking: Plackett-Luce + UCB-E algorithm
+- License: MIT
+- Source: https://github.com/vectseek/llmvect
+"""
+    return Response(content=content, media_type="text/plain")
+
+@app.get("/llms-full.txt")
+async def llms_full_txt():
+    """Extended llms.txt with full model list"""
+    models_info = []
+    for pid, p in LLM_PROVIDERS.items():
+        models = p.get("models", [])
+        models_info.append(f"### {p.get('name', pid)}\nModels: {', '.join(models)}")
+    content = f"""# LLMVECT
+> Anonymous 4-model AI blind test arena\n\n## All Supported Models\n{"".join(models_info)}\n\n## Links\n- Arena: https://llmvect.com/\n- Leaderboard: https://llmvect.com/leaderboard.html\n- GitHub: https://github.com/vectseek/llmvect\n"""
+    return Response(content=content, media_type="text/plain")
+
 @app.get("/icons/{filename}")
 async def icons(filename: str):
     safe = os.path.normpath(filename)
