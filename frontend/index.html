@@ -416,35 +416,22 @@ zh: {
 }
 };
 
-// Smart language detection: IP region > user choice (7d) > browser lang > default 'en'
+// Language detection: user choice (7d) > browser lang > default 'zh' in China
 function detectLang() {
     // 1. User manual choice (valid 7 days)
     const savedRaw = localStorage.getItem('llmvect_lang');
     const savedTime = parseInt(localStorage.getItem('llmvect_lang_time') || '0');
     const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
     if (savedRaw && (Date.now() - savedTime) < SEVEN_DAYS) return savedRaw;
-    // 2. Browser language as initial guess (will be overridden by IP detection)
+    // 2. Browser language — reliable, no Cloudflare interference
     const nav = (navigator.language || navigator.userLanguage || '').toLowerCase();
     if (nav.startsWith('zh')) return 'zh';
-    return 'en';
-}
-// IP-based region detection (async, runs after page load)
-async function detectRegionLang() {
-    const savedRaw = localStorage.getItem('llmvect_lang');
-    const savedTime = parseInt(localStorage.getItem('llmvect_lang_time') || '0');
-    const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
-    // Skip if user manually chose within 7 days
-    if (savedRaw && (Date.now() - savedTime) < SEVEN_DAYS) return;
-    try {
-        const res = await fetch(window.location.origin + '/api/detect-region');
-        const data = await res.json();
-        if (data.lang && data.lang !== currentLang) {
-            setLang(data.lang);
-        }
-    } catch(e) {
-        // Detection failed, keep browser-based guess
-    }
-}
+    if (nav.startsWith('ja')) return 'zh'; // Japanese users likely want Chinese interface too
+    if (nav.startsWith('ko')) return 'zh';
+    if (nav.startsWith('vi')) return 'zh';
+    if (nav.startsWith('th')) return 'zh';
+    // 3. Default to zh (most visitors from Asia)
+    return 'zh';
 }
 // Apply language immediately in <head> to avoid FOUC and ensure SEO
 currentLang = detectLang();
@@ -506,7 +493,6 @@ function updateUILanguage() {
 }
 document.addEventListener('DOMContentLoaded', () => {
     updateUILanguage();
-    detectRegionLang();
 });
 </script>
 
