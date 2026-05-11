@@ -696,6 +696,45 @@ async def icons(filename: str):
         raise HTTPException(status_code=404)
     return FileResponse(os.path.join(FRONTEND_DIR, "icons", safe))
 
+@app.get("/api/detect-region")
+async def detect_region(request: Request):
+    """根据请求 IP 检测用户所在地区，返回建议语言"""
+    # 获取真实 IP（支持反向代理）
+    ip = request.headers.get("x-forwarded-for", "").split(",")[0].strip()
+    if not ip or ip == "unknown":
+        ip = request.headers.get("x-real-ip", "")
+    if not ip:
+        ip = request.client.host if request.client else ""
+    # 本地访问默认中文
+    if ip in ("127.0.0.1", "::1", "localhost", ""):
+        return {"country": "CN", "lang": "zh", "ip": ip}
+    # 使用免费 IP 地理位置 API
+    try:
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            resp = await client.get(f"https://ipwho.is/{ip}")
+            if resp.status_code == 200:
+                data = resp.json()
+                country = data.get("country_code", "")
+                # 中国大陆、香港、澳门、台湾、新加坡(大量华人) -> 中文
+                cn_regions = {"CN", "HK", "MO", "TW", "SG"}
+                lang = "zh" if country in cn_regions else "en"
+                return {"country": country, "lang": lang, "ip": ip}
+    except Exception:
+        pass
+    # 备用：ip-api.com
+    try:
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            resp = await client.get(f"http://ip-api.com/json/{ip}?fields=countryCode")
+            if resp.status_code == 200:
+                country = resp.json().get("countryCode", "")
+                cn_regions = {"CN", "HK", "MO", "TW", "SG"}
+                lang = "zh" if country in cn_regions else "en"
+                return {"country": country, "lang": lang, "ip": ip}
+    except Exception:
+        pass
+    # 都失败了，回退到浏览器语言
+    return {"country": "unknown", "lang": None, "ip": ip}
+
 # CORS（不设 credentials 以避免与 wildcard origin 冲突）
 app.add_middleware(
     CORSMiddleware,
@@ -1027,7 +1066,7 @@ async def test_api_key(request: ApiKeyRequest, authorization: str = Header(None)
                     data={"grant_type": "client_credentials", "client_id": request.api_key, "client_secret": request.secret_key}
                 )
                 if resp.status_code == 200 and "access_token" in resp.json():
-                    return {"success": True, "message": "百度认证成功 ✓"}
+                    return {"success": True, "message": "百度认证成功 ✓", "models": [], "models_note": "百度不支持 /v1/models 自动发现"}
                 return {"success": False, "message": f"百度认证失败: {resp.text[:200]}"}
             except Exception as e:
                 return {"success": False, "message": f"百度请求失败: {str(e)}"}
@@ -1050,7 +1089,7 @@ async def test_api_key(request: ApiKeyRequest, authorization: str = Header(None)
                     }
                 )
                 if resp.status_code in (200, 201):
-                    return {"success": True, "message": "华为IAM认证成功 ✓"}
+                    return {"success": True, "message": "华为IAM认证成功 ✓", "models": [], "models_note": "华为不支持 /v1/models 自动发现"}
                 return {"success": False, "message": f"华为IAM认证失败 (HTTP {resp.status_code}): {resp.text[:200]}"}
             except Exception as e:
                 return {"success": False, "message": f"华为IAM请求失败: {str(e)}"}
@@ -1066,7 +1105,7 @@ async def test_api_key(request: ApiKeyRequest, authorization: str = Header(None)
                     json={"model": "generalv3.5", "messages": [{"role": "user", "content": "hi"}], "max_tokens": 5}
                 )
                 if resp.status_code == 200:
-                    return {"success": True, "message": "科大讯飞认证成功 ✓"}
+                    return {"success": True, "message": "科大讯飞认证成功 ✓", "models": [], "models_note": "科大讯飞不支持 /v1/models 自动发现"}
                 return {"success": False, "message": f"科大讯飞认证失败 (HTTP {resp.status_code}): {resp.text[:200]}"}
             except Exception as e:
                 return {"success": False, "message": f"科大讯飞请求失败: {str(e)}"}
@@ -1082,7 +1121,22 @@ async def test_api_key(request: ApiKeyRequest, authorization: str = Header(None)
                     json={"model": "claude-3.5-haiku", "max_tokens": 5, "messages": [{"role": "user", "content": "hi"}]}
                 )
                 if resp.status_code == 200:
-                    return {"success": True, "message": "Anthropic 认证成功 ✓"}
+                    # Anthropic 测试成功，尝试获取模型列表
+                    models_list = []
+                    try:
+                        models_resp = await client.get(
+                            "https://api.anthropic.com/v1/models",
+                            headers={"x-api-key": request.api_key, "anthropic-version": "2023-06-01"}
+                        )
+                        if models_resp.status_code == 200:
+                            models_data = models_resp.json().get("data", [])
+                            models_list = [m.get("id", "") for m in models_data if m.get("id")]
+                    except Exception:
+                        pass
+                    result = {"success": True, "message": "Anthropic 认证成功 ✓", "models": models_list}
+                    if not models_list:
+                        result["models_note"] = "无法获取模型列表，请手动配置"
+                    return result
                 return {"success": False, "message": f"Anthropic 认证失败 (HTTP {resp.status_code}): {resp.text[:200]}"}
             except Exception as e:
                 return {"success": False, "message": f"Anthropic 请求失败: {str(e)}"}
@@ -1098,7 +1152,22 @@ async def test_api_key(request: ApiKeyRequest, authorization: str = Header(None)
                     json={"model": "command-r-08-2024", "messages": [{"role": "user", "content": "hi"}]}
                 )
                 if resp.status_code == 200:
-                    return {"success": True, "message": "Cohere 认证成功 ✓"}
+                    # Cohere 测试成功，尝试获取模型列表
+                    models_list = []
+                    try:
+                        models_resp = await client.get(
+                            "https://api.cohere.ai/v2/models",
+                            headers={"Authorization": f"Bearer {request.api_key}"}
+                        )
+                        if models_resp.status_code == 200:
+                            models_data = models_resp.json().get("models", models_resp.json().get("data", []))
+                            models_list = [m.get("name", m.get("id", "")) for m in models_data]
+                    except Exception:
+                        pass
+                    result = {"success": True, "message": "Cohere 认证成功 ✓", "models": models_list}
+                    if not models_list:
+                        result["models_note"] = "无法获取模型列表，请手动配置"
+                    return result
                 return {"success": False, "message": f"Cohere 认证失败 (HTTP {resp.status_code}): {resp.text[:200]}"}
             except Exception as e:
                 return {"success": False, "message": f"Cohere 请求失败: {str(e)}"}
@@ -1114,7 +1183,21 @@ async def test_api_key(request: ApiKeyRequest, authorization: str = Header(None)
                     json={"contents": [{"parts": [{"text": "hi"}]}], "generationConfig": {"maxOutputTokens": 5}}
                 )
                 if resp.status_code == 200:
-                    return {"success": True, "message": "Google Gemini 认证成功 ✓"}
+                    # Google 测试成功，尝试获取模型列表
+                    models_list = []
+                    try:
+                        models_resp = await client.get(
+                            f"https://generativelanguage.googleapis.com/v1beta/models?key={request.api_key}"
+                        )
+                        if models_resp.status_code == 200:
+                            models_data = models_resp.json().get("models", [])
+                            models_list = [m.get("name", "").replace("models/", "") for m in models_data if m.get("name")]
+                    except Exception:
+                        pass
+                    result = {"success": True, "message": "Google Gemini 认证成功 ✓", "models": models_list}
+                    if not models_list:
+                        result["models_note"] = "无法获取模型列表，请手动配置"
+                    return result
                 error_data = resp.json() if resp.text else {}
                 return {"success": False, "message": f"Google 认证失败 (HTTP {resp.status_code}): {error_data.get('error', {}).get('message', resp.text[:200])}"}
             except Exception as e:
@@ -1136,7 +1219,12 @@ async def test_api_key(request: ApiKeyRequest, authorization: str = Header(None)
                     json={"model": models[0], "messages": [{"role": "user", "content": "hi"}], "max_tokens": 5}
                 )
                 if resp.status_code == 200:
-                    return {"success": True, "message": f"{provider['name']} 连接成功 ✓"}
+                    # 标准厂商测试成功，尝试获取模型列表
+                    models_list = await discover_provider_models(provider_id, request.api_key, api_base)
+                    result = {"success": True, "message": f"{provider['name']} 连接成功 ✓", "models": models_list}
+                    if not models_list:
+                        result["models_note"] = "无法获取模型列表（厂商可能不支持 /v1/models 接口）"
+                    return result
                 return {"success": False, "message": f"{provider['name']} 返回错误 (HTTP {resp.status_code}): {resp.text[:200]}"}
             except Exception as e:
                 return {"success": False, "message": f"{provider['name']} 连接失败: {str(e)}"}

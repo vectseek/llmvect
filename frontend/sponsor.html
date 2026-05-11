@@ -58,6 +58,7 @@ function t(k) { return (SPONSOR_I18N[sponsorLang] || SPONSOR_I18N.en)[k] || k; }
 function switchSponsorLang() {
   sponsorLang = sponsorLang === 'en' ? 'zh' : 'en';
   localStorage.setItem('sponsor_lang', sponsorLang);
+  localStorage.setItem('sponsor_lang_time', Date.now().toString());
   applySponsorLang();
 }
 function applySponsorLang() {
@@ -380,10 +381,22 @@ async function testSponsorKey() {
         });
         const d = await r.json();
         if (d.success) {
-            if (statusEl) statusEl.innerHTML = '<span style="color:#10B981">✓ ' + d.message + '</span>';
+            let html = '<span style="color:#10B981">' + d.message + '</span>';
+            if (d.models && d.models.length > 0) {
+                const modelsLabel = sponsorLang === 'zh' ? ('支持 ' + d.models.length + ' 个模型:') : ('Supported models (' + d.models.length + '):');
+                html += '<div style="margin-top:8px;font-size:12px;color:var(--text-secondary);">' + modelsLabel + '</div>';
+                html += '<div style="margin-top:4px;display:flex;flex-wrap:wrap;gap:4px;max-height:120px;overflow-y:auto;">';
+                d.models.forEach(function(m) {
+                    html += '<span style="background:rgba(16,185,129,0.1);color:#10B981;padding:2px 8px;border-radius:4px;font-size:11px;border:1px solid rgba(16,185,129,0.2);">' + m + '</span>';
+                });
+                html += '</div>';
+            } else if (d.models_note) {
+                html += '<div style="margin-top:4px;font-size:11px;color:var(--text-secondary);">' + d.models_note + '</div>';
+            }
+            if (statusEl) statusEl.innerHTML = html;
             if (submitBtn) submitBtn.disabled = false;
         } else {
-            if (statusEl) statusEl.innerHTML = '<span style="color:#EF4444">✗ ' + d.message + '</span>';
+            if (statusEl) statusEl.innerHTML = '<span style="color:#EF4444">' + d.message + '</span>';
             if (submitBtn) submitBtn.disabled = true;
         }
     } catch(e) {
@@ -482,9 +495,27 @@ function logout() {
     showToast(t('loggedOut'), 'success');
 }
 
+// IP-based region detection for sponsor page
+async function detectSponsorRegionLang() {
+  const savedTime = parseInt(localStorage.getItem('sponsor_lang_time') || '0');
+  const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
+  if (localStorage.getItem('sponsor_lang') && (Date.now() - savedTime) < SEVEN_DAYS) return;
+  try {
+    const res = await fetch(window.location.origin + '/api/detect-region');
+    const data = await res.json();
+    if (data.lang && data.lang !== sponsorLang) {
+      sponsorLang = data.lang;
+      localStorage.setItem('sponsor_lang', sponsorLang);
+      localStorage.setItem('sponsor_lang_time', Date.now().toString());
+      applySponsorLang();
+    }
+  } catch(e) {}
+}
+
 // Init
 if (token) { loadSponsorPage(); loadProviders(); applySponsorLang(); }
 else { showLogin(); loadProviders(); applySponsorLang(); }
+detectSponsorRegionLang();
 </script>
 </body>
 </html>
