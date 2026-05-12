@@ -416,22 +416,41 @@ zh: {
 }
 };
 
-// Language detection: user choice (7d) > browser lang > default 'zh' in China
+// Language detection: user choice (7d) > browser lang > default 'en'
 function detectLang() {
     // 1. User manual choice (valid 7 days)
     const savedRaw = localStorage.getItem('llmvect_lang');
     const savedTime = parseInt(localStorage.getItem('llmvect_lang_time') || '0');
     const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
     if (savedRaw && (Date.now() - savedTime) < SEVEN_DAYS) return savedRaw;
-    // 2. Browser language — reliable, no Cloudflare interference
+    // 2. Browser language
     const nav = (navigator.language || navigator.userLanguage || '').toLowerCase();
     if (nav.startsWith('zh')) return 'zh';
-    if (nav.startsWith('ja')) return 'zh'; // Japanese users likely want Chinese interface too
-    if (nav.startsWith('ko')) return 'zh';
-    if (nav.startsWith('vi')) return 'zh';
-    if (nav.startsWith('th')) return 'zh';
-    // 3. Default to zh (most visitors from Asia)
-    return 'zh';
+    // 3. Default
+    return 'en';
+}
+// IP-based region detection (async, runs after page load)
+// Now uses CF-Connecting-IP header on server, so works correctly behind Cloudflare
+let _langUserChose = false; // flag to prevent async IP detection from overriding manual choice
+async function detectRegionLang() {
+    const savedRaw = localStorage.getItem('llmvect_lang');
+    const savedTime = parseInt(localStorage.getItem('llmvect_lang_time') || '0');
+    const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
+    // Skip if user manually chose within 7 days
+    if (savedRaw && (Date.now() - savedTime) < SEVEN_DAYS) return;
+    // Skip if user toggled language after page load
+    if (_langUserChose) return;
+    try {
+        const res = await fetch(window.location.origin + '/api/detect-region');
+        // Re-check: user might have toggled while we were fetching
+        if (_langUserChose) return;
+        const data = await res.json();
+        if (data.lang && data.lang !== currentLang) {
+            setLang(data.lang, false); // false = not a manual user choice
+        }
+    } catch(e) {
+        // Detection failed, keep browser-based guess
+    }
 }
 // Apply language immediately in <head> to avoid FOUC and ensure SEO
 currentLang = detectLang();
@@ -442,10 +461,11 @@ if (currentLang === 'zh') {
 function t(key) {
     return (I18N[currentLang] && I18N[currentLang][key]) || key;
 }
-function setLang(lang) {
+function setLang(lang, isManual = true) {
     currentLang = lang;
     localStorage.setItem('llmvect_lang', lang);
     localStorage.setItem('llmvect_lang_time', Date.now().toString());
+    if (isManual) _langUserChose = true; // prevent async IP detection from overriding
     updateUILanguage();
 }
 function updateUILanguage() {
@@ -493,6 +513,7 @@ function updateUILanguage() {
 }
 document.addEventListener('DOMContentLoaded', () => {
     updateUILanguage();
+    detectRegionLang();
 });
 </script>
 

@@ -461,7 +461,11 @@ MAX_VOTES_PER_USER_DAY = 50    # 每用户每日最大投票数
 MAX_VOTES_PER_IP_DAY = 100    # 每IP每日最大投票数
 
 def get_client_ip(request: Request) -> str:
-    """提取客户端真实IP（支持代理头）"""
+    """提取客户端真实IP（支持代理头，优先Cloudflare CF-Connecting-IP）"""
+    # Cloudflare 专用头，最可靠
+    cf_ip = request.headers.get("CF-Connecting-IP", "")
+    if cf_ip:
+        return cf_ip.strip()
     forwarded = request.headers.get("X-Forwarded-For", "")
     if forwarded:
         return forwarded.split(",")[0].strip()
@@ -757,8 +761,10 @@ async def icons(filename: str):
 @app.get("/api/detect-region")
 async def detect_region(request: Request):
     """根据请求 IP 检测用户所在地区，返回建议语言"""
-    # 获取真实 IP（支持反向代理）
-    ip = request.headers.get("x-forwarded-for", "").split(",")[0].strip()
+    # 获取真实 IP（优先Cloudflare CF-Connecting-IP）
+    ip = request.headers.get("cf-connecting-ip", "").strip()
+    if not ip:
+        ip = request.headers.get("x-forwarded-for", "").split(",")[0].strip()
     if not ip or ip == "unknown":
         ip = request.headers.get("x-real-ip", "")
     if not ip:
