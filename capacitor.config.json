@@ -1,0 +1,12 @@
+{
+  "appId": "com.llmchina.app",
+  "appName": "LLM.中国",
+  "webDir": "../frontend",
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}

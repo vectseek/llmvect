@@ -241,6 +241,51 @@ en: {
     mobileHint: "Enter to send · Shift+Enter for newline · 🎤 Voice",
     desktopHint: "Enter to send · Shift+Enter for newline · History up/down · 🎤 Voice",
     welcomeDesc: "Covering major global LLM providers. No more switching platforms, no more single-perspective AI hallucinations. One question, multi-dimensional cross-validation, the most comprehensive and rigorous decision reference. You decide who's smarter.",
+    currentQuestion: "Current Question",
+    identitiesRevealed: "💡 Identities revealed after voting",
+    bestLabel: "🥇 BEST:",
+    worstLabel: "👎 WORST:",
+    pickBestFirst: "Pick BEST first, then WORST",
+    elo: "ELO",
+    think: "Think",
+    noResponse: "No response",
+    generatingDots: "Generating...",
+    pleaseEnsureBackend: "Please ensure backend is running",
+    voted: "Voted",
+    overQuota: "Over quota, not counted",
+    weightLabel: "Weight",
+    voteFailedMsg: "Vote failed",
+    crossValidating: "Cross-validating four answers...",
+    dpoTagsSubmitted: "DPO tags submitted",
+    tagSubmitFailed: "Tag submission failed",
+    startBattleFirst: "Start a battle first",
+    copyClean: "Copied clean content",
+    crossValidationResult: "CROSS-VALIDATION RESULT",
+    copyBtn: "COPY",
+    battleCardBtn: "BATTLE CARD",
+    submitted: "Submitted",
+    freeTrial: "Free Trial",
+    privacy: "Privacy",
+    fastResponse: "Fast Response",
+    optional: "(optional)",
+    bestAnswerShort: "Best Answer",
+    worstAnswerShort: "Worst Answer",
+    autoClassified: "Auto-classified",
+    crossCheckHint: "Totoro Engine cross-validates all four answers to find the truth",
+    verifyingProofLog: "VERIFICATION PROOF LOG",
+    hashLabel: "Hash",
+    timeLabel: "Time",
+    modelLabel2: "Model",
+    weightsLabel: "Weights",
+    userSignalLabel: "User Signal",
+    noDataYet: "No data yet",
+    recognizing: "Recognizing...",
+    sponsoredTag: "sponsored",
+    recording: "Recording, tap to stop",
+    micPermissionDenied: "Cannot access microphone, check permissions",
+    voiceDone: "Voice recognition done",
+    voiceRetry: "Could not recognize, try again",
+    battleReportGenerated: "Battle report generated",
 
 },
 zh: {
@@ -413,8 +458,921 @@ zh: {
     desktopPlaceholder: "输入问题或选择下方预设...",
     mobileHint: "回车发送 · Shift+回车换行 · 🎤 语音输入",
     desktopHint: "回车发送 · Shift+回车换行 · 上下键切换历史 · 🎤 语音输入",
-}
-};
+    currentQuestion: "当前问题",
+    identitiesRevealed: "💡 投票后揭晓模型身份",
+    bestLabel: "🥇 最佳：",
+    worstLabel: "👎 最差：",
+    pickBestFirst: "先选最佳，再选最差",
+    elo: "ELO",
+    think: "思考",
+    noResponse: "暂无回答",
+    generatingDots: "生成中...",
+    pleaseEnsureBackend: "请确保后端服务正在运行",
+    voted: "已投票",
+    overQuota: "超出配额，不计入",
+    weightLabel: "权重",
+    voteFailedMsg: "投票失败",
+    crossValidating: "正在交叉验证四个答案...",
+    dpoTagsSubmitted: "DPO标签已提交",
+    tagSubmitFailed: "标签提交失败",
+    startBattleFirst: "请先开始对战",
+    copyClean: "已复制纯净内容",
+    crossValidationResult: "交叉验证结果",
+    copyBtn: "复制",
+    battleCardBtn: "战报卡片",
+    submitted: "已提交",
+    freeTrial: "免费试用",
+    privacy: "隐私保护",
+    fastResponse: "快速响应",
+    optional: "（可选）",
+    bestAnswerShort: "最佳回答",
+    worstAnswerShort: "最差回答",
+    autoClassified: "自动分类",
+    crossCheckHint: "Totoro引擎交叉验证四个答案，寻找真相",
+    verifyingProofLog: "验证证明日志",
+    hashLabel: "哈希",
+    timeLabel: "时间",
+    modelLabel2: "模型",
+    weightsLabel: "权重",
+    userSignalLabel: "用户信号",
+    noDataYet: "暂无数据",
+    recognizing: "识别中...",
+    sponsoredTag: "赞助",
+    recording: "录音中，点击停止",
+    micPermissionDenied: "无法访问麦克风，请检查权限",
+    voiceDone: "语音识别完成",
+    voiceRetry: "无法识别，请重试",
+    battleReportGenerated: "战报已生成",
+},
+
+ja: {
+    siteName: "LLMVECT",
+    subtitle: "LLMアリーナ",
+    seoTitle: "LLMVECT: 4モデルAIブラインドテストアリーナ | 比較・要約・ハルシネーション対策",
+    seoDesc: "LLMVECTは大規模言語モデルの究極の匿名アリーナです。プロンプトを入力して4つのAIモデルをランダム対戦させ、回答を比較、自動要約で洞察を得て、AIハルシネーションを緩和します。",
+    home: "ホーム",
+    leaderboard: "ランキング",
+    rules: "ルール",
+    protocol: "プロトコル",
+    newChat: "新規チャット",
+    history: "履歴",
+    admin: "管理",
+    sponsor: "スポンサー",
+    language: "中",
+    placeholder: "質問を入力してください...",
+    askBtn: "送信",
+    preset1: "春についての詩を書く",
+    preset2: "Pythonのasync/awaitを説明する",
+    preset3: "量子コンピューティングを簡単に説明",
+    thinking: "思考中...",
+    generating: "回答生成中...",
+    arriveSoon: "まもなく到着...",
+    looking: "結果を探しています →",
+    bestAnswer: "最良の回答",
+    worstAnswer: "最悪の回答",
+    voteBtn: "投票を送信",
+    crossCheckBtn: "より良い回答を得る",
+    crossCheckTitle: "Totoroエンジンが4つの回答を交差検証し、真実を探す",
+    expertMode: "エキスパートモード",
+    speedMode: "スピードモード",
+    reveal: "開示",
+    modelLabel: "モデル",
+    voteCount: "票",
+    votes: "票",
+    rateLimited: "リクエストが多すぎます。お待ちください",
+    voteSuccess: "投票が送信されました！",
+    voteFailed: "投票に失敗しました",
+    crossSuccess: "交差検証が完了しました！",
+    crossFailed: "交差検証に失敗しました",
+    crossProcessing: "交差検証処理中...",
+    noBattle: "利用可能な対戦がありません",
+    loading: "読み込み中...",
+    error: "エラー",
+    retry: "再試行",
+    backToArena: "アリーナに戻る",
+    inputRequired: "質問を入力してください",
+    copyLink: "リンクをコピー",
+    share: "シェア",
+    copied: "コピーしました！",
+    clearHistory: "クリア",
+    noHistory: "履歴はまだありません",
+    today: "今日",
+    yesterday: "昨日",
+    earlier: "以前",
+    scoreboardTitle: "リアルタイムランキング",
+    eloRating: "ELO評価",
+    winRate: "勝率",
+    battles: "対戦",
+    rank: "ランク",
+    modeSwitch: "モード切替",
+    pleaseRate: "回答を評価してください",
+    tagAccurate: "正確",
+    tagCreative: "創造的",
+    tagConcise: "簡潔",
+    tagDetailed: "詳細",
+    annoying: "冗長",
+    hallucination: "ハルシネーション",
+    tooVerbose: "冗長すぎる",
+    irrelevant: "無関係",
+    close: "閉じる",
+    submit: "送信",
+    cancel: "キャンセル",
+    back: "戻る",
+    next: "次へ",
+    prev: "前へ",
+    page: "ページ",
+    search: "検索",
+    filter: "フィルター",
+    all: "すべて",
+    none: "なし",
+    selectModel: "モデルを選択",
+    compareModels: "モデルを比較",
+    randomBattle: "ランダム対戦",
+    createBattle: "対戦を作成",
+    questionLabel: "質問",
+    answerLabel: "回答",
+    modelA: "モデルA",
+    modelB: "モデルB",
+    modelC: "モデルC",
+    modelD: "モデルD",
+    anonymous: "匿名",
+    revealModels: "モデルを開示",
+    hideModels: "モデルを隠す",
+    voterFingerprint: "投票者フィンガープリント",
+    deviceVerified: "デバイス認証済み",
+    antiCheat: "不正防止",
+    refresh: "更新",
+    confirmClear: "すべての履歴をクリアしますか？",
+    yes: "はい",
+    no: "いいえ",
+    battleReport: "交差検証レポート",
+    refinedAnswer: "精製回答",
+    hallucinationDetected: "ハルシネーション検出",
+    proofHash: "証明ハッシュ",
+    tokenLeverage: "トークンレバレッジ",
+    providerUsed: "プロバイダー",
+    sponsored: "スポンサー",
+    disclaimer: "免責事項",
+    wechat: "WeChat",
+    qq: "QQ",
+    weibo: "Weibo",
+    shareText: "LLMVECT - LLMアリーナをチェック！",
+    offline: "オフラインです",
+    online: "オンラインに復帰しました",
+    updateAvailable: "アップデートが利用可能です",
+    installApp: "アプリをインストール",
+    darkMode: "ダークモード",
+    lightMode: "ライトモード",
+    systemMode: "システムに従う",
+    settings: "設定",
+    about: "について",
+    version: "バージョン",
+    copyright: "LLMVECT. All rights reserved.",
+    mobileBest: "BEST",
+    mobileWorst: "WORST",
+    matching: "モデルをマッチング中...",
+    chooseWinner: "最良の回答を選択してください",
+    chooseWorst: "最悪の回答を選択してください",
+    noAnswer: "回答が生成されませんでした",
+    waitAnswer: "回答を待っています...",
+    crossValidateDesc: "4つの回答をAI駆動で交差検証",
+    startBattle: "対戦開始",
+    speed: "スピード",
+    expert: "エキスパート",
+    clearInput: "クリア",
+    sendMessage: "送信",
+    userQuestion: "あなたの質問",
+    aiResponse: "AIの回答",
+    allModels: "すべてのモデル",
+    bestPerformer: "最高の性能",
+    worstPerformer: "最低の性能",
+    stats: "統計",
+    avgResponseTime: "平均応答時間",
+    totalBattles: "総対戦数",
+    activeUsers: "アクティブユーザー",
+    todayBattles: "今日の対戦",
+    tagFactualAccurate: "事実に基づく正確 / ハルシネーションなし",
+    tagCodeFormatCorrect: "コード / 形式正確",
+    tagRigorousReasoning: "厳密な推論",
+    tagPreciseFollow: "正確な指示フォロー",
+    arena: "アリーナ",
+    tie: "引き分け",
+    winnerWhyBetter: "勝者 - なぜより良い？",
+    loserWhyWorse: "敗者 - なぜより悪い？",
+    tagCodeCorrect: "コード正確",
+    tagRigorousLogic: "論理的厳密さ",
+    tagPreciseExec: "正確な実行",
+    tagSevereHallu: "深刻なハルシネーション",
+    tagOverAligned: "過剰アラインメント",
+    tagLogicFlaws: "論理的欠陥",
+    tagFormatBreak: "形式崩壊",
+    thinkModeTitle: "思考モードを有効にする",
+    confirm: "確認",
+    liveRankings: "ライブランキング",
+    viewFullLB: "完全ランキングを見る →",
+    mobilePlaceholder: "何でも質問して、4つのAIに答えてもらおう...",
+    desktopPlaceholder: "質問を入力するか、下のプリセットを選択...",
+    mobileHint: "Enterで送信 · Shift+Enterで改行 · 🎤 音声入力",
+    desktopHint: "Enterで送信 · Shift+Enterで改行 · ↑↓で履歴 · 🎤 音声入力",
+    welcomeDesc: "世界の主要LLMプロバイダーをカバー。プラットフォーム切替不要、単一視点のAIハルシネーションともお別れ。一つの質問、多次元交差検証、最も包括的で厳密な意思決定リファレンス。誰がより賢いか、あなたが決めてください。",
+    currentQuestion: "現在の質問",
+    identitiesRevealed: "💡 投票後にアイデンティティが開示されます",
+    bestLabel: "🥇 BEST：",
+    worstLabel: "👎 WORST：",
+    pickBestFirst: "まずBESTを選び、次にWORSTを選ぶ",
+    elo: "ELO",
+    think: "思考",
+    noResponse: "回答なし",
+    generatingDots: "生成中...",
+    pleaseEnsureBackend: "バックエンドが実行中であることを確認してください",
+    voted: "投票済み",
+    overQuota: "クォータ超過、カウントされません",
+    weightLabel: "重み",
+    voteFailedMsg: "投票失敗",
+    crossValidating: "4つの回答を交差検証中...",
+    dpoTagsSubmitted: "DPOタグが送信されました",
+    tagSubmitFailed: "タグ送信失敗",
+    startBattleFirst: "まず対戦を開始してください",
+    copyClean: "クリーンコンテンツをコピーしました",
+    crossValidationResult: "交差検証結果",
+    copyBtn: "コピー",
+    battleCardBtn: "対戦カード",
+    submitted: "送信済み",
+    freeTrial: "無料トライアル",
+    privacy: "プライバシー",
+    fastResponse: "高速応答",
+    optional: "（任意）",
+    bestAnswerShort: "最良の回答",
+    worstAnswerShort: "最悪の回答",
+    autoClassified: "自動分類",
+    crossCheckHint: "Totoroエンジンが4つの回答を交差検証し、真実を探す",
+    verifyingProofLog: "検証証明ログ",
+    hashLabel: "ハッシュ",
+    timeLabel: "時間",
+    modelLabel2: "モデル",
+    weightsLabel: "重み",
+    userSignalLabel: "ユーザーシグナル",
+    noDataYet: "まだデータがありません",
+    recognizing: "認識中...",
+    sponsoredTag: "スポンサー",
+    recording: "録音中、タップして停止",
+    micPermissionDenied: "マイクにアクセスできません、権限を確認",
+    voiceDone: "音声認識完了",
+    voiceRetry: "認識できませんでした、再試行",
+    battleReportGenerated: "対戦レポートが生成されました",
+},
+
+ko: {
+    siteName: "LLMVECT",
+    subtitle: "LLM 아레나",
+    seoTitle: "LLMVECT: 4모델 AI 블라인드 테스트 아레나 | 비교·요약·할루시네이션 방지",
+    seoDesc: "LLMVECT는 대규모 언어 모델(LLM)의 궁극적인 익명 아레나입니다. 프롬프트를 입력해 4개의 AI 모델을 무작위 대결시키고, 응답을 나란히 비교하고, 자동 요약으로 인사이트를 얻으며 AI 할루시네이션을 완화합니다. 인간의 선호도에 따라 투표하고 진실을 발견하세요.",
+    home: "홈",
+    leaderboard: "리더보드",
+    rules: "규칙",
+    protocol: "프로토콜",
+    newChat: "새 채팅",
+    history: "기록",
+    admin: "관리",
+    sponsor: "스폰서",
+    language: "中",
+    placeholder: "질문을 입력하세요...",
+    askBtn: "보내기",
+    preset1: "봄에 대한 시를 써주세요",
+    preset2: "Python async/await를 설명해주세요",
+    preset3: "양자 컴퓨팅을 쉽게 설명해주세요",
+    thinking: "생각 중...",
+    generating: "답변 생성 중...",
+    arriveSoon: "곧 도착...",
+    looking: "결과 찾는 중 →",
+    bestAnswer: "최고의 답변",
+    worstAnswer: "최악의 답변",
+    voteBtn: "투표 보내기",
+    crossCheckBtn: "더 나은 답변 얻기",
+    crossCheckTitle: "토토로 엔진이 4개의 답변을 교차 검증하여 진실을 찾습니다",
+    expertMode: "전문가 모드",
+    speedMode: "스피드 모드",
+    reveal: "공개",
+    modelLabel: "모델",
+    voteCount: "표",
+    votes: "표",
+    rateLimited: "요청이 너무 많습니다. 잠시 기다려주세요",
+    voteSuccess: "투표가 전송되었습니다!",
+    voteFailed: "투표 실패",
+    crossSuccess: "교차 검증 완료!",
+    crossFailed: "교차 검증 실패",
+    crossProcessing: "교차 검증 처리 중...",
+    noBattle: "사용 가능한 대결이 없습니다",
+    loading: "로딩 중...",
+    error: "오류",
+    retry: "재시도",
+    backToArena: "아레나로 돌아가기",
+    inputRequired: "질문을 입력하세요",
+    copyLink: "링크 복사",
+    share: "공유",
+    copied: "복사 완료!",
+    clearHistory: "지우기",
+    noHistory: "기록이 없습니다",
+    today: "오늘",
+    yesterday: "어제",
+    earlier: "이전",
+    scoreboardTitle: "실시간 순위",
+    eloRating: "ELO 점수",
+    winRate: "승률",
+    battles: "대결",
+    rank: "순위",
+    modeSwitch: "모드 전환",
+    pleaseRate: "답변을 평가해 주세요",
+    tagAccurate: "정확",
+    tagCreative: "창의적",
+    tagConcise: "간결",
+    tagDetailed: "상세",
+    annoying: "번잡",
+    hallucination: "할루시네이션",
+    tooVerbose: "너무 장황",
+    irrelevant: "관련 없음",
+    close: "닫기",
+    submit: "보내기",
+    cancel: "취소",
+    back: "뒤로",
+    next: "다음",
+    prev: "이전",
+    page: "페이지",
+    search: "검색",
+    filter: "필터",
+    all: "전체",
+    none: "없음",
+    selectModel: "모델 선택",
+    compareModels: "모델 비교",
+    randomBattle: "무작위 대결",
+    createBattle: "대결 생성",
+    questionLabel: "질문",
+    answerLabel: "답변",
+    modelA: "모델 A",
+    modelB: "모델 B",
+    modelC: "모델 C",
+    modelD: "모델 D",
+    anonymous: "익명",
+    revealModels: "모델 공개",
+    hideModels: "모델 숨기기",
+    voterFingerprint: "투표자 핑거프린트",
+    deviceVerified: "기기 인증됨",
+    antiCheat: "부정행위 방지",
+    refresh: "새로고침",
+    confirmClear: "모든 기록을 지우시겠습니까?",
+    yes: "예",
+    no: "아니오",
+    battleReport: "교차 검증 보고서",
+    refinedAnswer: "정제된 답변",
+    hallucinationDetected: "할루시네이션 감지됨",
+    proofHash: "증명 해시",
+    tokenLeverage: "토큰 레버리지",
+    providerUsed: "제공자",
+    sponsored: "스폰서",
+    disclaimer: "면책조항",
+    wechat: "위챗",
+    qq: "QQ",
+    weibo: "위보",
+    shareText: "LLMVECT - LLM 아레나를 확인하세요!",
+    offline: "오프라인입니다",
+    online: "온라인 복귀",
+    updateAvailable: "업데이트 가능",
+    installApp: "앱 설치",
+    darkMode: "다크 모드",
+    lightMode: "라이트 모드",
+    systemMode: "시스템",
+    settings: "설정",
+    about: "정보",
+    version: "버전",
+    copyright: "LLMVECT. All rights reserved.",
+    mobileBest: "최고",
+    mobileWorst: "최악",
+    matching: "모델 매칭 중...",
+    chooseWinner: "위에서 최고의 답변을 선택하세요",
+    chooseWorst: "위에서 최악의 답변을 선택하세요",
+    noAnswer: "답변이 생성되지 않았습니다",
+    waitAnswer: "답변 대기 중...",
+    crossValidateDesc: "4개의 답변을 AI 기반 교차 검증",
+    startBattle: "대결 시작",
+    speed: "스피드",
+    expert: "전문가",
+    clearInput: "지우기",
+    sendMessage: "보내기",
+    userQuestion: "질문",
+    aiResponse: "AI 응답",
+    allModels: "모든 모델",
+    bestPerformer: "최고 성능",
+    worstPerformer: "최악 성능",
+    stats: "통계",
+    avgResponseTime: "평균 응답 시간",
+    totalBattles: "총 대결 수",
+    activeUsers: "활성 사용자",
+    todayBattles: "오늘의 대결",
+    tagFactualAccurate: "사실 정확 / 할루시네이션 없음",
+    tagCodeFormatCorrect: "코드 / 형식 정확",
+    tagRigorousReasoning: "엄격한 추론",
+    tagPreciseFollow: "정확한 지시 준수",
+    arena: "아레나",
+    tie: "무승부",
+    winnerWhyBetter: "승자 - 왜 더 좋은가?",
+    loserWhyWorse: "패자 - 왜 더 나쁜가?",
+    tagCodeCorrect: "코드 정확",
+    tagRigorousLogic: "엄격한 논리",
+    tagPreciseExec: "정확한 실행",
+    tagSevereHallu: "심각한 할루시네이션",
+    tagOverAligned: "과잉 정렬",
+    tagLogicFlaws: "논리적 결함",
+    tagFormatBreak: "형식 붕괴",
+    thinkModeTitle: "생각 모드 활성화",
+    confirm: "확인",
+    liveRankings: "실시간 순위",
+    viewFullLB: "전체 리더보드 보기 →",
+    mobilePlaceholder: "무엇이든 질문하고 4개의 AI에게 답변받으세요...",
+    desktopPlaceholder: "질문을 입력하거나 아래 프리셋을 선택하세요...",
+    mobileHint: "Enter로 보내기 · Shift+Enter로 줄바꿈 · 🎤 음성 입력",
+    desktopHint: "Enter로 보내기 · Shift+Enter로 줄바꿈 · ↑↓로 기록 · 🎤 음성 입력",
+    welcomeDesc: "세계의 주요 LLM 제공자를 커버. 플랫폼 전환 불필요, 단일 시각의 AI 할루시네이션과 작별. 하나의 질문, 다차원 교차 검증, 가장 포괄적이고 엄격한 의사결정 레퍼런스. 누가 더 똑똑한지 당신이 결정하세요.",
+    currentQuestion: "현재 질문",
+    identitiesRevealed: "💡 투표 후 신원이 공개됩니다",
+    bestLabel: "🥇 최고:",
+    worstLabel: "👎 최악:",
+    pickBestFirst: "먼저 최고를 선택한 후 최악을 선택하세요",
+    elo: "ELO",
+    think: "생각",
+    noResponse: "답변 없음",
+    generatingDots: "생성 중...",
+    pleaseEnsureBackend: "백엔드가 실행 중인지 확인하세요",
+    voted: "투표함",
+    overQuota: "쿼터 초과, 집계되지 않음",
+    weightLabel: "가중치",
+    voteFailedMsg: "투표 실패",
+    crossValidating: "4개의 답변 교차 검증 중...",
+    dpoTagsSubmitted: "DPO 태그가 전송되었습니다",
+    tagSubmitFailed: "태그 전송 실패",
+    startBattleFirst: "먼저 대결을 시작하세요",
+    copyClean: "깨끗한 콘텐츠를 복사했습니다",
+    crossValidationResult: "교차 검증 결과",
+    copyBtn: "복사",
+    battleCardBtn: "대결 카드",
+    submitted: "전송됨",
+    freeTrial: "무료 체험",
+    privacy: "프라이버시",
+    fastResponse: "빠른 응답",
+    optional: "(선택)",
+    bestAnswerShort: "최고 답변",
+    worstAnswerShort: "최악 답변",
+    autoClassified: "자동 분류",
+    crossCheckHint: "토토로 엔진이 4개의 답변을 교차 검증하여 진실을 찾습니다",
+    verifyingProofLog: "검증 증거 로그",
+    hashLabel: "해시",
+    timeLabel: "시간",
+    modelLabel2: "모델",
+    weightsLabel: "가중치",
+    userSignalLabel: "사용자 신호",
+    noDataYet: "아직 데이터가 없습니다",
+    recognizing: "인식 중...",
+    sponsoredTag: "스폰서",
+    recording: "녹음 중, 탭하여 중지",
+    micPermissionDenied: "마이크에 접근할 수 없습니다. 권한을 확인하세요",
+    voiceDone: "음성 인식 완료",
+    voiceRetry: "인식할 수 없습니다. 다시 시도하세요",
+    battleReportGenerated: "대결 보고서가 생성되었습니다",
+},
+
+es: {
+    siteName: "LLMVECT",
+    subtitle: "Arena LLM",
+    seoTitle: "LLMVECT: Arena de Prueba Ciega con 4 Modelos AI | Comparar, Resumir y Eliminar Alucinaciones",
+    seoDesc: "LLMVECT es el ultimate anonimato para Modelos de Lenguaje Grande. Ingresa tu prompt para involucrar a 4 modelos AI en una batalla aleatoria. Compara respuestas instantáneamente, resume automáticamente y mitiga las alucinaciones de la IA. Vota según tu preferencia humana y descubre la verdad.",
+    home: "Inicio",
+    leaderboard: "Clasificacion",
+    rules: "Reglas",
+    protocol: "Protocolo",
+    newChat: "Nuevo Chat",
+    history: "Historial",
+    admin: "Admin",
+    sponsor: "Patrocinador",
+    language: "中",
+    placeholder: "Ingresa tu pregunta...",
+    askBtn: "Enviar",
+    preset1: "Escribe un poema sobre la primavera",
+    preset2: "Explica async/await de Python",
+    preset3: "Explica la computacion cuantica de forma simple",
+    thinking: "Pensando...",
+    generating: "Generando respuesta...",
+    arriveSoon: "Llegando pronto...",
+    looking: "Buscando resultados →",
+    bestAnswer: "Mejor Respuesta",
+    worstAnswer: "Peor Respuesta",
+    voteBtn: "Enviar Voto",
+    crossCheckBtn: "Obtener Mejor Respuesta",
+    crossCheckTitle: "El motor Totoro valida cruzadamente las cuatro respuestas para encontrar la verdad",
+    expertMode: "Modo Experto",
+    speedMode: "Modo Rapido",
+    reveal: "Revelar",
+    modelLabel: "Modelo",
+    voteCount: "Votos",
+    votes: "votos",
+    rateLimited: "Demasiadas solicitudes, espera un momento",
+    voteSuccess: "Voto enviado!",
+    voteFailed: "Voto fallido",
+    crossSuccess: "Validacion cruzada completada!",
+    crossFailed: "Validacion cruzada fallida",
+    crossProcessing: "Procesando validacion cruzada...",
+    noBattle: "No hay batallas disponibles",
+    loading: "Cargando...",
+    error: "Error",
+    retry: "Reintentar",
+    backToArena: "Volver a la Arena",
+    inputRequired: "Por favor ingresa una pregunta",
+    copyLink: "Copiar enlace",
+    share: "Compartir",
+    copied: "Copiado!",
+    clearHistory: "Limpiar",
+    noHistory: "Sin historial",
+    today: "Hoy",
+    yesterday: "Ayer",
+    earlier: "Antes",
+    scoreboardTitle: "Clasificacion en Tiempo Real",
+    eloRating: "Puntuacion ELO",
+    winRate: "Tasa de Victoria",
+    battles: "Batallas",
+    rank: "Rango",
+    modeSwitch: "Cambiar Modo",
+    pleaseRate: "Califica las respuestas",
+    tagAccurate: "Preciso",
+    tagCreative: "Creativo",
+    tagConcise: "Conciso",
+    tagDetailed: "Detallado",
+    annoying: "Molesto",
+    hallucination: "Alucinacion",
+    tooVerbose: "Demasiado verboso",
+    irrelevant: "Irrelevante",
+    close: "Cerrar",
+    submit: "Enviar",
+    cancel: "Cancelar",
+    back: "Atras",
+    next: "Siguiente",
+    prev: "Anterior",
+    page: "Pagina",
+    search: "Buscar",
+    filter: "Filtrar",
+    all: "Todos",
+    none: "Ninguno",
+    selectModel: "Seleccionar Modelo",
+    compareModels: "Comparar Modelos",
+    randomBattle: "Batalla Aleatoria",
+    createBattle: "Crear Batalla",
+    questionLabel: "Pregunta",
+    answerLabel: "Respuesta",
+    modelA: "Modelo A",
+    modelB: "Modelo B",
+    modelC: "Modelo C",
+    modelD: "Modelo D",
+    anonymous: "Anonimo",
+    revealModels: "Revelar Modelos",
+    hideModels: "Ocultar Modelos",
+    voterFingerprint: "Huella del Votante",
+    deviceVerified: "Dispositivo Verificado",
+    antiCheat: "Anti-Fraude",
+    refresh: "Actualizar",
+    confirmClear: "Limpiar todo el historial?",
+    yes: "Si",
+    no: "No",
+    battleReport: "Informe de Validacion Cruzada",
+    refinedAnswer: "Respuesta Refinada",
+    hallucinationDetected: "Alucinacion Detectada",
+    proofHash: "Hash de Prueba",
+    tokenLeverage: "Apalancamiento de Tokens",
+    providerUsed: "Proveedor",
+    sponsored: "Patrocinado por",
+    disclaimer: "Aviso Legal",
+    wechat: "WeChat",
+    qq: "QQ",
+    weibo: "Weibo",
+    shareText: "Mira LLMVECT - Arena LLM!",
+    offline: "Estas desconectado",
+    online: "Conexion restaurada",
+    updateAvailable: "Actualizacion disponible",
+    installApp: "Instalar App",
+    darkMode: "Modo Oscuro",
+    lightMode: "Modo Claro",
+    systemMode: "Sistema",
+    settings: "Configuracion",
+    about: "Acerca de",
+    version: "Version",
+    copyright: "LLMVECT. Todos los derechos reservados.",
+    mobileBest: "MEJOR",
+    mobileWorst: "PEOR",
+    matching: "Emparejando modelos...",
+    chooseWinner: "Elige la mejor respuesta de arriba",
+    chooseWorst: "Elige la peor respuesta de arriba",
+    noAnswer: "No se genero respuesta",
+    waitAnswer: "Esperando respuestas...",
+    crossValidateDesc: "Validacion cruzada con IA de las cuatro respuestas",
+    startBattle: "Iniciar Batalla",
+    speed: "Rapido",
+    expert: "Experto",
+    clearInput: "Limpiar",
+    sendMessage: "Enviar",
+    userQuestion: "Tu Pregunta",
+    aiResponse: "Respuesta AI",
+    allModels: "Todos los Modelos",
+    bestPerformer: "Mejor Rendimiento",
+    worstPerformer: "Peor Rendimiento",
+    stats: "Estadisticas",
+    avgResponseTime: "Tiempo de Respuesta Promedio",
+    totalBattles: "Total de Batallas",
+    activeUsers: "Usuarios Activos",
+    todayBattles: "Batallas de Hoy",
+    tagFactualAccurate: "Factualmente preciso / Sin alucinacion",
+    tagCodeFormatCorrect: "Codigo / Formato correcto",
+    tagRigorousReasoning: "Razonamiento riguroso",
+    tagPreciseFollow: "Seguimiento preciso de instrucciones",
+    arena: "Arena",
+    tie: "Empate",
+    winnerWhyBetter: "Ganador - Por que es mejor?",
+    loserWhyWorse: "Perdedor - Por que es peor?",
+    tagCodeCorrect: "Codigo correcto",
+    tagRigorousLogic: "Logica rigurosa",
+    tagPreciseExec: "Ejecucion precisa",
+    tagSevereHallu: "Alucinacion severa",
+    tagOverAligned: "Sobre-alineado",
+    tagLogicFlaws: "Fallas logicas",
+    tagFormatBreak: "Colapso de formato",
+    thinkModeTitle: "Activar modo de pensamiento",
+    confirm: "Confirmar",
+    liveRankings: "Clasificacion en Vivo",
+    viewFullLB: "Ver ranking completo →",
+    mobilePlaceholder: "Pregunta lo que quieras, 4 IAs responderan...",
+    desktopPlaceholder: "Ingresa tu pregunta o elige un preset...",
+    mobileHint: "Enter para enviar · Shift+Enter para salto · 🎤 Voz",
+    desktopHint: "Enter para enviar · Shift+Enter para salto · ↑↓ historial · 🎤 Voz",
+    welcomeDesc: "Cubre los principales proveedores globales de LLM. Sin mas cambiar de plataforma, sin mas alucinaciones de IA de perspectiva unica. Una pregunta, validacion cruzada multidimensional, la referencia de decision mas completa y rigurosa. Tu decides quien es mas inteligente.",
+    currentQuestion: "Pregunta Actual",
+    identitiesRevealed: "💡 Identidades reveladas despues de votar",
+    bestLabel: "🥇 MEJOR:",
+    worstLabel: "👎 PEOR:",
+    pickBestFirst: "Primero elige MEJOR, luego PEOR",
+    elo: "ELO",
+    think: "Pensar",
+    noResponse: "Sin respuesta",
+    generatingDots: "Generando...",
+    pleaseEnsureBackend: "Por favor asegurate de que el backend esta funcionando",
+    voted: "Votado",
+    overQuota: "Cuota excedida, no se cuenta",
+    weightLabel: "Peso",
+    voteFailedMsg: "Voto fallido",
+    crossValidating: "Validando cruzadamente las cuatro respuestas...",
+    dpoTagsSubmitted: "Etiquetas DPO enviadas",
+    tagSubmitFailed: "Envio de etiquetas fallido",
+    startBattleFirst: "Primero inicia una batalla",
+    copyClean: "Contenido limpio copiado",
+    crossValidationResult: "RESULTADO DE VALIDACION CRUZADA",
+    copyBtn: "COPIAR",
+    battleCardBtn: "TARJETA DE BATALLA",
+    submitted: "Enviado",
+    freeTrial: "Prueba Gratis",
+    privacy: "Privacidad",
+    fastResponse: "Respuesta Rapida",
+    optional: "(opcional)",
+    bestAnswerShort: "Mejor Respuesta",
+    worstAnswerShort: "Peor Respuesta",
+    autoClassified: "Auto-clasificado",
+    crossCheckHint: "El motor Totoro valida cruzadamente las cuatro respuestas para encontrar la verdad",
+    verifyingProofLog: "REGISTRO DE PRUEBA DE VERIFICACION",
+    hashLabel: "Hash",
+    timeLabel: "Tiempo",
+    modelLabel2: "Modelo",
+    weightsLabel: "Pesos",
+    userSignalLabel: "Senal del Usuario",
+    noDataYet: "Sin datos aun",
+    recognizing: "Reconociendo...",
+    sponsoredTag: "patrocinado",
+    recording: "Grabando, toca para detener",
+    micPermissionDenied: "No se puede acceder al microfono, revisa permisos",
+    voiceDone: "Reconocimiento de voz hecho",
+    voiceRetry: "No se pudo reconocer, intenta de nuevo",
+    battleReportGenerated: "Reporte de batalla generado",
+},
+
+ar: {
+    siteName: "LLMVECT",
+    subtitle: "ساحة LLM",
+    seoTitle: "LLMVECT: ساحة اختبار أعمى لـ 4 نماذج AI | مقارنة·تلخيص·القضاء على الهلوسة",
+    seoDesc: "LLMVECT هي ساحة مجهولة للنماذج اللغوية الكبيرة. ادخل طلبك لتفاعل 4 نماذج AI في معركة عشوائية. قارن الردود فوراً، لخص تلقائياً وقلل من هلوسة الذكاء الاصطناعي. صوّت بناءً على تفضيلك البشري واكتشف الحقيقة.",
+    home: "الرئيسية",
+    leaderboard: "التصنيف",
+    rules: "القواعد",
+    protocol: "البروتوكول",
+    newChat: "محادثة جديدة",
+    history: "السجل",
+    admin: "مدير",
+    sponsor: "راعي",
+    language: "中",
+    placeholder: "ادخل سؤالك...",
+    askBtn: "إرسال",
+    preset1: "اكتب قصيدة عن الربيع",
+    preset2: "اشرح async/await في بايثون",
+    preset3: "اشرح الحوسبة الكمومية ببساطة",
+    thinking: "جارٍ التفكير...",
+    generating: "جارٍ توليد الرد...",
+    arriveSoon: "قريباً...",
+    looking: "جارٍ البحث عن النتائج →",
+    bestAnswer: "أفضل رد",
+    worstAnswer: "أسوأ رد",
+    voteBtn: "إرسال التصويت",
+    crossCheckBtn: "احصل على رد أفضل",
+    crossCheckTitle: "محرك توتورو يتحقق من صحة الإجابات الأربع للعثور على الحقيقة",
+    expertMode: "الوضع الخبير",
+    speedMode: "الوضع السريع",
+    reveal: "كشف",
+    modelLabel: "نموذج",
+    voteCount: "أصوات",
+    votes: "أصوات",
+    rateLimited: "طلبات كثيرة جداً، يرجى الانتظار",
+    voteSuccess: "تم إرسال التصويت!",
+    voteFailed: "فشل التصويت",
+    crossSuccess: "اكتمل التحقق المتبادل!",
+    crossFailed: "فشل التحقق المتبادل",
+    crossProcessing: "جارٍ معالجة التحقق المتبادل...",
+    noBattle: "لا توجد معارك متاحة",
+    loading: "جارٍ التحميل...",
+    error: "خطأ",
+    retry: "إعادة المحاولة",
+    backToArena: "العودة للساحة",
+    inputRequired: "يرجى إدخال سؤال",
+    copyLink: "نسخ الرابط",
+    share: "مشاركة",
+    copied: "تم النسخ!",
+    clearHistory: "مسح",
+    noHistory: "لا يوجد سجل",
+    today: "اليوم",
+    yesterday: "أمس",
+    earlier: "قبل",
+    scoreboardTitle: "التصنيف الفوري",
+    eloRating: "تقييم ELO",
+    winRate: "معدل الفوز",
+    battles: "معارك",
+    rank: "الترتيب",
+    modeSwitch: "تبديل الوضع",
+    pleaseRate: "قيّم الإجابات",
+    tagAccurate: "دقيق",
+    tagCreative: "إبداعي",
+    tagConcise: "مختصر",
+    tagDetailed: "مفصل",
+    annoying: "مزعج",
+    hallucination: "هلوسة",
+    tooVerbose: "مطول جداً",
+    irrelevant: "غير ذي صلة",
+    close: "إغلاق",
+    submit: "إرسال",
+    cancel: "إلغاء",
+    back: "رجوع",
+    next: "التالي",
+    prev: "السابق",
+    page: "صفحة",
+    search: "بحث",
+    filter: "تصفية",
+    all: "الكل",
+    none: "لا شيء",
+    selectModel: "اختر نموذج",
+    compareModels: "قارن النماذج",
+    randomBattle: "معركة عشوائية",
+    createBattle: "إنشاء معركة",
+    questionLabel: "سؤال",
+    answerLabel: "إجابة",
+    modelA: "نموذج A",
+    modelB: "نموذج B",
+    modelC: "نموذج C",
+    modelD: "نموذج D",
+    anonymous: "مجهول",
+    revealModels: "كشف النماذج",
+    hideModels: "إخفاء النماذج",
+    voterFingerprint: "بصمة الناخب",
+    deviceVerified: "جهاز موثق",
+    antiCheat: "مكافحة الغش",
+    refresh: "تحديث",
+    confirmClear: "مسح كل السجل؟",
+    yes: "نعم",
+    no: "لا",
+    battleReport: "تقرير التحقق المتبادل",
+    refinedAnswer: "إجابة منقحة",
+    hallucinationDetected: "تم اكتشاف هلوسة",
+    proofHash: "هاش الإثبات",
+    tokenLeverage: "رافعة التوكن",
+    providerUsed: "المزود",
+    sponsored: "برعاية",
+    disclaimer: "إخلاء مسؤولية",
+    wechat: "ويتشات",
+    qq: "QQ",
+    weibo: "ويبو",
+    shareText: "تحقق من LLMVECT - ساحة LLM!",
+    offline: "أنت غير متصل",
+    online: "تمت استعادة الاتصال",
+    updateAvailable: "تحديث متاح",
+    installApp: "تثبيت التطبيق",
+    darkMode: "الوضع الداكن",
+    lightMode: "الوضع الفاتح",
+    systemMode: "النظام",
+    settings: "الإعدادات",
+    about: "حول",
+    version: "الإصدار",
+    copyright: "LLMVECT. جميع الحقوق محفوظة.",
+    mobileBest: "الأفضل",
+    mobileWorst: "الأسوأ",
+    matching: "جارٍ مطابقة النماذج...",
+    chooseWinner: "اختر أفضل إجابة من الأعلى",
+    chooseWorst: "اختر أسوأ إجابة من الأعلى",
+    noAnswer: "لم يتم توليد إجابة",
+    waitAnswer: "انتظار الإجابات...",
+    crossValidateDesc: "تحقق متبادل مدعوم بالذكاء الاصطناعي من الإجابات الأربع",
+    startBattle: "ابدأ معركة",
+    speed: "سريع",
+    expert: "خبير",
+    clearInput: "مسح",
+    sendMessage: "إرسال",
+    userQuestion: "سؤالك",
+    aiResponse: "رد الذكاء الاصطناعي",
+    allModels: "كل النماذج",
+    bestPerformer: "أفضل أداء",
+    worstPerformer: "أسوأ أداء",
+    stats: "إحصائيات",
+    avgResponseTime: "متوسط وقت الاستجابة",
+    totalBattles: "إجمالي المعارك",
+    activeUsers: "مستخدمون نشطون",
+    todayBattles: "معارك اليوم",
+    tagFactualAccurate: "صحيح واقعياً / بدون هلوسة",
+    tagCodeFormatCorrect: "كود / صيغة صحيحة",
+    tagRigorousReasoning: "استدلال صارم",
+    tagPreciseFollow: "اتباع تعليمات دقيق",
+    arena: "الساحة",
+    tie: "تعادل",
+    winnerWhyBetter: "الفائز - لماذا أفضل؟",
+    loserWhyWorse: "الخاسر - لماذا أسوأ؟",
+    tagCodeCorrect: "كود صحيح",
+    tagRigorousLogic: "منطق صارم",
+    tagPreciseExec: "تنفيذ دقيق",
+    tagSevereHallu: "هلوسة شديدة",
+    tagOverAligned: "محاذاة مفرطة",
+    tagLogicFlaws: "عيوب منطقية",
+    tagFormatBreak: "انهيار الصيغة",
+    thinkModeTitle: "تفعيل وضع التفكير",
+    confirm: "تأكيد",
+    liveRankings: "التصنيف المباشر",
+    viewFullLB: "عرض التصنيف الكامل ←",
+    mobilePlaceholder: "اسأل أي شيء، 4 ذكاءات اصطناعية ستجيب...",
+    desktopPlaceholder: "ادخل سؤالك أو اختر إعداداً أدناه...",
+    mobileHint: "Enter للإرسال · Shift+Enter لسطر جديد · 🎤 إدخال صوتي",
+    desktopHint: "Enter للإرسال · Shift+Enter لسطر جديد · ↑↓ للسجل · 🎤 صوتي",
+    welcomeDesc: "نغطي أبرز مزودي LLM في العالم. وداعاً لتبديل المنصات، وداعاً لهلوسة الذكاء الاصطناعي بزاوية واحدة. سؤال واحد، تحقق متبادل متعدد الأبعاد، أكثر مرجع قرارات شمولية ودقة. أنت من يقرر من أكثر ذكاءً.",
+    currentQuestion: "السؤال الحالي",
+    identitiesRevealed: "💡 يتم كشف الهوية بعد التصويت",
+    bestLabel: "🥇 الأفضل:",
+    worstLabel: "👎 الأسوأ:",
+    pickBestFirst: "اختر الأفضل أولاً، ثم الأسوأ",
+    elo: "ELO",
+    think: "تفكير",
+    noResponse: "لا يوجد رد",
+    generatingDots: "جارٍ التوليد...",
+    pleaseEnsureBackend: "يرجى التأكد من أن الخلفية تعمل",
+    voted: "صوّت",
+    overQuota: "تجاوز الحصة، لا يُحتسب",
+    weightLabel: "الوزن",
+    voteFailedMsg: "فشل التصويت",
+    crossValidating: "جارٍ التحقق المتبادل من الإجابات الأربع...",
+    dpoTagsSubmitted: "تم إرسال علامات DPO",
+    tagSubmitFailed: "فشل إرسال العلامات",
+    startBattleFirst: "ابدأ معركة أولاً",
+    copyClean: "تم نسخ المحتوى النظيف",
+    crossValidationResult: "نتيجة التحقق المتبادل",
+    copyBtn: "نسخ",
+    battleCardBtn: "بطاقة المعركة",
+    submitted: "تم الإرسال",
+    freeTrial: "تجربة مجانية",
+    privacy: "الخصوصية",
+    fastResponse: "استجابة سريعة",
+    optional: "(اختياري)",
+    bestAnswerShort: "أفضل إجابة",
+    worstAnswerShort: "أسوأ إجابة",
+    autoClassified: "تصنيف تلقائي",
+    crossCheckHint: "محرك توتورو يتحقق من صحة الإجابات الأربع للعثور على الحقيقة",
+    verifyingProofLog: "سجل دليل التحقق",
+    hashLabel: "التجزئة",
+    timeLabel: "الوقت",
+    modelLabel2: "النموذج",
+    weightsLabel: "الأوزان",
+    userSignalLabel: "إشارة المستخدم",
+    noDataYet: "لا توجد بيانات بعد",
+    recognizing: "جارٍ التعرف...",
+    sponsoredTag: "برعاية",
+    recording: "جارٍ التسجيل، انقر للإيقاف",
+    micPermissionDenied: "لا يمكن الوصول إلى الميكروفون، تحقق من الأذونات",
+    voiceDone: "تم التعرف على الصوت",
+    voiceRetry: "لا يمكن التعرف، حاول مرة أخرى",
+    battleReportGenerated: "تم إنشاء تقرير المعركة",
+},
+
 
 // Language detection: user choice (7d) > browser lang > default 'en'
 function detectLang() {
@@ -426,6 +1384,10 @@ function detectLang() {
     // 2. Browser language
     const nav = (navigator.language || navigator.userLanguage || '').toLowerCase();
     if (nav.startsWith('zh')) return 'zh';
+    if (nav.startsWith('ja')) return 'ja';
+    if (nav.startsWith('ko')) return 'ko';
+    if (nav.startsWith('es')) return 'es';
+    if (nav.startsWith('ar')) return 'ar';
     // 3. Default
     return 'en';
 }
@@ -454,12 +1416,20 @@ async function detectRegionLang() {
 }
 // Apply language immediately in <head> to avoid FOUC and ensure SEO
 currentLang = detectLang();
-if (currentLang === 'zh') {
-    document.title = 'LLMVECT | 四模型匿名盲测竞技场 - 一键总结对比，终结AI幻觉';
-    document.documentElement.lang = 'zh-CN';
+const langMap = { zh: 'zh-CN', ja: 'ja', ko: 'ko', es: 'es', ar: 'ar' };
+if (langMap[currentLang]) {
+    document.title = t('seoTitle');
+    document.documentElement.lang = langMap[currentLang];
 }
 function t(key) {
-    return (I18N[currentLang] && I18N[currentLang][key]) || key;
+    return (I18N[currentLang] && I18N[currentLang][key]) || (I18N['en'] && I18N['en'][key]) || key;
+}
+const LANG_ORDER = ['en', 'zh', 'ja', 'ko', 'es', 'ar'];
+const LANG_LABELS = { en: 'EN', zh: '中', ja: '日', ko: '한', es: 'ES', ar: 'عر' };
+function cycleLang() {
+    const idx = LANG_ORDER.indexOf(currentLang);
+    const next = LANG_ORDER[(idx + 1) % LANG_ORDER.length];
+    setLang(next);
 }
 function setLang(lang, isManual = true) {
     currentLang = lang;
@@ -489,8 +1459,8 @@ function updateUILanguage() {
     // Update language toggle button text
     const toggleBtn = document.getElementById('langToggle');
     const toggleBtnDesktop = document.getElementById('langToggleDesktop');
-    if (toggleBtn) toggleBtn.textContent = t('language');
-    if (toggleBtnDesktop) toggleBtnDesktop.textContent = t('language');
+    if (toggleBtn) toggleBtn.textContent = LANG_LABELS[currentLang] || 'EN';
+    if (toggleBtnDesktop) toggleBtnDesktop.textContent = LANG_LABELS[currentLang] || 'EN';
     // SEO: Update page title
     document.title = t('seoTitle');
     // SEO: Update meta description
@@ -507,7 +1477,7 @@ function updateUILanguage() {
     if (twTitle) twTitle.setAttribute('content', t('seoTitle'));
     if (twDesc) twDesc.setAttribute('content', t('seoDesc'));
     // SEO: Update html lang attribute
-    document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+    document.documentElement.lang = langMap[currentLang] || 'en';
     // Dispatch event for components to react
     window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang: currentLang } }));
 }
@@ -2350,16 +3320,16 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="nav-section" style="flex: 1;">
                 <div class="nav-title"><span data-i18n="history">History</span></div>
                 <div class="history-list" id="historyList">
-                    <div class="history-item">Explain quantum computing...</div>
-                    <div class="history-item">Write a poem about spring</div>
-                    <div class="history-item">Python async/await guide</div>
+                    <div class="history-item" data-i18n="preset3">Explain quantum computing...</div>
+                    <div class="history-item" data-i18n="preset1">Write a poem about spring</div>
+                    <div class="history-item" data-i18n="preset2">Python async/await guide</div>
                 </div>
             </div>
             
             <div class="nav-section mini-leaderboard-section">
                 <div class="nav-title"><span data-i18n="liveRankings">Live Rankings</span> <span id="miniLbMode" class="mini-lb-mode"><span data-i18n="speed">Speed</span></span></div>
                 <div class="mini-leaderboard" id="miniLeaderboard">
-                    <div class="mini-lb-loading">Loading...</div>
+                    <div class="mini-lb-loading" data-i18n="loading">Loading...</div>
                 </div>
                 <div class="mini-lb-footer" onclick="window.location.href='/leaderboard.html'">
                     <span data-i18n="viewFullLB">View full leaderboard &rarr;</span>
@@ -2389,7 +3359,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <main class="main-content">
             <div class="top-bar">
                 <div class="top-bar-title"><span data-i18n="subtitle">LLM Arena</span></div>
-                <button id="langToggleDesktop" class="lang-toggle lang-toggle-desktop" onclick="setLang(currentLang==='en'?'zh':'en')">中</button>
+                <button id="langToggleDesktop" class="lang-toggle lang-toggle-desktop" onclick="cycleLang()">中</button>
             </div>
             
             <div class="content-area">
@@ -2413,58 +3383,58 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="desktop-battle" id="desktopBattle">
                     <div class="battle-header">
                         <div>
-                            <div class="battle-question">Current Question</div>
+                            <div class="battle-question" data-i18n="currentQuestion">Current Question</div>
                             <div class="battle-question-text" id="desktopQuestionText"></div>
                         </div>
                         <div class="battle-header-row">
                             <div class="quota-bar" id="desktopQuotaBar">
-                                <span class="quota-label">ELO</span>
+                                <span class="quota-label" data-i18n="elo">ELO</span>
                                 <div class="quota-dots" id="desktopQuotaDots"></div>
                                 <span id="desktopQuotaText">5/5</span>
                             </div>
                             <div class="think-toggle" id="desktopThinkToggle" onclick="toggleThinkMode('desktop')">
-                                <span class="think-toggle-label">&#x1F50D; Think</span>
+                                <span class="think-toggle-label">&#x1F50D; <span data-i18n="think">Think</span></span>
                                 <div class="think-toggle-switch" id="desktopThinkSwitch"></div>
                             </div>
                         </div>
                     </div>
                     <div class="battle-panels-desktop">
                         <div class="battle-panel-desktop">
-                            <div class="panel-header-desktop"><span class="panel-dot a"></span><span>Model A</span></div>
+                            <div class="panel-header-desktop"><span class="panel-dot a"></span><span data-i18n="modelA">Model A</span></div>
                             <div class="panel-content-desktop" id="desktopPanelA"></div>
                         </div>
                         <div class="battle-panel-desktop">
-                            <div class="panel-header-desktop"><span class="panel-dot b"></span><span>Model B</span></div>
+                            <div class="panel-header-desktop"><span class="panel-dot b"></span><span data-i18n="modelB">Model B</span></div>
                             <div class="panel-content-desktop" id="desktopPanelB"></div>
                         </div>
                         <div class="battle-panel-desktop">
-                            <div class="panel-header-desktop"><span class="panel-dot c"></span><span>Model C</span></div>
+                            <div class="panel-header-desktop"><span class="panel-dot c"></span><span data-i18n="modelC">Model C</span></div>
                             <div class="panel-content-desktop" id="desktopPanelC"></div>
                         </div>
                         <div class="battle-panel-desktop">
-                            <div class="panel-header-desktop"><span class="panel-dot d"></span><span>Model D</span></div>
+                            <div class="panel-header-desktop"><span class="panel-dot d"></span><span data-i18n="modelD">Model D</span></div>
                             <div class="panel-content-desktop" id="desktopPanelD"></div>
                         </div>
                     </div>
                     <div class="vote-area-desktop" id="desktopVoteArea">
-                        <span class="vote-hint-text">💡 Identities revealed after voting</span>
+                        <span class="vote-hint-text" data-i18n="identitiesRevealed">💡 Identities revealed after voting</span>
                         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                            <span style="color: var(--text-secondary);">🥇 BEST：</span>
-                            <button class="vote-btn-desktop" onclick="selectBest('A', this)">Model A</button>
-                            <button class="vote-btn-desktop" onclick="selectBest('B', this)">Model B</button>
-                            <button class="vote-btn-desktop" onclick="selectBest('C', this)">Model C</button>
-                            <button class="vote-btn-desktop" onclick="selectBest('D', this)">Model D</button>
-                            <button class="vote-btn-desktop" onclick="selectBest('tie', this)">🤝 Tie</button>
-                            <span style="color: var(--text-secondary); margin-left: 12px;">👎 WORST：</span>
-                            <button class="vote-btn-desktop vote-btn-worst" onclick="selectWorst('A')">Model A</button>
-                            <button class="vote-btn-desktop vote-btn-worst" onclick="selectWorst('B')">Model B</button>
-                            <button class="vote-btn-desktop vote-btn-worst" onclick="selectWorst('C')">Model C</button>
-                            <button class="vote-btn-desktop vote-btn-worst" onclick="selectWorst('D')">Model D</button>
+                            <span style="color: var(--text-secondary);" data-i18n="bestLabel">🥇 BEST：</span>
+                            <button class="vote-btn-desktop" onclick="selectBest('A', this)" data-i18n="modelA">Model A</button>
+                            <button class="vote-btn-desktop" onclick="selectBest('B', this)" data-i18n="modelB">Model B</button>
+                            <button class="vote-btn-desktop" onclick="selectBest('C', this)" data-i18n="modelC">Model C</button>
+                            <button class="vote-btn-desktop" onclick="selectBest('D', this)" data-i18n="modelD">Model D</button>
+                            <button class="vote-btn-desktop" onclick="selectBest('tie', this)" data-i18n="tie">🤝 Tie</button>
+                            <span style="color: var(--text-secondary); margin-left: 12px;" data-i18n="worstLabel">👎 WORST：</span>
+                            <button class="vote-btn-desktop vote-btn-worst" onclick="selectWorst('A')" data-i18n="modelA">Model A</button>
+                            <button class="vote-btn-desktop vote-btn-worst" onclick="selectWorst('B')" data-i18n="modelB">Model B</button>
+                            <button class="vote-btn-desktop vote-btn-worst" onclick="selectWorst('C')" data-i18n="modelC">Model C</button>
+                            <button class="vote-btn-desktop vote-btn-worst" onclick="selectWorst('D')" data-i18n="modelD">Model D</button>
                         </div>
                     </div>
                     <div style="display:flex;align-items:center;gap:12px;padding:4px 0 8px 0;">
-                        <button class="dpo-submit-btn" id="confirmVoteDesktop" onclick="confirmVote()" disabled style="opacity:1;">Submit Vote</button>
-                        <span class="dpo-hint">Pick BEST first, then WORST</span>
+                        <button class="dpo-submit-btn" id="confirmVoteDesktop" onclick="confirmVote()" disabled style="opacity:1;"><span data-i18n="voteBtn">Submit Vote</span></button>
+                        <span class="dpo-hint" data-i18n="pickBestFirst">Pick BEST first, then WORST</span>
                     </div>
 
                     <!-- DPO 标签面板（桌面版） -->
@@ -2485,7 +3455,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="dpo-submit-row">
                             <button class="dpo-crosscheck-btn" id="crosscheckBtnDesktop" onclick="triggerCrossCheck()" style="display:inline-block"><span data-i18n="crossCheckBtn">Get Better Answer</span></button>
-                            <span class="dpo-hint">Totoro Engine cross-validates all four answers to find the truth</span>
+                            <span class="dpo-hint" data-i18n="crossCheckHint">Totoro Engine cross-validates all four answers to find the truth</span>
                         </div>
                     </div>
                 </div>
@@ -2502,7 +3472,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="mobile-logo-icon" style="font-size:0;"></div>
                 <div style="letter-spacing:-0.02em;">LLMVECT<span style="color: var(--accent-blue);"></span></div>
             </div>
-            <button id="langToggle" class="lang-toggle" onclick="setLang(currentLang==='en'?'zh':'en')">中</button>
+            <button id="langToggle" class="lang-toggle" onclick="cycleLang()">中</button>
         </header>
         
         <!-- ========== 手机版主内容 ========== -->
@@ -2513,75 +3483,75 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h1><span data-i18n="subtitle">LLM Arena</span></h1>
                 <p data-i18n="welcomeDesc">Covering 20+ major LLM providers. No more switching platforms, no more single-perspective "AI hallucinations". One question, multi-dimensional cross-validation, the most comprehensive and rigorous decision reference. You decide who's smarter.</p>
                 <div class="mobile-features">
-                    <span class="feature-tag">Free Trial</span>
-                    <span class="feature-tag">Privacy</span>
-                    <span class="feature-tag">Fast Response</span>
+                    <span class="feature-tag" data-i18n="freeTrial">Free Trial</span>
+                    <span class="feature-tag" data-i18n="privacy">Privacy</span>
+                    <span class="feature-tag" data-i18n="fastResponse">Fast Response</span>
                 </div>
             </div>
             
             <!-- 手机版 Battle -->
             <div class="mobile-battle" id="mobileBattle">
                 <div class="mobile-question">
-                    <div class="mobile-question-label">Current Question</div>
+                    <div class="mobile-question-label" data-i18n="currentQuestion">Current Question</div>
                     <div class="mobile-question-text" id="mobileQuestionText"></div>
                 </div>
                 <div class="mobile-battle-header">
                     <div class="quota-bar" id="mobileQuotaBar">
-                        <span class="quota-label">ELO</span>
+                        <span class="quota-label" data-i18n="elo">ELO</span>
                         <div class="quota-dots" id="mobileQuotaDots"></div>
                         <span id="mobileQuotaText">5/5</span>
                     </div>
                     <div class="think-toggle" id="mobileThinkToggle" onclick="toggleThinkMode('mobile')">
-                        <span class="think-toggle-label">&#x1F50D; Think</span>
+                        <span class="think-toggle-label">&#x1F50D; <span data-i18n="think">Think</span></span>
                         <div class="think-toggle-switch" id="mobileThinkSwitch"></div>
                     </div>
                 </div>
                 <div class="mobile-battle-panels">
                     <div class="mobile-battle-panel">
-                        <div class="mobile-panel-header"><span class="panel-dot a"></span><span>Model A</span></div>
+                        <div class="mobile-panel-header"><span class="panel-dot a"></span><span data-i18n="modelA">Model A</span></div>
                         <div class="mobile-panel-content" id="mobilePanelA"></div>
                     </div>
                     <div class="mobile-battle-panel">
-                        <div class="mobile-panel-header"><span class="panel-dot b"></span><span>Model B</span></div>
+                        <div class="mobile-panel-header"><span class="panel-dot b"></span><span data-i18n="modelB">Model B</span></div>
                         <div class="mobile-panel-content" id="mobilePanelB"></div>
                     </div>
                     <div class="mobile-battle-panel">
-                        <div class="mobile-panel-header"><span class="panel-dot c"></span><span>Model C</span></div>
+                        <div class="mobile-panel-header"><span class="panel-dot c"></span><span data-i18n="modelC">Model C</span></div>
                         <div class="mobile-panel-content" id="mobilePanelC"></div>
                     </div>
                     <div class="mobile-battle-panel">
-                        <div class="mobile-panel-header"><span class="panel-dot d"></span><span>Model D</span></div>
+                        <div class="mobile-panel-header"><span class="panel-dot d"></span><span data-i18n="modelD">Model D</span></div>
                         <div class="mobile-panel-content" id="mobilePanelD"></div>
                     </div>
                     <!-- 移动端评价区 -->
                     <div class="mobile-vote-area" id="mobileVoteArea">
                         <div class="mobile-vote-hint" id="mobileVoteHint">
                             <span class="hint-icon">💡</span>
-                            <span>Identities revealed after voting</span>
+                            <span data-i18n="identitiesRevealed">Identities revealed after voting</span>
                         </div>
                         
                         <div class="mobile-vote-section">
                             <div class="mobile-vote-title">
-                                <span class="vote-icon-best">🥇</span> Best Answer
+                                <span class="vote-icon-best">🥇</span> <span data-i18n="bestAnswerShort">Best Answer</span>
                             </div>
                             <div class="mobile-vote-row">
-                                <button class="mobile-best-btn" onclick="selectBest('A', this)">Model A</button>
-                                <button class="mobile-best-btn" onclick="selectBest('B', this)">Model B</button>
-                                <button class="mobile-best-btn" onclick="selectBest('C', this)">Model C</button>
-                                <button class="mobile-best-btn" onclick="selectBest('D', this)">Model D</button>
-                                <button class="mobile-best-btn tie-btn" onclick="selectBest('tie', this)">🤝 Tie</button>
+                                <button class="mobile-best-btn" onclick="selectBest('A', this)" data-i18n="modelA">Model A</button>
+                                <button class="mobile-best-btn" onclick="selectBest('B', this)" data-i18n="modelB">Model B</button>
+                                <button class="mobile-best-btn" onclick="selectBest('C', this)" data-i18n="modelC">Model C</button>
+                                <button class="mobile-best-btn" onclick="selectBest('D', this)" data-i18n="modelD">Model D</button>
+                                <button class="mobile-best-btn tie-btn" onclick="selectBest('tie', this)" data-i18n="tie">🤝 Tie</button>
                             </div>
                         </div>
                         
                         <div class="mobile-vote-section" style="margin-top:10px">
                             <div class="mobile-vote-title">
-                                <span class="vote-icon-worst">👎</span> Worst Answer <span class="vote-optional">(optional)</span>
+                                <span class="vote-icon-worst">👎</span> <span data-i18n="worstAnswerShort">Worst Answer</span> <span class="vote-optional" data-i18n="optional">(optional)</span>
                             </div>
                             <div class="mobile-vote-row">
-                                <button class="mobile-worst-btn" data-worst="A" onclick="selectWorst('A');updateMobileWorstBtn(this)">Model A</button>
-                                <button class="mobile-worst-btn" data-worst="B" onclick="selectWorst('B');updateMobileWorstBtn(this)">Model B</button>
-                                <button class="mobile-worst-btn" data-worst="C" onclick="selectWorst('C');updateMobileWorstBtn(this)">Model C</button>
-                                <button class="mobile-worst-btn" data-worst="D" onclick="selectWorst('D');updateMobileWorstBtn(this)">Model D</button>
+                                <button class="mobile-worst-btn" data-worst="A" onclick="selectWorst('A');updateMobileWorstBtn(this)" data-i18n="modelA">Model A</button>
+                                <button class="mobile-worst-btn" data-worst="B" onclick="selectWorst('B');updateMobileWorstBtn(this)" data-i18n="modelB">Model B</button>
+                                <button class="mobile-worst-btn" data-worst="C" onclick="selectWorst('C');updateMobileWorstBtn(this)" data-i18n="modelC">Model C</button>
+                                <button class="mobile-worst-btn" data-worst="D" onclick="selectWorst('D');updateMobileWorstBtn(this)" data-i18n="modelD">Model D</button>
                             </div>
                         </div>
                         
@@ -2589,14 +3559,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <!-- Mobile DPO Panel -->
                     <div class="dpo-panel" id="dpoPanelMobile" style="margin-top:12px">
-                        <div class="dpo-section-title winner">Winner - Why better?</div>
+                        <div class="dpo-section-title winner"><span data-i18n="winnerWhyBetter">Winner - Why better?</span></div>
                         <div class="dpo-tags-row" id="winnerTagsMobile">
                             <span class="dpo-tag" data-tag="factual_grounded" onclick="toggleDpoTag(this,'winner')"><span data-i18n="tagAccurate">Accurate</span></span>
                             <span class="dpo-tag" data-tag="code_executable" onclick="toggleDpoTag(this,'winner')"><span data-i18n="tagCodeCorrect">Code correct</span></span>
                             <span class="dpo-tag" data-tag="strong_cot" onclick="toggleDpoTag(this,'winner')"><span data-i18n="tagRigorousLogic">Rigorous logic</span></span>
                             <span class="dpo-tag" data-tag="perfect_follow" onclick="toggleDpoTag(this,'winner')"><span data-i18n="tagPreciseExec">Precise execution</span></span>
                         </div>
-                        <div class="dpo-section-title worst">Loser - Why worse?</div>
+                        <div class="dpo-section-title worst"><span data-i18n="loserWhyWorse">Loser - Why worse?</span></div>
                         <div class="dpo-tags-row" id="worstTagsMobile">
                             <span class="dpo-tag worst-tag" data-tag="severe_hallucination" onclick="toggleDpoTag(this,'worst')"><span data-i18n="tagSevereHallu">Severe hallucination</span></span>
                             <span class="dpo-tag worst-tag" data-tag="over_aligned" onclick="toggleDpoTag(this,'worst')"><span data-i18n="tagOverAligned">Over-aligned</span></span>
@@ -2717,7 +3687,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await res.json();
                 const lb = data.leaderboard || [];
                 if (lb.length === 0) {
-                    container.innerHTML = '<div class="mini-lb-loading">No data yet</div>';
+                    container.innerHTML = '<div class="mini-lb-loading">' + t('noDataYet') + '</div>';
                     return;
                 }
                 const top5 = lb.slice(0, 5);
@@ -2776,11 +3746,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     mediaRecorder.start();
                     isRecording = true;
                     btn.classList.add('recording');
-                    showToast('🎤 Recording, tap to stop', 'info');
+                    showToast('🎤 ' + t('recording'), 'info');
                     
                 } catch (err) {
                     console.error('录音失败:', err);
-                    showToast('Cannot access microphone, check permissions', 'error');
+                    showToast(t('micPermissionDenied'), 'error');
                 }
             } else {
                 // 停止录音
@@ -2789,7 +3759,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 isRecording = false;
                 btn.classList.remove('recording');
-                showToast('📝 Recognizing...', 'info');
+                showToast('📝 ' + t('recognizing'), 'info');
             }
         }
         
@@ -2822,15 +3792,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (result.text) {
                         inputElement.value = result.text;
                         autoResize(inputElement);
-                        showToast('✅ Voice recognition done', 'success');
+                        showToast('✅ ' + t('voiceDone'), 'success');
                     } else {
-                        showToast('⚠️ Could not recognize, try again', 'warning');
+                        showToast('⚠️ ' + t('voiceRetry'), 'warning');
                     }
                 };
                 
             } catch (err) {
                 console.error('语音识别Error:', err);
-                showToast(`Recognition failed: ${err.message}`, 'error');
+                showToast(t('error') + ': ' + err.message, 'error');
             }
         }
         
@@ -2868,7 +3838,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function setLeaderboardCategory(category) {
             currentLbCategory = category;
-            const categoryNames = { overall: 'Overall', coding: 'Coding', writing: 'Creative Writing' };
+            const categoryNames = { overall: t('all'), coding: t('selectModel'), writing: t('tagCreative') };
             showToast(categoryNames[category] || t("leaderboard"), 'info');
             loadMiniLeaderboard();
         }
@@ -2975,14 +3945,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 progressTimer = setTimeout(() => {
                     panels.forEach(p => {
                         if (p.innerHTML.includes('generating')) {
-                            p.innerHTML = '<div class="generating"><div class="generating-dots"><span></span><span></span><span></span></div>Thinking...</div>';
+                            p.innerHTML = '<div class="generating"><div class="generating-dots"><span></span><span></span><span></span></div>' + t('thinking') + '</div>';
                         }
                     });
                 }, 1200);
                 setTimeout(() => {
                     panels.forEach(p => {
-                        if (p.innerHTML.includes('Thinking...')) {
-                            p.innerHTML = '<div class="generating"><div class="generating-dots"><span></span><span></span><span></span></div>Generating answer...</div>';
+                        if (p.innerHTML.includes('generating-dots')) {
+                            p.innerHTML = '<div class="generating"><div class="generating-dots"><span></span><span></span><span></span></div>' + t('generating') + '</div>';
                         }
                     });
                 }, 2500);
@@ -3001,7 +3971,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.category_name) {
                     const categoryIcons = { 'Overall': '🏆', 'Coding': '💻', 'Creative Writing': '✍️' };
                     const icon = categoryIcons[data.category_name] || '🏆';
-                    showToast(`${icon} Auto-classified: ${data.category_name}`, 'info');
+                    showToast(`${icon} ${t('autoClassified')}: ${data.category_name}`, 'info');
                 }
                 renderCompleteTime = 0;  // 重置，待4面板DOM渲染完成后赋值
                 maxScrollDepth = 0;  // 重置滚动深度
@@ -3012,11 +3982,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (platform === 'desktop') {
                     // 处理4个Model响应
                     const panels = ['desktopPanelA', 'desktopPanelB', 'desktopPanelC', 'desktopPanelD'];
-                    const headerNames = ['Model A', 'Model B', 'Model C', 'Model D'];
+                    const headerNames = [t('modelA'), t('modelB'), t('modelC'), t('modelD')];
                     if (data.responses) {
                         for (let i = 0; i < 4; i++) {
                             const resp = data.responses[i];
-                            const content = resp && resp.content ? resp.content : (resp && resp.error ? 'Error: ' + resp.error : 'No response');
+                            const content = resp && resp.content ? resp.content : (resp && resp.error ? 'Error: ' + resp.error : t('noResponse'));
                             document.getElementById(panels[i]).innerHTML = formatResponseWithThinking(content);
                         }
                     } else {
@@ -3046,11 +4016,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     // 处理4个Model响应
                     const mobilePanels = ['mobilePanelA', 'mobilePanelB', 'mobilePanelC', 'mobilePanelD'];
-                    const headerNames = ['Model A', 'Model B', 'Model C', 'Model D'];
+                    const headerNames = [t('modelA'), t('modelB'), t('modelC'), t('modelD')];
                     if (data.responses) {
                         for (let i = 0; i < 4; i++) {
                             const resp = data.responses[i];
-                            const content = resp && resp.content ? resp.content : (resp && resp.error ? 'Error: ' + resp.error : 'No response');
+                            const content = resp && resp.content ? resp.content : (resp && resp.error ? 'Error: ' + resp.error : t('noResponse'));
                             document.getElementById(mobilePanels[i]).innerHTML = formatResponseWithThinking(content);
                         }
                     } else {
@@ -3081,10 +4051,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const errorMsg = `<p style="color: #EF4444;">Error: ${err.message}</p>`;
                 if (platform === 'desktop') {
                     document.getElementById('desktopPanelA').innerHTML = errorMsg;
-                    document.getElementById('desktopPanelB').innerHTML = '<p style="color: var(--text-muted);">Please ensure backend is running</p>';
+                    document.getElementById('desktopPanelB').innerHTML = '<p style="color: var(--text-muted);">' + t('pleaseEnsureBackend') + '</p>';
                 } else {
                     document.getElementById('mobilePanelA').innerHTML = errorMsg;
-                    document.getElementById('mobilePanelB').innerHTML = '<p style="color: var(--text-muted);">Please ensure backend is running</p>';
+                    document.getElementById('mobilePanelB').innerHTML = '<p style="color: var(--text-muted);">' + t('pleaseEnsureBackend') + '</p>';
                 }
             } finally {
                 isGenerating = false;
@@ -3092,11 +4062,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         function generatingHTML() {
-            return '<div class="generating"><div class="generating-dots"><span></span><span></span><span></span></div>Generating...</div>';
+            return '<div class="generating"><div class="generating-dots"><span></span><span></span><span></span></div>' + t('generatingDots') + '</div>';
         }
         
         function formatResponse(text) {
-            if (!text) return '<p style="color: var(--text-muted);">No response</p>';
+            if (!text) return '<p style="color: var(--text-muted);">' + t('noResponse') + '</p>';
             if (text.startsWith('Error:') || text.startsWith('⚠️')) return `<p style="color: #EF4444;">${text}</p>`;
             return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                       .replace(/\n/g, '<br>');
@@ -3140,7 +4110,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ['A', 'B', 'C', 'D'].forEach((label, i) => {
                             if (data.reveal[label]) {
                                 const brand = data.reveal[label].sponsor_brand;
-                                desktopHeaders[i].textContent = getDisplayName(data.reveal[label].model_id) + (brand ? ` (${brand}sponsored)` : '');
+                                desktopHeaders[i].textContent = getDisplayName(data.reveal[label].model_id) + (brand ? ` (${brand}` + t('sponsoredTag') + ')' : '');
                                 desktopHeaders[i].style.color = 'var(--tech-cyan)';
                             }
                         });
@@ -3150,7 +4120,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ['A', 'B', 'C', 'D'].forEach((label, i) => {
                             if (data.reveal[label]) {
                                 const brand = data.reveal[label].sponsor_brand;
-                                mobileHeaders[i].textContent = getDisplayName(data.reveal[label].model_id) + (brand ? ` (${brand}sponsored)` : '');
+                                mobileHeaders[i].textContent = getDisplayName(data.reveal[label].model_id) + (brand ? ` (${brand}` + t('sponsoredTag') + ')' : '');
                                 mobileHeaders[i].style.color = 'var(--tech-cyan)';
                             }
                         });
@@ -3165,11 +4135,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     
                     // 投票结果提示
-                    let voteMsg = `Voted: ${winner}${currentWorst ? ' | WORST: ' + currentWorst : ''}`;
+                    let voteMsg = `${t('voted')}: ${winner}${currentWorst ? ' | WORST: ' + currentWorst : ''}`;
                     if (!data.is_valid_for_elo) {
-                        voteMsg += ' (Over quota, not counted)';
+                        voteMsg += ` (${t('overQuota')})`;
                     } else {
-                        voteMsg += ` (Weight: ${data.vote_weight.toFixed(2)})`;
+                        voteMsg += ` (${t('weightLabel')}: ${data.vote_weight.toFixed(2)})`;
                     }
                     showToast(voteMsg, data.is_valid_for_elo ? 'success' : 'warning');
                     
@@ -3179,7 +4149,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (err) {
                 console.error('Vote error:', err);
-                showToast('Vote failed: ' + err.message, 'error');
+                showToast(t('voteFailedMsg') + ': ' + err.message, 'error');
             }
         }
         
@@ -3521,24 +4491,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     dpoSubmitted = true;
                     // Desktop
                     const ds = document.getElementById('dpoSubmitDesktop');
-                    if (ds) { ds.disabled = true; ds.textContent = 'Submitted'; }
+                    if (ds) { ds.disabled = true; ds.textContent = t('submitted'); }
                     const dc = document.getElementById('crosscheckBtnDesktop');
                     if (dc) dc.classList.add('visible');
                     // Mobile
                     const ms = document.getElementById('dpoSubmitMobile');
-                    if (ms) { ms.disabled = true; ms.textContent = 'Submitted'; }
+                    if (ms) { ms.disabled = true; ms.textContent = t('submitted'); }
                     const mc = document.getElementById('crosscheckBtnMobile');
                     if (mc) mc.classList.add('visible');
-                    showToast('DPO tags submitted', 'success');
+                    showToast(t('dpoTagsSubmitted'), 'success');
                 }
             } catch (err) {
-                showToast('Tag submission failed: ' + err.message, 'error');
+                showToast(t('tagSubmitFailed') + ': ' + err.message, 'error');
             }
         }
 
         async function triggerCrossCheck() {
             if (!currentBattleId) {
-                showToast('Start a battle first', 'error');
+                showToast(t('startBattleFirst'), 'error');
                 return;
             }
             try {
@@ -3546,7 +4516,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const btnM = document.getElementById('crosscheckBtnMobile');
                 if (btn) btn.disabled = true;
                 if (btnM) btnM.disabled = true;
-                showToast('Cross-validating four answers...', 'info');
+                showToast(t('crossValidating'), 'info');
                 const response = await fetch(`${API_BASE}/api/arena/cross-validate`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -3574,7 +4544,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const btnM3 = document.getElementById('crosscheckBtnMobile');
                 if (btn3) btn3.disabled = false;
                 if (btnM3) btnM3.disabled = false;
-                showToast('Cross-validation failed: ' + err.message, 'error');
+                showToast(t('crossFailed') + ': ' + err.message, 'error');
             }
         }
 
@@ -3595,23 +4565,23 @@ document.addEventListener('DOMContentLoaded', () => {
             // Build proof log HTML
             const proofHtml = data.proof_hash ? `
                 <details style="margin-top:10px">
-                    <summary style="font-size:11px;color:rgba(46,213,115,0.6);cursor:pointer;letter-spacing:1px;user-select:none">VERIFICATION PROOF LOG</summary>
+                    <summary style="font-size:11px;color:rgba(46,213,115,0.6);cursor:pointer;letter-spacing:1px;user-select:none">${t('verifyingProofLog')}</summary>
                     <div style="margin-top:8px;padding:10px;background:rgba(46,213,115,0.03);border:1px solid rgba(46,213,115,0.1);border-radius:4px;font-size:11px;color:rgba(255,255,255,0.45);line-height:1.7">
-                        <div><span style="color:#2ed573">Hash:</span> ${data.proof_hash}</div>
-                        <div><span style="color:#2ed573">Time:</span> ${data.proof_timestamp || 'N/A'}</div>
-                        <div><span style="color:#2ed573">Model:</span> ${data.totoro_model}</div>
-                        <div style="margin-top:4px"><span style="color:#2ed573">Weights:</span> ${JSON.stringify(data.weights_used || {})}</div>
-                        <div style="margin-top:4px"><span style="color:#2ed573">User Signal:</span> ${JSON.stringify(data.user_signal_applied || {})}</div>
+                        <div><span style="color:#2ed573">${t('hashLabel')}:</span> ${data.proof_hash}</div>
+                        <div><span style="color:#2ed573">${t('timeLabel')}:</span> ${data.proof_timestamp || 'N/A'}</div>
+                        <div><span style="color:#2ed573">${t('modelLabel2')}:</span> ${data.totoro_model}</div>
+                        <div style="margin-top:4px"><span style="color:#2ed573">${t('weightsLabel')}:</span> ${JSON.stringify(data.weights_used || {})}</div>
+                        <div style="margin-top:4px"><span style="color:#2ed573">${t('userSignalLabel')}:</span> ${JSON.stringify(data.user_signal_applied || {})}</div>
                     </div>
                 </details>
             ` : '';
 
             resultDiv.innerHTML = `
                 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-                    <div style="font-size:12px;text-transform:uppercase;letter-spacing:2px;color:#2ed573;font-weight:600">CROSS-VALIDATION RESULT <span style="color:rgba(255,255,255,0.3);font-weight:400">${data.totoro_model}</span></div>
+                    <div style="font-size:12px;text-transform:uppercase;letter-spacing:2px;color:#2ed573;font-weight:600">${t('crossValidationResult')} <span style="color:rgba(255,255,255,0.3);font-weight:400">${data.totoro_model}</span></div>
                     <div style="display:flex;gap:8px">
-                        <button onclick="copyPureAnswer()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#aaa;padding:4px 12px;border-radius:4px;font-size:11px;cursor:pointer;letter-spacing:0.5px;transition:all .2s" onmouseover="this.style.borderColor='#00f0ff';this.style.color='#00f0ff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)';this.style.color='#aaa'">COPY</button>
-                        <button onclick="renderBattleCard()" style="background:rgba(0,240,255,0.08);border:1px solid rgba(0,240,255,0.3);color:#00f0ff;padding:4px 12px;border-radius:4px;font-size:11px;cursor:pointer;letter-spacing:0.5px;transition:all .2s" onmouseover="this.style.background='rgba(0,240,255,0.15)'" onmouseout="this.style.background='rgba(0,240,255,0.08)'">BATTLE CARD</button>
+                        <button onclick="copyPureAnswer()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#aaa;padding:4px 12px;border-radius:4px;font-size:11px;cursor:pointer;letter-spacing:0.5px;transition:all .2s" onmouseover="this.style.borderColor='#00f0ff';this.style.color='#00f0ff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)';this.style.color='#aaa'">${t('copyBtn')}</button>
+                        <button onclick="renderBattleCard()" style="background:rgba(0,240,255,0.08);border:1px solid rgba(0,240,255,0.3);color:#00f0ff;padding:4px 12px;border-radius:4px;font-size:11px;cursor:pointer;letter-spacing:0.5px;transition:all .2s" onmouseover="this.style.background='rgba(0,240,255,0.15)'" onmouseout="this.style.background='rgba(0,240,255,0.08)'">${t('battleCardBtn')}</button>
                     </div>
                 </div>
                 <div style="color:#e0e0e0;font-size:14px;line-height:1.7;margin-bottom:12px;white-space:pre-wrap" id="totoroAnswerContent">${data.refined_answer}</div>
@@ -3619,7 +4589,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${proofHtml}
             `;
             resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            showToast('Cross-validation complete', 'success');
+            showToast(t('crossSuccess'), 'success');
         }
 
         // ===== 纯净复制：只复制答案，0广告 =====
@@ -3627,7 +4597,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = window._totoroData;
             if (!data || !data.refined_answer) return;
             navigator.clipboard.writeText(data.refined_answer).then(() => {
-                showToast('Copied clean content', 'success');
+                showToast(t('copyClean'), 'success');
             }).catch(() => {
                 // Fallback
                 const ta = document.createElement('textarea');
@@ -3636,7 +4606,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ta.select();
                 document.execCommand('copy');
                 document.body.removeChild(ta);
-                showToast('Copied clean content', 'success');
+                showToast(t('copyClean'), 'success');
             });
         }
 
@@ -3758,7 +4728,7 @@ document.addEventListener('DOMContentLoaded', () => {
             link.download = `llm-china-battle-${Date.now()}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
-            showToast('Battle report generated', 'success');
+            showToast(t('battleReportGenerated'), 'success');
         }
 
         // resetVoteState中也要重置DPO

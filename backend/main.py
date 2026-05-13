@@ -779,20 +779,38 @@ async def detect_region(request: Request):
             if resp.status_code == 200:
                 data = resp.json()
                 country = data.get("country_code", "")
-                # 中国大陆、香港、澳门、台湾、新加坡(大量华人) -> 中文
+                # Region -> language mapping
                 cn_regions = {"CN", "HK", "MO", "TW", "SG"}
-                lang = "zh" if country in cn_regions else "en"
+                ja_regions = {"JP"}
+                ko_regions = {"KR"}
+                es_regions = {"ES", "MX", "AR", "CO", "CL", "PE", "VE", "EC", "GT", "CU", "BO", "DO", "HN", "PY", "SV", "NI", "CR", "PA", "UY", "PR"}
+                ar_regions = {"SA", "AE", "EG", "KW", "QA", "BH", "OM", "JO", "LB", "IQ", "MA", "DZ", "TN", "LY", "SD", "SY", "YE", "MR", "DJ", "SO", "KM"}
+                if country in cn_regions: lang = "zh"
+                elif country in ja_regions: lang = "ja"
+                elif country in ko_regions: lang = "ko"
+                elif country in es_regions: lang = "es"
+                elif country in ar_regions: lang = "ar"
+                else: lang = "en"
                 return {"country": country, "lang": lang, "ip": ip}
     except Exception:
         pass
-    # 备用：ip-api.com
+    # Fallback: ip-api.com
     try:
         async with httpx.AsyncClient(timeout=5.0) as client:
             resp = await client.get(f"http://ip-api.com/json/{ip}?fields=countryCode")
             if resp.status_code == 200:
                 country = resp.json().get("countryCode", "")
                 cn_regions = {"CN", "HK", "MO", "TW", "SG"}
-                lang = "zh" if country in cn_regions else "en"
+                ja_regions = {"JP"}
+                ko_regions = {"KR"}
+                es_regions = {"ES", "MX", "AR", "CO", "CL", "PE", "VE", "EC", "GT", "CU", "BO", "DO", "HN", "PY", "SV", "NI", "CR", "PA", "UY", "PR"}
+                ar_regions = {"SA", "AE", "EG", "KW", "QA", "BH", "OM", "JO", "LB", "IQ", "MA", "DZ", "TN", "LY", "SD", "SY", "YE", "MR", "DJ", "SO", "KM"}
+                if country in cn_regions: lang = "zh"
+                elif country in ja_regions: lang = "ja"
+                elif country in ko_regions: lang = "ko"
+                elif country in es_regions: lang = "es"
+                elif country in ar_regions: lang = "ar"
+                else: lang = "en"
                 return {"country": country, "lang": lang, "ip": ip}
     except Exception:
         pass
