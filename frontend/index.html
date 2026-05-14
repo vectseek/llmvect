@@ -1475,12 +1475,13 @@ function toggleLangMenu(source) {
     } else {
         // Close any other
         document.querySelectorAll('.lang-dropdown.open').forEach(d => d.classList.remove('open'));
-        // Position portal under the button
+        // Position portal under the button (right-aligned)
         const rect = btn.getBoundingClientRect();
         _langMenuPortal.style.display = 'block';
         _langMenuPortal.style.top = (rect.bottom + 6) + 'px';
-        _langMenuPortal.style.right = (window.innerWidth - rect.right) + 'px';
-        _langMenuPortal.style.left = 'auto';
+        const menuWidth = _langMenuPortal.offsetWidth;
+        _langMenuPortal.style.left = Math.max(8, rect.right - menuWidth) + 'px';
+        _langMenuPortal.style.right = 'auto';
         btn.classList.add('open');
         _openDropdownSource = source;
         // Update active state
