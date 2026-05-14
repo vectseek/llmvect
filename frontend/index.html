@@ -1372,6 +1372,7 @@ ar: {
     voiceRetry: "لا يمكن التعرف، حاول مرة أخرى",
     battleReportGenerated: "تم إنشاء تقرير المعركة",
 },
+};
 
 
 // Language detection: user choice (7d) > browser lang > default 'en'
@@ -1426,11 +1427,87 @@ function t(key) {
 }
 const LANG_ORDER = ['en', 'zh', 'ja', 'ko', 'es', 'ar'];
 const LANG_LABELS = { en: 'EN', zh: '中', ja: '日', ko: '한', es: 'ES', ar: 'عر' };
-function cycleLang() {
-    const idx = LANG_ORDER.indexOf(currentLang);
-    const next = LANG_ORDER[(idx + 1) % LANG_ORDER.length];
-    setLang(next);
+const LANG_NAMES = {
+    en: 'English',
+    zh: '中文',
+    ja: '日本語',
+    ko: '한국어',
+    es: 'Español',
+    ar: 'العربية'
+};
+const LANG_FLAGS = { en: '🌐', zh: '🇨🇳', ja: '🇯🇵', ko: '🇰🇷', es: '🇪🇸', ar: '🇸🇦' };
+
+// Portal-style: create a single shared menu at body level
+let _langMenuPortal = null;
+let _openDropdownSource = null;
+
+function _createLangMenuPortal() {
+    if (_langMenuPortal) return;
+    _langMenuPortal = document.createElement('div');
+    _langMenuPortal.className = 'lang-menu-portal';
+    _langMenuPortal.style.cssText = 'display:none;position:fixed;z-index:999999;';
+    let html = '';
+    for (let i = 0; i < LANG_ORDER.length; i++) {
+        const lang = LANG_ORDER[i];
+        const isLast = i === LANG_ORDER.length - 1;
+        if (isLast && i > 0) html += '<div class="lang-menu-divider"></div>';
+        html += `<button class="lang-menu-item" onclick="selectLang('${lang}')" data-lang="${lang}">`;
+        html += `<span class="item-flag">${LANG_FLAGS[lang]}</span>`;
+        html += `<span class="item-label">${LANG_NAMES[lang]}</span>`;
+        html += `<span class="item-check">✓</span>`;
+        html += `</button>`;
+    }
+    _langMenuPortal.innerHTML = html;
+    document.body.appendChild(_langMenuPortal);
 }
+
+function toggleLangMenu(source) {
+    _createLangMenuPortal();
+    const btnId = source === 'desktop' ? 'langDropdownDesktop' : 'langToggle';
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+
+    const isOpen = _openDropdownSource === source;
+    if (isOpen) {
+        _langMenuPortal.style.display = 'none';
+        btn.classList.remove('open');
+        _openDropdownSource = null;
+    } else {
+        // Close any other
+        document.querySelectorAll('.lang-dropdown.open').forEach(d => d.classList.remove('open'));
+        // Position portal under the button
+        const rect = btn.getBoundingClientRect();
+        _langMenuPortal.style.display = 'block';
+        _langMenuPortal.style.top = (rect.bottom + 6) + 'px';
+        _langMenuPortal.style.right = (window.innerWidth - rect.right) + 'px';
+        _langMenuPortal.style.left = 'auto';
+        btn.classList.add('open');
+        _openDropdownSource = source;
+        // Update active state
+        _langMenuPortal.querySelectorAll('.lang-menu-item').forEach(item => {
+            item.classList.toggle('active', item.getAttribute('data-lang') === currentLang);
+        });
+    }
+}
+
+function selectLang(lang) {
+    // Hide portal
+    if (_langMenuPortal) {
+        _langMenuPortal.style.display = 'none';
+    }
+    document.querySelectorAll('.lang-dropdown.open').forEach(d => d.classList.remove('open'));
+    _openDropdownSource = null;
+    setLang(lang, true);
+}
+
+// Close on outside click
+document.addEventListener('click', function(e) {
+    if (_openDropdownSource && !e.target.closest('.lang-dropdown') && !_langMenuPortal.contains(e.target)) {
+        if (_langMenuPortal) _langMenuPortal.style.display = 'none';
+        document.querySelectorAll('.lang-dropdown.open').forEach(d => d.classList.remove('open'));
+        _openDropdownSource = null;
+    }
+});
 function setLang(lang, isManual = true) {
     currentLang = lang;
     localStorage.setItem('llmvect_lang', lang);
@@ -1456,11 +1533,16 @@ function updateUILanguage() {
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         el.placeholder = t(el.getAttribute('data-i18n-placeholder'));
     });
-    // Update language toggle button text
-    const toggleBtn = document.getElementById('langToggle');
-    const toggleBtnDesktop = document.getElementById('langToggleDesktop');
-    if (toggleBtn) toggleBtn.textContent = LANG_LABELS[currentLang] || 'EN';
-    if (toggleBtnDesktop) toggleBtnDesktop.textContent = LANG_LABELS[currentLang] || 'EN';
+    // Update language dropdown labels
+    const labelDesktop = document.getElementById('langLabelDesktop');
+    const labelMobile = document.getElementById('langLabelMobile');
+    if (labelDesktop) labelDesktop.textContent = LANG_LABELS[currentLang] || 'EN';
+    if (labelMobile) labelMobile.textContent = LANG_LABELS[currentLang] || 'EN';
+    // Update active state in dropdown menus
+    document.querySelectorAll('.lang-menu-item').forEach(item => {
+        const itemLang = item.getAttribute('data-lang');
+        item.classList.toggle('active', itemLang === currentLang);
+    });
     // SEO: Update page title
     document.title = t('seoTitle');
     // SEO: Update meta description
@@ -1539,37 +1621,127 @@ document.addEventListener('DOMContentLoaded', () => {
             width: 100%;
         }
 
-/* Language Toggle */
-.lang-toggle {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: #fff;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'Inter', sans-serif;
-    letter-spacing: 0.5px;
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    flex-shrink: 0;
-}
-.lang-toggle:hover {
-    background: rgba(255,255,255,0.15);
-    border-color: rgba(255,255,255,0.25);
-}
-/* Desktop: in top-bar, hidden on mobile */
-.lang-toggle-desktop {
+/* Language Dropdown — World-class style (Google/OpenAI/Apple inspired) */
+.lang-dropdown {
     position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+    overflow: visible;
 }
-/* Mobile: in mobile-header, hidden on desktop */
+.lang-dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.10);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 5px 11px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: 'Inter', -apple-system, sans-serif;
+    letter-spacing: 0.3px;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    white-space: nowrap;
+    user-select: none;
+}
+.lang-dropdown-btn:hover {
+    background: rgba(255,255,255,0.14);
+    border-color: rgba(255,255,255,0.22);
+}
+.lang-dropdown-btn .lang-arrow {
+    font-size: 9px;
+    transition: transform 0.2s ease;
+    opacity: 0.6;
+}
+.lang-dropdown.open .lang-dropdown-btn .lang-arrow {
+    transform: rotate(180deg);
+}
+.lang-dropdown.open .lang-dropdown-btn {
+    background: rgba(255,255,255,0.16);
+    border-color: rgba(255,255,255,0.28);
+}
+/* Dropdown menu panel — use fixed positioning to escape overflow:hidden parents */
+/* (lang-menu CSS removed - portal mode uses .lang-menu-portal instead) */
+@keyframes langMenuIn {
+    from { opacity: 0; transform: translateY(-4px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+/* Portal-style: menu appended to <body> at runtime */
+.lang-menu-portal {
+    min-width: 180px;
+    background: rgba(22, 22, 26, 0.95);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.25);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    overflow: hidden;
+    animation: langMenuIn 0.15s ease;
+}
+.lang-dropdown.open .lang-menu {
+    display: block;
+}
+.lang-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 14px;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    transition: all 0.1s ease;
+    font-family: 'Inter', -apple-system, sans-serif;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    line-height: 1.3;
+}
+.lang-menu-item:hover {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+}
+.lang-menu-item.active {
+    background: rgba(0,122,255,0.12);
+    color: var(--tech-cyan, #007AFF);
+    font-weight: 500;
+}
+.lang-menu-item .item-flag {
+    font-size: 17px;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 24px;
+    text-align: center;
+}
+.lang-menu-item .item-label {
+    flex: 1;
+}
+.lang-menu-item .item-check {
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.1s;
+    color: var(--tech-cyan, #007AFF);
+}
+.lang-menu-item.active .item-check {
+    opacity: 1;
+}
+/* Divider before last item */
+.lang-menu-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+    margin: 4px 0;
+}
+/* Mobile: hide desktop dropdown */
 @media (max-width: 768px) {
-    .lang-toggle-desktop { display: none !important; }
+    .lang-dropdown-desktop { display: none !important; }
 }
 @media (min-width: 769px) {
-    .mobile-header .lang-toggle { display: none !important; }
+    .mobile-header .lang-dropdown-mobile { display: none !important; }
 }
         
         /* Force all content to stay within viewport */
@@ -3359,7 +3531,12 @@ document.addEventListener('DOMContentLoaded', () => {
         <main class="main-content">
             <div class="top-bar">
                 <div class="top-bar-title"><span data-i18n="subtitle">LLM Arena</span></div>
-                <button id="langToggleDesktop" class="lang-toggle lang-toggle-desktop" onclick="cycleLang()">中</button>
+                <div id="langDropdownDesktop" class="lang-dropdown lang-dropdown-desktop">
+    <div class="lang-dropdown-btn" onclick="toggleLangMenu('desktop')">
+        <span id="langLabelDesktop">EN</span>
+        <span class="lang-arrow">▼</span>
+    </div>
+</div>
             </div>
             
             <div class="content-area">
@@ -3472,7 +3649,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="mobile-logo-icon" style="font-size:0;"></div>
                 <div style="letter-spacing:-0.02em;">LLMVECT<span style="color: var(--accent-blue);"></span></div>
             </div>
-            <button id="langToggle" class="lang-toggle" onclick="cycleLang()">中</button>
+            <div id="langToggle" class="lang-dropdown lang-dropdown-mobile">
+    <div class="lang-dropdown-btn" onclick="toggleLangMenu('mobile')">
+        <span id="langLabelMobile">EN</span>
+        <span class="lang-arrow">▼</span>
+    </div>
+</div>
         </header>
         
         <!-- ========== 手机版主内容 ========== -->
